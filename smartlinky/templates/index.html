@@ -1,112 +1,64 @@
-﻿<!DOCTYPE HTML>
-<html>
-    <head>
-		<meta charset=utf-8>
-		<title>Smartlinky</title>
-	    <script src="{{ MEDIA_URL }}/js/modernizr-1.7.min.js"></script>
-		
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/css3.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/general.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/grid.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/style.css" media="screen" />
-    
-	</head>
-	<body class="back_top">
-		<div class="big_row">
-			<header class="row">
-				<div class="logo col col_7"><img src="{{ MEDIA_URL }}/imgs/logo.gif" alt="smartlinky" /></div>
-				<nav class="col col_9">
-					<ul class="fontface">
-						<li><a href="{% url index %}"  class="rounded">home</a></li>
-						<li><a href="#"  class="rounded">example</a></li>
-						<li><a href="#"  class="rounded">reports</a></li>
-						<li><a href="#"  class="rounded">about us</a></li>
-					</ul>
-				</nav>
-				<div class="clear"></div>
-			</header>
-		</div>
-		<section id="main" class="back_middle big_row">
-			<div class="row light">
-				<h1 class="shadow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Donec sapien odio</h1>
-				<article>
-					<div id="feeds" class="col col_5 rounded box_shadow">
-						<div class="dashed_line"></div>
-						<div class="box_shadow_inside red_shadow">
-							<h2>feeds</h2>
-						</div>
-						<div class="dashed_line"></div>
-						<ul>
-							<li>
-								<p>Lorem <a href="#">@ipsum </a>dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-								<span>from <a href="#">Antonella Twitter</a></span>
-							</li>
-							<li>
-								<p>Lorem <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-								<span>from <a href="#">Antonella Twitter</a></span>
-							</li>
-							<li>
-								<p>Lorem  <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-								<span>from <a href="#">Antonella Twitter</a></span>
-							</li>
-						</ul>
-					</div>
-				</article>
-				<article id="search">
-					<div class="col col_8">
-						<form> 
-							<input class="box_shadow_inside_light rounded" type=search name=s placeholder=Search... autosave=unique> 
-							<button class="box_shadow_inside red_shadow rounded"> <img src="{{ MEDIA_URL }}/imgs/search_icon.png" /> </button> 
-
-						</form>
-					</div>
-					<div class="clear"></div>
-					<div id="results" class="col col_8 rounded box_shadow">
-						<div class="dashed_line"></div>
-							<div class="box_shadow_inside red_shadow">
-								<h2>Search Results of <span class="var_results">Lorem</a></h2>
-							</div>
-							<div class="dashed_line"></div>
-							<div class="page">Showing  1  to  10  of  12 </div>
-							<div class="num_page">  Page    <a href="#">1</a>  <a href="#">2</a>   <a href="#">></a></div>
-							<div class="clear"></div>
-							<div class="res">
-								<h3>Ut tempus vehicula tellus ac tristique. </h3>
-								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-								<a href="#" class="rounded">details</a>
-							</div>
-							<div class="res">
-								<h3>Ut tempus vehicula tellus ac tristique. </h3>
-								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-								<a href="#" class="rounded">details</a>
-							</div>
-							<div class="res">
-								<h3>Ut tempus vehicula tellus ac tristique. </h3>
-								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-								<a href="#" class="rounded">details</a>
-							</div>
-						</div>
-				</article>
+﻿{% extends 'base.html' %}
+{% block main %}
+<div class="row light">
+	<h1 class="shadow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Donec sapien odio</h1>
+	<article>
+		<div id="feeds" class="col col_5 rounded box_shadow">
+			<div class="dashed_line"></div>
+			<div class="box_shadow_inside red_shadow">
+				<h2>feeds</h2>
 			</div>
-		</section>
+			<div class="dashed_line"></div>
+			<ul>
+				<li>
+					<p>Lorem <a href="#">@ipsum </a>dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
+					<span>from <a href="#">Antonella Twitter</a></span>
+				</li>
+				<li>
+					<p>Lorem <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
+					<span>from <a href="#">Antonella Twitter</a></span>
+				</li>
+				<li>
+					<p>Lorem  <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
+					<span>from <a href="#">Antonella Twitter</a></span>
+				</li>
+			</ul>
+		</div>
+	</article>
+	<article id="search">
+		<div class="col col_8">
+			<form> 
+				<input class="box_shadow_inside_light rounded" type=search name=s placeholder=Search... autosave=unique> 
+				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ MEDIA_URL }}/imgs/search_icon.png" /> </button> 
+
+			</form>
+		</div>
 		<div class="clear"></div>
-		<footer class="back_footer">
-			<div class="row">
-				<div class="col col_6"><img src="{{ MEDIA_URL }}/imgs/logo_small.png" /></div>
-				<div class="col col_5 down_10"><a href="http://djangodash.com/teams/c2/berlin/">Berlin Django Dash 2011</a></div>
-				<div class="col col_5 down_10">
-					<nav>
-						<ul class="pipe">
-							<li class="no_pipe"><a href="#">home</a></li>
-							<li><a href="#">example</a></li>
-							<li><a href="#">reports</a></li>
-							<li><a href="#">about us</a></li>
-							<li><a href="#"><img src="{{ MEDIA_URL }}/imgs/mail.png" /></a></li>
-						</ul>
-					</nav>
+		<div id="results" class="col col_8 rounded box_shadow">
+			<div class="dashed_line"></div>
+				<div class="box_shadow_inside red_shadow">
+					<h2>Search Results of <span class="var_results">Lorem</a></h2>
+				</div>
+				<div class="dashed_line"></div>
+				<div class="page">Showing  1  to  10  of  12 </div>
+				<div class="num_page">  Page    <a href="#">1</a>  <a href="#">2</a>   <a href="#">></a></div>
+				<div class="clear"></div>
+				<div class="res">
+					<h3>Ut tempus vehicula tellus ac tristique. </h3>
+					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+					<a href="#" class="rounded">details</a>
+				</div>
+				<div class="res">
+					<h3>Ut tempus vehicula tellus ac tristique. </h3>
+					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+					<a href="#" class="rounded">details</a>
+				</div>
+				<div class="res">
+					<h3>Ut tempus vehicula tellus ac tristique. </h3>
+					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+					<a href="#" class="rounded">details</a>
 				</div>
 			</div>
-		</footer>
-	</body>
-</html>
+	</article>
+</div>
+{% endblock %}
