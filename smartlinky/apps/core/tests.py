@@ -24,7 +24,6 @@ def create_sample_link(section, **kwargs):
     return link
 
 # TODO: move those fixtures to json fixtures
-
 SAMPLE_DOCUMENTATIONS = {
     'djangodocs': {
         'url': 'https://docs.djangoproject.com/en/1.3/',

@@ -42,11 +42,10 @@ class Documentation(models.Model):
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add managment command to remove all irrelevant links
-# TODO: add uniqueness by url
 class Page(models.Model):
     """Page represents one url (one page) of the documentation."""
 
-    url = models.URLField()
+    url = models.URLField(unique=True)
     documentation = models.ForeignKey(Documentation, related_name='pages', null=True, blank=True)
 
     meta_title = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
@@ -74,7 +73,6 @@ class Page(models.Model):
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add objects managers or properties to retrieve specific links (irrelevant, relevant or all)
-# TODO: add uniqueness within a page by html_id
 class Section(models.Model):
     """Section is a section of the documentation's page which is specific enough 
     to attach links to it."""
@@ -85,6 +83,9 @@ class Section(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
+    class Meta:
+        unique_together = (("html_id", "page"),)
+        
     # TODO: add tests
     def delete_irrelevant_links(self, older_than=None, by_create_date =True, by_mod_date=False):
         """Clean up irrelevant links of the section.
@@ -97,7 +98,6 @@ class Section(models.Model):
 
 # TODO: add db indexes
 # TODO: add help text
-# TODO: add uniqueness within a section by url
 class Link(models.Model):
     """Link is a connection between an link and a section.
     
@@ -115,6 +115,9 @@ class Link(models.Model):
     modified_at = models.DateTimeField(auto_now_add=True, auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False) # does auto_now_add set editable to False automatically?
     
+    class Meta:
+        unique_together = (("url", "section"),)
+
     # TODO: faster increment by counter type fields or raw sql
     def incr_up_votes(self):
         """Increment 'up_votes' by 1."""
