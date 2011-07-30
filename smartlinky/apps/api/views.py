@@ -2,16 +2,12 @@ from django.db.models import Count
 from django.http import HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 
-# TODO: remove when proper api views are working
-from views_demo import demo_init, demo_user_links, demo_qa_links
-from decorators import xss_json_response
-
 from apps.core.models import Page, Section, Link
 from apps.utils.utils import get_page_title
 
+from decorators import xss_json_response
 
-# TODO: add tests
-# TODO: add sample response to docstring
+
 @xss_json_response
 def init(request):
     """Return number of user links for known sections of a documentation page.
@@ -24,22 +20,30 @@ def init(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
+# TODO: add as sample response to docstring
+#    return {
+#        'sections': {
+#            's-queryset-api-reference': 3,
+#            's-when-querysets-are-evaluated': 5,
+#            's-pickling-querysets': 2
+#        }
+#    }
+    
     # page
     url = request.GET['url']
-    content = {'sections': {}}
     
+    response = {'sections': {}}
     try:
         page = Page.objects.get(url=url)
     except Page.DoesNotExist:
-        return content
+        return response
     
     for section in page.sections.annotate(num_links=Count('links')):
-        content['sections'][section.html_id] = section.num_links
+        response['sections'][section.html_id] = section.num_links
     
-    return content
+    return response
 
 # TODO: add tests
-# TODO: add sample response to docstring
 @xss_json_response
 def user_links(request):
     """Return all user links for a given section.
@@ -55,14 +59,61 @@ def user_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
+# TODO: add as sample response to docstring
+#    return {
+#        'links': [
+#            {
+#                'id': 12,
+#                'url': 'http://test.com',
+#                'title': 'Title',
+#                'is_relevant': True,
+#                'up_votes': 5,
+#            },
+#            {
+#                'id': 17,
+#                'url': 'http://example.com',
+#                'title': 'Example',
+#                'is_relevant': True,
+#                'up_votes': 2,
+#            },
+#            {
+#                'id': 14,
+#                'url': 'http://super.com',
+#                'title': 'Super',
+#                'is_relevant': False,
+#                'up_votes': 2,
+#            },
+#
+#        ]
+#    }
+    
     # page
     url = request.GET['url']
     # section
     html_id = request.GET['section_id']
-    return content
+    
+    response = {'links': []}
+    try:
+        page = Page.objects.get(url=url)
+    except Page.DoesNotExist:
+        return response    
+    try:
+        section = Section.objects.get(page=page, html_id=html_id)
+    except Section.DoesNotExist:
+        return response
+    
+    for link in section.links.all():
+        response['links'].append({
+            'id': link.id,
+            'url': link.url,
+            'title': link.title,
+            'is_relevant': link.is_relevant,
+            'up_votes': link.up_votes,
+        })
+    
+    return response
              
 # TODO: add tests
-# TODO: add sample response to docstring
 @xss_json_response
 def qa_links(request):
     """Return a set of QA links for a given section.
@@ -84,13 +135,39 @@ def qa_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-    # page
-    url = request.GET['url']
-    meta_title = request.GET['page_title']
-    # section
-    html_id = request.GET['section_id']
-    html_title = request.GET['section_title']
-    return content
+
+    # TODO: add as sample response to docstring
+    return  {
+        'links': [
+            {
+                'url': 'http://test.com',
+                'title': 'Title',
+            },
+            {
+                'url': 'http://example.com',
+                'title': 'Example',
+            },
+            {
+                'url': 'http://super.com',
+                'title': 'Super',
+            },
+
+        ]
+    }
+# TODO: implement
+#    # page
+#    url = request.GET['url']
+#    meta_title = request.GET['page_title']
+#    # section
+#    html_id = request.GET['section_id']
+#    html_title = request.GET['section_title']
+#    return response
+
+# TODO: reformat docstrings and add sample output
+# TODO: add tests
+
+
+
 
 @csrf_exempt
 @xss_json_response
@@ -146,5 +223,3 @@ def add_link(request):
         'title': link_title,
     }
     return response
-
-
