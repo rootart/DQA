@@ -42,33 +42,19 @@
 }
 
 .box_shadow {
-	-webkit-box-shadow: 0px 0px 0px 8px ;
-	-moz-box-shadow: 0px 0px 0px 8px ;
-	box-shadow: 0px 0px 0px 8px ; 
+	-webkit-box-shadow: 0px 0px 0px 8px #3d88a1;
+	-moz-box-shadow: 0px 0px 0px 8px #3d88a1;
+	box-shadow: 0px 0px 0px 8px #3d88a1; 
 }
 .box_shadow_inside {
 -webkit-box-shadow: inset 0px 0px 16px 0px #424848;
 -moz-box-shadow: inset 0px 0px 16px 0px #424848;
 box-shadow: inset 0px 0px 16px 0px #424848;
 }
-.box_shadow_multiple {
-	-webkit-box-shadow: 0 0 20px #ccc inset,
-						10px 7px 15px #f0f961,
-						-10px 7px 15px #55fc6d,
-						-10px -7px 15px #55d7fc,
-						10px -7px 15px #fc9c9c;
-	
-	-moz-box-shadow: 0 0 20px #ccc inset,
-						10px 7px 15px #f0f961,
-						-10px 7px 15px #55fc6d,
-						-10px -7px 15px #55d7fc,
-						10px -7px 15px #fc9c9c;
-	
-	box-shadow:		0 0 20px #ccc inset,
-						10px 7px 15px #f0f961,
-						-10px 7px 15px #55fc6d,
-						-10px -7px 15px #55d7fc,
-						10px -7px 15px #fc9c9c;
+.box_shadow_inside_light {
+-webkit-box-shadow: inset 0px 0px 8px 0px #ccc;
+-moz-box-shadow: inset 0px 0px 8px 0px #ccc;
+box-shadow: inset 0px 0px 8px 0px #ccc;
 }
 
 .rotate {

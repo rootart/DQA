@@ -23,6 +23,8 @@ body {
 .bold {font-weight:600;}
 .italic {font-style:italic;}
 
+.dashed_line {	border-bottom:1px dashed #ababab;}
+
 a {	color:#424848;	text-decoration:none;}
 a:hover, a:focus { }
 a:active, a:visited { }
@@ -44,17 +46,6 @@ blockquote {
 /* ** ** Header Styles ** ** */
 h1, h2, h3, h4, h5 { font-family:'AR Techni', Arial, sans-serif; margin:0 0 0.5em; line-height:1.1em;}
 /* ** ** ul li's ** ** */
-ul{
-  list-style:outside disc;
-}
-ul,ol{
-  margin:0 0 1.5em 1.5em;
-  padding:0;
-}
-li ul,li ol{
-  padding:0;
-  margin:0 0 1.5em 1.5em;
-}
 
 
 /* ** ** custom select color ** ** */
