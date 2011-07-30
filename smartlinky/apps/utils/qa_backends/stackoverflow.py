@@ -1,5 +1,36 @@
+# TODO: clean this mess up
+import urllib2, urllib
 
-# TODO: implement
+from django.conf import settings
+from django.utils import simplejson as json
+
+import stackexchange
+
+
+SO = stackexchange.StackOverflow()
+
+# TODO: add comments and credits according to http://stackapps.com/questions/198/py-stackexchange-an-api-wrapper-for-python
 # TODO: add tests
+def get_links_via_API(page_title, section_title):
+    search_query = '%s %s' % (page_title, section_title)
+    search_results = SO.search(intitle=search_query, pagesize=5).items
+    links = [{'url': sr.url, 'title': sr.title} for sr in search_results]
+    return links[:settings.QA_LINKS_COUNT]
+
+# TODO: add docstrings
+# TODO: add tests
+def get_links_via_google(page_title, section_title):
+    q = '%s %s' % (page_title, section_title)
+    url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s%s' % (urllib.urlencode({'q': q}), urllib.urlencode({'site': 'stackoverflow.com'}))
+    request = urllib2.Request(url)
+    response = urllib2.urlopen(request)
+    search_results = json.load(response)['responseData']['results']
+    links = [{'url': sr['url'], 'title': sr['title']} for sr in search_results]
+    return links[:settings.QA_LINKS_COUNT]
+    
 def get_links(page_title, section_title):
-    return []
+    """Switch between querying StackOverflow via it's API or Google."""
+    if settings.STACKOVERFLOW_VIA_GOOGLE:
+        return get_links_via_google(page_title, section_title)
+    else:
+        return get_links_via_API(page_title, section_title)        

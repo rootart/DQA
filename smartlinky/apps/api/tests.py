@@ -103,10 +103,6 @@ class UsersLinksAPITest(APITest):
             'links': links
         }))
            
-#class UserLinksAPITest(APITest):
-#    pass
-#
-
 class AddLinkAPITest(APITest):
     def setUp(self):
         self.path = reverse('api_add_link')
@@ -170,7 +166,6 @@ class AddLinkAPITest(APITest):
         self.assertEqual('Antonella Tezza' in content_json['title'], True)
         self.assertEqual(Link.objects.all().count(), 1)
 
-
     def testMoreUrls(self):
         Link.objects.all().delete()
         kwargs = {
@@ -197,7 +192,6 @@ class AddLinkAPITest(APITest):
         self.assertEqual('Attila' in content_json['title'], True)
 
         self.assertEqual(Link.objects.all().count(), 2)
-
 
 class QALinksAPITest(APITest):
     

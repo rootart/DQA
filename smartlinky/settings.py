@@ -102,6 +102,8 @@ PLUGIN_CONFIG = {
 }
 
 QA_CACHE_TIMEOUT = 60 * 60
+QA_LINKS_COUNT = 5
+STACKOVERFLOW_VIA_GOOGLE = True
 
 try:
     from settings_local import *
