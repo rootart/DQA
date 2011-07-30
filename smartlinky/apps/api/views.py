@@ -45,7 +45,7 @@ def demo_user_links(request):
     return links
 
 @xss_json_response
-def demo_links(request):
+def demo_qa_links(request):
 #    GET: url, id, page_title, section_title
     links = {
         'links': [

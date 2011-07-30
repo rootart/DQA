@@ -1,6 +1,7 @@
 
 
-var Button = function(section_id, count) {
+var Button = function(section, section_id, count) {
+    this.section = section;
     this.$section = $('#' + section_id);
     this.count = count ? count : null;
     this.widget = null;
@@ -35,7 +36,7 @@ Button.prototype.render = function() {
 Button.prototype.handleClick = function(e) {
     e.preventDefault();
     if (!this.widget) {
-        this.widget = new Widget(this.$button, this.$section);
+        this.widget = new Widget(this.section, this.$button, this.$section);
     }
 
     this.widget.open();
