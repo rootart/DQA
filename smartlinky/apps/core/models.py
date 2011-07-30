@@ -18,8 +18,6 @@ class Documentation(models.Model):
     description = models.TextField(default='', blank=True)
 
     meta_title = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
-    meta_keywords = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
-    meta_description = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -44,6 +42,7 @@ class Documentation(models.Model):
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add managment command to remove all irrelevant links
+# TODO: add uniqueness within a page by url
 class Page(models.Model):
     """Page represents one url (one page) of the documentation."""
 
@@ -51,8 +50,6 @@ class Page(models.Model):
     documentation = models.ForeignKey(Documentation, related_name='pages', null=True, blank=True)
 
     meta_title = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
-    meta_keywords = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
-    meta_description = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
     
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     
@@ -77,6 +74,7 @@ class Page(models.Model):
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add objects managers or properties to retrieve specific links (irrelevant, relevant or all)
+# TODO: add uniqueness within a page by html_id
 class Section(models.Model):
     """Section is a section of the documentation's page which is specific enough 
     to attach links to it."""
@@ -99,7 +97,7 @@ class Section(models.Model):
 
 # TODO: add db indexes
 # TODO: add help text
-# TODO: add uniqueness within a section according to url
+# TODO: add uniqueness within a section by url
 class Link(models.Model):
     """Link is a connection between an link and a section.
     
