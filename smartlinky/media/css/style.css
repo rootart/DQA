@@ -115,6 +115,11 @@ input[type=search]: {
 	height:22px;
 	width:100%;
 }
+input[type="search"]::-webkit-search-cancel-button {
+
+   /* Remove default */
+    -webkit-appearance: none;
+}
 article#search h2{
 	margin-left:22px;
 	text-transform:none;
