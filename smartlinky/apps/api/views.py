@@ -12,7 +12,10 @@ def demo_init(request):
     }
     
     content = json.dumps(init)
-    return HttpResponse(content, mimetype='application/json')
+    response = HttpResponse(content, mimetype='application/json')
+    response['Access-Control-Allow-Origin']  = '*'
+    response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT, DELETE' 
+    return response
 
 
 def demo_get_section(request):
