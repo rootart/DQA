@@ -6,7 +6,6 @@ from django.db import models
 
 logger = logging.getLogger(__name__)
 
-# TODO: add tests
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add managment command to remove all irrelevant links
@@ -24,6 +23,7 @@ class Documentation(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
+    # TODO: add tests
     def delete_irrelevant_links(self, older_than=None, by_create_date=True, by_mod_date=False):
         """Clean up irrelevant links for all sections of all pages of this documentation.
         Delete links with creation or modification date older than a given date.
@@ -33,14 +33,14 @@ class Documentation(models.Model):
         for page in self.pages:
             page.delete_irrelevant_links(older_than, by_create_date, by_mod_date)
         
+    # TODO: implement using fetch_meta from utils
+    # TODO: add tests
     def fetch_meta(self):
         """Fetch the documentation's meta-related information (html meta)
         and update corresponding fields."""
-        # TODO: implement using TMP_ROOT
         raise NotImplementedError 
         
                                 
-# TODO: add tests
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add managment command to remove all irrelevant links
@@ -56,6 +56,7 @@ class Page(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     
+    # TODO: add tests
     def delete_irrelevant_links(self, older_than=None, by_create_date =True, by_mod_date=False):
         """Clean up irrelevant links for all sections of the page.
         Delete links with creation or modification date older than a given date.
@@ -65,14 +66,14 @@ class Page(models.Model):
         for section in self.sections:
             section.delete_irrelevant_links(older_than, by_create_date, by_mod_date)
         
+    # TODO: implement using fetch_meta from utils
+    # TODO: add tests
     def fetch_meta(self):
         """Fetch the page's meta-related information (html meta) 
         and update corresponding fields."""
-        # TODO: implement using TMP_ROOT
         raise NotImplementedError     
 
 
-# TODO: add tests
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add objects managers or properties to retrieve specific links (irrelevant, relevant or all)
@@ -86,6 +87,7 @@ class Section(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
+    # TODO: add tests
     def delete_irrelevant_links(self, older_than=None, by_create_date =True, by_mod_date=False):
         """Clean up irrelevant links of the section.
         Delete links with creation or modification date older than a given date.
@@ -95,7 +97,6 @@ class Section(models.Model):
         self.sections.delete()
 
 
-# TODO: add tests
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add uniqueness within a section according to url
@@ -120,24 +121,23 @@ class Link(models.Model):
     def incr_up_votes(self):
         """Increment 'up_votes' by 1."""
         self.up_votes += 1
-        self.save()
     
     # TODO: faster increment by counter type fields or raw sql
     def incr_clicks(self):
         """Increment 'clicks' by 1."""
         self.clicks += 1
-        self.save()
     
     def set_relevant(self, is_relevant=True):
         """Set 'is_relevant' value to True(deafult) or False."""
         self.is_relevant = is_relevant
-        self.save()
     
+    # TODO: add tests
     # TODO: add url checking method to docstring
     def validate_url(self):
         """Check if the url is still valid."""
         raise NotImplementedError
     
+    # TODO: add tests
     def delete(self, *args, **kwargs):
         """Log the link data before deleting it."""
         logger.info('{link.delete} %s' % self.__dict__)
