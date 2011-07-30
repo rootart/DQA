@@ -16,6 +16,7 @@ def xss_json_response(f):
         try:
             content = f(*args, **kwargs)
         except Exception, e:
+            print e
             logger.error('{%s@xss_json_response} %s' % (f.__name__, pprint(e)))
             content = {'message': pprint(e)}
             response = HttpResponseBadRequest(json.dumps(content), mimetype='application/json')

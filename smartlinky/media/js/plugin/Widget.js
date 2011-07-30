@@ -191,7 +191,7 @@ Widget.prototype.addLink = function(e) {
 Widget.prototype.handleNewLinkSubmit = function(e) {
     e.preventDefault();
     $.ajax({
-        url: '{{api-url}}' + 'add_link',
+        url: '{{api-url}}' + '../add_link',
         type: 'POST',
         dataType: 'json',
         data: {

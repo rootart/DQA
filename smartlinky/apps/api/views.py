@@ -1,5 +1,6 @@
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
 
 # TODO: remove when proper api views are working
 from views_demo import demo_init, demo_user_links, demo_qa_links
@@ -91,7 +92,7 @@ def qa_links(request):
     html_title = request.GET['section_title']
     return content
 
-
+@csrf_exempt
 @xss_json_response
 def add_link(request):
     """Create a new link. If the section and page don't exist, it'll create them.
@@ -121,7 +122,7 @@ def add_link(request):
         # Fetch & parse the linked page
         link_title = get_page_title(link_url)
     except:
-        return HttpResponseBadRequest()
+        raise 'No title'
 
     try:
         section = Section.objects.get(html_id=section_id, page__url=url)
@@ -132,11 +133,12 @@ def add_link(request):
             # Create page
             page = Page.objects.create(url=url, meta_title=page_title)
         # Create section     
-        section = Section.objects.create(html_id=section, 
+        section = Section.objects.create(html_id=section_id, 
             html_title=section_title, page=page)
 
-    # Create link
-    link = Link.objects.create(url=link_url, title=link_title, section=section)
+    if section:
+        # Create link
+        link = Link.objects.create(url=link_url, title=link_title, section=section)
 
     response = {
         'id': link.id,
