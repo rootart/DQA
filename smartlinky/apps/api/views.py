@@ -44,8 +44,8 @@ def init(request):
 
 # TODO: add tests
 @xss_json_response
-def user_links(request):
-    """Return all user links for a given section.
+def users_links(request):
+    """Return all links added by users for a given section.
     
     :param url: url of the documentation page containing the section
     :type url: str
