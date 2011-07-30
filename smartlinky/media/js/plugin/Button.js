@@ -18,6 +18,7 @@ Button.prototype.render = function() {
         background: '#000',
         color: '#fff',
         padding: '8px',
+        'z-index': 200,
 
     });
     if (this.count) {
@@ -28,10 +29,10 @@ Button.prototype.render = function() {
     $wrapper.append(this.$button);
     $wrapper.prependTo(this.$section);
 
-    this.$button.click($.proxy(this, 'clickHandler'));
+    this.$button.click($.proxy(this, 'handleClick'));
 };
 
-Button.prototype.clickHandler = function(e) {
+Button.prototype.handleClick = function(e) {
     e.preventDefault();
     if (!this.widget) {
         this.widget = new Widget(this.$button, this.$section);
