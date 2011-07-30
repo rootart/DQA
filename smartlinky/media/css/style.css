@@ -53,7 +53,8 @@ article #feeds {
 #feeds ul li span {
 	font-size:11px;
 }
-article #feeds h2{
+article #feeds h2,
+article#search h2 {
 	line-height:44px;
 }
 article a {
@@ -71,10 +72,10 @@ article .red_shadow {
 }
 /******* fine feeds **********/
 /******* search **********/
-#search {
+article#search {
 	float:right;
 }
-#search input { 
+article#search input { 
 	float:left;
 	height:53px;
 	width:80%;
@@ -82,7 +83,7 @@ article .red_shadow {
 	padding-left:22px;
 	font-family:"Arial";
 }
-#search button {
+article#search button {
 	border:1px solid #19a0be;
 	cursor:pointer;
 	float:left;
@@ -94,8 +95,43 @@ input[type=search]: {
 	height:22px;
 	width:100%;
 }
-		
-input[type=search]::-webkit-input-placeholder {
-	color: orangered;
+article#search h2{
+	text-transform:none;
+	font-size:16px;
+	text-align:left;
+	margin-left:22px;
 }
 /******* fine search **********/
+/******* results **********/
+article#search #results{
+	background:#fff;
+	margin-top:22px;
+}
+article#search #results .var_results{
+	color:#98bccc;
+}
+article#search #results .page{
+	float:left;
+}
+article#search #results .num_page{
+	float:right;
+}
+article#search #results .res,
+article#search #results .page,
+article#search #results .num_page{
+	padding:10px;
+}
+article#search #results .res h3{
+	color:#12a9db;
+	font-size:16px;
+}
+article#search #results .res p{
+
+}
+article#search #results .res a{
+	background: #41bae2;
+	color:#fff;
+	padding:4px 10px;
+}
+/******* fine results **********/
+
