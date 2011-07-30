@@ -221,5 +221,6 @@ def add_link(request):
         'id': link.id,
         'url': link_url,
         'title': link_title,
+        'is_relevant': True,
     }
     return response
