@@ -13,8 +13,7 @@
  *
  * Date: Thu Jun 30 14:16:56 2011 -0400
  */
-var $ = null;
-(function( window, undefined, jqueryObject ) {
+var $ = (function( window, undefined, jqueryObject ) {
 
 // Use the correct document accordingly with window argument (sandbox)
 var document = window.document,
@@ -8977,6 +8976,5 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 });
 
 
-// Expose jQuery to the global object
-jqueryObject = jQuery;
-})(window, undefined, $);
+return jQuery;
+})(window);

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls.defaults import patterns, url
 from django.views.generic.simple import direct_to_template
 
@@ -5,3 +6,9 @@ from django.views.generic.simple import direct_to_template
 urlpatterns = patterns('',
     url(r'^$', direct_to_template, {'template': 'index.html'}, name='index'),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    )
+
