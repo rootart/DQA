@@ -1,26 +1,29 @@
-from django.utils import unittest
+from django.test import TestCase
+
 from models import Documentation, Page, Section, Link
 
 
-def _create_sample_documentation(**kwargs):
+def create_sample_documentation(**kwargs):
     """Create a sample Documentation object."""
     documentation = Documentation.objects.create(**kwargs)
     return documentation
 
-def _create_sample_page(documentation=None, **kwargs):
+def create_sample_page(documentation=None, **kwargs):
     """Create a sample Page object."""
     page = Page.objects.create(documentation=documentation, **kwargs)
     return page
 
-def _create_sample_section(page,**kwargs):
+def create_sample_section(page,**kwargs):
     """Create a sample Section object."""
     section = Section.objects.create(page=page, **kwargs)
     return section
 
-def _create_sample_link(section, **kwargs):
+def create_sample_link(section, **kwargs):
     """Create a sample Link object."""
     link = Link.objects.create(section=section, **kwargs)
     return link
+
+# TODO: move those fixtures to json fixtures
 
 SAMPLE_DOCUMENTATIONS = {
     'djangodocs': {
@@ -62,53 +65,57 @@ SAMPLE_LINKS = {
         'url': 'http://rhettinger.wordpress.com/2011/01/28/open-your-source-more/',
         'title': 'Open Source Challenge: Open Your Source, More',
     },
+    'link3': {
+        'url': 'http://xkcd.com/162/',
+        'title': 'Angular Momentum',
+    },
 }
 
 
-class DocumentationTestCase(unittest.TestCase):
+class DocumentationTestCase(TestCase):
     
     def setUp(self):
         pass
         
     def testCreation(self):
         """Test if documentations are created properly."""
-        djangodocs = _create_sample_documentation(**SAMPLE_DOCUMENTATIONS['djangodocs'])
+        djangodocs = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['djangodocs'])
         self.assertNotEqual(djangodocs, None)
-        pythondocs = _create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
+        pythondocs = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
         self.assertNotEqual(pythondocs, None)
         
-class PageTestCase(unittest.TestCase):
+class PageTestCase(TestCase):
     
     def setUp(self):
-        self.documentation = _create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
+        self.documentation = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
      
     def testCreation(self):
         """Test if pages are created properly."""
-        pythondocs_intro = _create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_intro'])
+        pythondocs_intro = create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_intro'])
         self.assertNotEqual(pythondocs_intro, None)   
-        pythondocs_builtins = _create_sample_page(**SAMPLE_PAGES['pythondocs_builtins'])
+        pythondocs_builtins = create_sample_page(**SAMPLE_PAGES['pythondocs_builtins'])
         self.assertNotEqual(pythondocs_builtins, None) 
 
-class SectionTestCase(unittest.TestCase):
+class SectionTestCase(TestCase):
     
     def setUp(self):
-        self.documentation = _create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
-        self.page = _create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_builtins'])
+        self.documentation = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
+        self.page = create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_builtins'])
      
     def testCreation(self):
         """Test if sections are created properly."""
-        pythondocs_builtins_built_in_functions = _create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_built-in-functions'])
+        pythondocs_builtins_built_in_functions = create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_built-in-functions'])
         self.assertNotEqual(pythondocs_builtins_built_in_functions, None)   
-        pythondocs_builtins_non_essential_built_in_functions = _create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_non-essential-built-in-functions'])
+        pythondocs_builtins_non_essential_built_in_functions = create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_non-essential-built-in-functions'])
         self.assertNotEqual(pythondocs_builtins_non_essential_built_in_functions, None)
 
-class LinkTestCase(unittest.TestCase):
+class LinkTestCase(TestCase):
     
     def setUp(self):
-        self.documentation = _create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
-        self.page = _create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_builtins'])
-        self.section = _create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_built-in-functions'])
-        self.link = _create_sample_link(self.section, **SAMPLE_LINKS['link1']) # not really about this section...
+        self.documentation = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
+        self.page = create_sample_page(self.documentation, **SAMPLE_PAGES['pythondocs_builtins'])
+        self.section = create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_built-in-functions'])
+        self.link = create_sample_link(self.section, **SAMPLE_LINKS['link1']) # not really about this section...
         
     def testIncrUpVotes(self):
         """Test 'incr_up_votes' method of Link."""

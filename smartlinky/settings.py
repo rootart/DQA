@@ -69,7 +69,7 @@ INSTALLED_APPS = (
     'apps.utils',
 )
 
-# TODO: define custom logging setting
+# TODO: format file based logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
