@@ -1,5 +1,6 @@
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Page, Section, Link
 from apps.utils.utils import get_page_title
@@ -134,6 +135,7 @@ def qa_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
+
     # TODO: add as sample response to docstring
     return  {
         'links': [
@@ -163,6 +165,11 @@ def qa_links(request):
 
 # TODO: reformat docstrings and add sample output
 # TODO: add tests
+
+
+
+
+@csrf_exempt
 @xss_json_response
 def add_link(request):
     """Create a new link. If the section and page don't exist, it'll create them.
@@ -192,7 +199,7 @@ def add_link(request):
         # Fetch & parse the linked page
         link_title = get_page_title(link_url)
     except:
-        return HttpResponseBadRequest()
+        raise 'No title'
 
     try:
         section = Section.objects.get(html_id=section_id, page__url=url)
@@ -203,11 +210,12 @@ def add_link(request):
             # Create page
             page = Page.objects.create(url=url, meta_title=page_title)
         # Create section     
-        section = Section.objects.create(html_id=section, 
+        section = Section.objects.create(html_id=section_id, 
             html_title=section_title, page=page)
 
-    # Create link
-    link = Link.objects.create(url=link_url, title=link_title, section=section)
+    if section:
+        # Create link
+        link = Link.objects.create(url=link_url, title=link_title, section=section)
 
     response = {
         'id': link.id,
