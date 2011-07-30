@@ -1,0 +1,29 @@
+/* 
+ * Rik Lomas - http://rikrikrik.com
+ * Based on code from Nick Rigby - http://www.nickrigby.com
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+a img, iframe { border: 0; }
+	
+/* Headers */
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+	
+/* Lists */
+	
+ul, ol, dl, li, dt, dd {
+	list-style: none;
+}
+
+/* Forms */
+
+// OPTIMISED VERSION 
+
+*{margin:0;padding:0}iframe,a img,fieldset,form,table{border:0}h6,h5,h4,h3,h2,h1,caption,th,td{font-size:100%;font-weight:normal}dd,dt,li,dl,ol,ul{list-style:none}legend{color:#000}button,select,textarea,input{font:100% serif}table{border-collapse:collapse}caption,th,td{text-align:left}
