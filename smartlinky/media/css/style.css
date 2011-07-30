@@ -1,0 +1,54 @@
+@charset "utf-8";
+/******* header **********/
+header {
+	padding:28px 0 18px 0;
+}
+header nav ul {
+	display:inline;
+	float:right;
+	margin-top:25px;
+	font-size:16px;
+}
+header nav ul li {
+	display:inline;
+	margin:5px 10px 0 10px;
+}
+header nav ul li a{
+	padding:4px 8px;
+}
+header nav ul li a:hover,
+header nav ul li a:active {
+	background: #41bae2;
+	color:#fff;
+}
+/******* fine header **********/
+/******* main **********/
+.back_middle {
+	background:url(../imgs/background.jpg) repeat-x;
+	float:left;
+}
+#main h1 {
+	color: #fff; 
+	font-size: 35px;
+	padding-top:56px;
+	text-align:center;
+}
+/******* fine main **********/
+/******* feeds **********/
+article #feeds {
+	background:#fff;
+	border:1px solid #227895;
+}
+article .feeds_title {
+	background:#ea4a4a;
+	color:#fff;
+	font-size:27px;
+	height:44px;
+	margin-top:17px;
+	text-align:center;
+	text-transform:uppercase;
+}
+article .feeds_title h2{
+	line-height:44px;
+}
+/******* fine feeds **********/
