@@ -12,7 +12,7 @@ var Widget = function(section, $button, $section) {
 
     this.render();
     $.ajax({
-        url: '{{api-url}}' + 'user_links',
+        url: '{{api-url}}' + 'users_links',
         data: {
             url: window.location.href,
             section_id: $section.attr('id')
