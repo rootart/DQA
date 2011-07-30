@@ -82,7 +82,7 @@ def qa_links(request):
 
 
 @xss_json_response
-def new_link(request):
+def add_link(request):
     """Create a new link. If the section and page don't exist, it'll create them.
 
     :param page_title: Title of documentation's page
