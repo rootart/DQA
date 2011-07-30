@@ -12,10 +12,10 @@ var Widget = function(section, $button, $section) {
 
     this.render();
     $.ajax({
-        url: '{{api-url}}' + 'user_links',
+        url: '{{api-url}}' + 'users_links',
         data: {
             url: window.location.href,
-            id: $section.attr('id')
+            section_id: $section.attr('id')
         },
         dataType: 'json',
         success: $.proxy(this, 'handleUserLinksData')
@@ -24,7 +24,7 @@ var Widget = function(section, $button, $section) {
         url: '{{api-url}}' + 'qa_links',
         data: {
             url: window.location.href,
-            id: $section.attr('id'),
+            section_id: $section.attr('id'),
             page_title: document.title,
             section_title: this.section.title
 
@@ -39,47 +39,51 @@ Widget.prototype.handleUserLinksData = function(data) {
     this.$irrelevantlinks.empty();
     if (data.links.length) {
         for (var i = 0; i < data.links.length; i++) {
-            var $wrapper = $('<div>')
-                .css({});
-
-
-            //Link
-            var $link = $('<a>')
-                .css({})
-                .attr('href', data.links[i].url)
-                .text(data.links[i].title);
-
-            // Up votes counter
-            var $up_votes = $('<span>')
-                .css({})
-                .text(data.links[i].up_votes);
-
-            $wrapper.append($link);
-            $wrapper.append($up_votes);
-            if (data.links[i].is_relevant) {
-                this.$userlinks.append($wrapper);
-                $wrapper.addClass('smartlinky-relevant').draggable({
-                    revert: "invalid"
-                });
-            } else {
-                this.$irrelevantlinks.append($wrapper);
-                $wrapper.addClass('smartlinky-irrelevant').draggable({
-                    revert: "invalid"
-                });
-            }
+            this.insertLink(data.links[i]);
         }
     }    
 };
+
+Widget.prototype.insertLink = function(linkData) {
+    var $wrapper = $('<div>')
+        .css({});
+
+
+    //Link
+    var $link = $('<a>')
+        .css({})
+        .attr('href', linkData.url)
+        .text(linkData.title);
+    $wrapper.append($link);
+
+    if (linkData.id) {
+        // Up votes counter
+        var $up_votes = $('<span>')
+            .css({})
+            .text(linkData.up_votes);
+        $wrapper.append($up_votes);
+
+        if (linkData.is_relevant) {
+            this.$userlinks.append($wrapper);
+            $wrapper.addClass('smartlinky-relevant').draggable({
+                revert: "invalid"
+            });
+        } else {
+            this.$irrelevantlinks.append($wrapper);
+            $wrapper.addClass('smartlinky-irrelevant').draggable({
+                revert: "invalid"
+            });
+        }
+    } else {
+        this.$qalinks.append($wrapper);
+    }
+}
 
 Widget.prototype.handleQALinksData = function(data) {
     this.$qalinks.empty();
     if (data.links.length) {
         for (var i = 0; i < data.links.length; i++) {
-            var $wrapper = $('<div>').css({});
-            var $link = $('<a>').attr('href', data.links[i].url).text(data.links[i].title);
-            $wrapper.append($link);
-
-            this.$qalinks.append($wrapper);
+            this.insertLink(data.links[i]); 
         }
     }    
 };
@@ -191,7 +195,7 @@ Widget.prototype.addLink = function(e) {
 Widget.prototype.handleNewLinkSubmit = function(e) {
     e.preventDefault();
     $.ajax({
-        url: '{{api-url}}' + '../add_link',
+        url: '{{api-url}}' + 'add_link',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -201,8 +205,10 @@ Widget.prototype.handleNewLinkSubmit = function(e) {
             section_title: this.section.title,
             link_url: this.$addWidget.find('input[name="url"]').val(),
         },
-        success: function(data) {
-            alert(data);
-        }
+        success: $.proxy(this, 'handleAddLinkSuccess')
     });
 };
+
+Widget.prototype.handleAddLinkSuccess = function(data) {
+    this.insertLink(data);
+}

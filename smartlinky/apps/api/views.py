@@ -1,11 +1,16 @@
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from apps.core.models import Page, Section, Link
+from apps.utils.qa_backends import stackoverflow
 from apps.utils.utils import get_page_title
 
 from decorators import xss_json_response
+from forms import AddLinkForm
 
 
 @xss_json_response
@@ -20,7 +25,7 @@ def init(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-# TODO: add as sample response to docstring
+#    TODO: add as sample response to docstring
 #    return {
 #        'sections': {
 #            's-queryset-api-reference': 3,
@@ -43,10 +48,9 @@ def init(request):
     
     return response
 
-# TODO: add tests
 @xss_json_response
-def user_links(request):
-    """Return all user links for a given section.
+def users_links(request):
+    """Return all links added by users for a given section.
     
     :param url: url of the documentation page containing the section
     :type url: str
@@ -59,7 +63,7 @@ def user_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-# TODO: add as sample response to docstring
+#    TODO: add as sample response to docstring
 #    return {
 #        'links': [
 #            {
@@ -89,6 +93,7 @@ def user_links(request):
     
     # page
     url = request.GET['url']
+    
     # section
     html_id = request.GET['section_id']
     
@@ -113,7 +118,6 @@ def user_links(request):
     
     return response
              
-# TODO: add tests
 @xss_json_response
 def qa_links(request):
     """Return a set of QA links for a given section.
@@ -135,44 +139,50 @@ def qa_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
+#    TODO: add as sample response to docstring
+#    return  {
+#        'links': [
+#            {
+#                'url': 'http://test.com',
+#                'title': 'Title',
+#            },
+#            {
+#                'url': 'http://example.com',
+#                'title': 'Example',
+#            },
+#            {
+#                'url': 'http://super.com',
+#                'title': 'Super',
+#            },
+#
+#        ]
+#    }
 
-    # TODO: add as sample response to docstring
-    return  {
-        'links': [
-            {
-                'url': 'http://test.com',
-                'title': 'Title',
-            },
-            {
-                'url': 'http://example.com',
-                'title': 'Example',
-            },
-            {
-                'url': 'http://super.com',
-                'title': 'Super',
-            },
+    # page
+    url = request.GET['url']
+    page_title = request.GET['page_title']
+    
+    # section
+    html_id = request.GET['section_id']
+    section_title = request.GET['section_title']
 
-        ]
-    }
-# TODO: implement
-#    # page
-#    url = request.GET['url']
-#    meta_title = request.GET['page_title']
-#    # section
-#    html_id = request.GET['section_id']
-#    html_title = request.GET['section_title']
-#    return response
+    cache_key = '%s%s' % (url, html_id)
+    links = cache.get(cache_key)
+    if links == None:
+        links = stackoverflow.get_links(page_title, section_title)
+        cache.set(cache_key, links, settings.QA_CACHE_TIMEOUT)
+        
+    response = {'links': links}
+    return response
 
-# TODO: reformat docstrings and add sample output
 # TODO: add tests
-
-
-
-
+# TODO: add sample response to docstring
+@require_POST
 @csrf_exempt
 @xss_json_response
 def add_link(request):
-    """Create a new link. If the section and page don't exist, it'll create them.
+    """Create a new link in a given section of a documentation page.
+    If the section and page don't exist create them as well.
 
     :param page_title: Title of documentation's page
     :type page_title: str
@@ -189,37 +199,25 @@ def add_link(request):
     :param link_url: URL of new link
     :type link_url: str
     """
-    page_title = request.POST['page_title']
-    url = request.POST['url']
-    section_id = request.POST['section_id']
-    section_title = request.POST['section_title']
-    link_url = request.POST['link_url']
-
-    try:
-        # Fetch & parse the linked page
-        link_title = get_page_title(link_url)
-    except:
-        raise 'No title'
-
-    try:
-        section = Section.objects.get(html_id=section_id, page__url=url)
-    except Section.DoesNotExist:
+    form = AddLinkForm(request.POST)
+    if form.is_valid():
         try:
-            page = Page.objects.get(url=url)
-        except Page.DoesNotExist:
-            # Create page
-            page = Page.objects.create(url=url, meta_title=page_title)
-        # Create section     
-        section = Section.objects.create(html_id=section_id, 
-            html_title=section_title, page=page)
+            # Fetch & parse the linked page
+            link_title = get_page_title(form.cleaned_data['link_url'])
+        except Exception, e:
+            # TODO: convert into a custom APIException
+            raise Exception('No title')
 
-    if section:
-        # Create link
-        link = Link.objects.create(url=link_url, title=link_title, section=section)
+        page, created = Page.objects.get_or_create(url=form.cleaned_data['url'], defaults={'meta_title': form.cleaned_data['page_title']})
+        section, created = Section.objects.get_or_create(html_id=form.cleaned_data['section_id'], page=page, defaults={'html_title': form.cleaned_data['section_title']})
+        link, created = Link.objects.get_or_create(url=form.cleaned_data['link_url'], section=section, defaults={'title': link_title})
 
-    response = {
-        'id': link.id,
-        'url': link_url,
-        'title': link_title,
-    }
-    return response
+        response = {
+            'id': link.id,
+            'url': form.cleaned_data['link_url'],
+            'title': link_title,
+            'is_relevant': True,
+        }
+        return response
+    #TODO: better message
+    raise Exception('problem!')
