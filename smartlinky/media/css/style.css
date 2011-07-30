@@ -6,9 +6,10 @@ header {
 }
 header nav ul {
 	display:inline;
+	font-size:16px;
 	float:right;
 	margin-top:25px;
-	font-size:16px;
+	padding-bottom:10px;
 }
 header nav ul li {
 	display:inline;
@@ -37,7 +38,7 @@ header nav ul li a:active {
 	background:url('../imgs/light.jpg') no-repeat;
 }
 #main {
-	padding-bottom:56px;
+	padding-bottom:15px;
 }
 #main h1 {
 	color: #fff; 
@@ -52,8 +53,9 @@ article #feeds {
 	border:1px solid #227895;
 }
 #feeds ul li  {
+	background:url("../imgs/virgolette.png") no-repeat scroll 5px 8px transparent
 	border-bottom:1px dashed #ababab;
-	padding:10px;
+	padding:10px 15px 10px 35px;
 }
 #feeds ul li p {
 	font-size:13px;
@@ -69,6 +71,9 @@ article#search h2 {
 article a {
 	color:#12a9db;
 }
+article a:hover{
+	color:#3d88a1;
+}
 article .red_shadow {
 	background:#ea4a4a;
 	color:#fff;
@@ -83,11 +88,12 @@ article .red_shadow {
 /******* search **********/
 article#search {
 	float:right;
+	padding-bottom:10px;
 }
 article#search input { 
 	float:left;
 	height:53px;
-	width:80%;
+	width:375px;
 	border:1px solid #19a0be;
 	padding-left:22px;
 	font-family:"Arial";
@@ -95,9 +101,14 @@ article#search input {
 article#search button {
 	border:1px solid #19a0be;
 	cursor:pointer;
-	float:left;
+	float:right;
 	height:53px;
 	width:60px;
+}
+article#search button:hover {
+-webkit-box-shadow: inset 0px 0px 26px 0px #621111;
+-moz-box-shadow: inset 0px 0px 26px 0px #621111;
+box-shadow: inset 0px 0px 26px 0px #621111;
 }
 input[type=search]: { 
 	font-size: 16px; 
@@ -105,10 +116,10 @@ input[type=search]: {
 	width:100%;
 }
 article#search h2{
+	margin-left:22px;
 	text-transform:none;
 	font-size:16px;
 	text-align:left;
-	margin-left:22px;
 }
 /******* fine search **********/
 /******* results **********/
@@ -142,11 +153,22 @@ article#search #results .res a{
 	color:#fff;
 	padding:4px 10px;
 }
+article#search #results .res a:hover{
+	-webkit-box-shadow: inset 0px 0px 12px 0px #3d89a1;
+	-moz-box-shadow: inset 0px 0px 12px 0px #3d89a1;
+	box-shadow: inset 0px 0px 12px 0px #3d89a1;
+}
 /******* fine results **********/
 /******* footer **********/
 footer{
-	padding-bottom:48px;
-	padding-top:48px;
+	padding-bottom:18px;
+	padding-top:18px;
+}
+footer a{
+	color:#12a9db;
+}
+footer a:hover{
+	color:#3d88a1;
 }
 footer nav ul{
 	float:right;
@@ -154,7 +176,7 @@ footer nav ul{
 footer nav ul li {
 	display:inline;
 }
-footer nav ul li a{
-	color:#12a9db;
+footer nav ul li a:active{
+	font-weight:bold;
 }
 /******* fine footer **********/
