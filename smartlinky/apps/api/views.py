@@ -35,8 +35,8 @@ def user_links(request):
     :param url: url of the documentation page containing the section
     :type url: str
     
-    :param id: id of the html tag containing the section
-    :type id: str
+    :param section_id: id of the html tag containing the section
+    :type section_id: str
 
     :returns:  dict
 
@@ -46,7 +46,7 @@ def user_links(request):
     # page
     url = request.GET['url']
     # section
-    html_id = request.GET['id']
+    html_id = request.GET['section_id']
     return content
              
 # TODO: add tests
@@ -61,8 +61,8 @@ def qa_links(request):
     :param page_title: meta title of the documentation page containing the section
     :type page_title: str
     
-    :param id: id of the html tag containing the section
-    :type id: str
+    :param section_id: id of the html tag containing the section
+    :type section_id: str
     
     :param section_title: title of section
     :type section_title: str
@@ -76,7 +76,7 @@ def qa_links(request):
     url = request.GET['url']
     meta_title = request.GET['page_title']
     # section
-    html_id = request.GET['id']
+    html_id = request.GET['section_id']
     html_title = request.GET['section_title']
     return content
 
@@ -91,8 +91,8 @@ def new_link(request):
     :param url: URL of documentation's page
     :type url: str
 
-    :param section: HTML ID of section
-    :type section: str
+    :param section_id: HTML ID of section
+    :type section_id: str
 
     :param section_title: Title of section
     :type section_title: str
@@ -102,7 +102,7 @@ def new_link(request):
     """
     page_title = request.POST['page_title']
     url = request.POST['url']
-    section = request.POST['section']
+    section_id = request.POST['section_id']
     section_title = request.POST['section_title']
     link_url = request.POST['link_url']
 
@@ -113,7 +113,7 @@ def new_link(request):
         return HttpResponseBadRequest()
 
     try:
-        section = Section.objects.get(html_id=section, page__url=url)
+        section = Section.objects.get(html_id=section_id, page__url=url)
     except Section.DoesNotExist:
         try:
             page = Page.objects.get(url=url)
@@ -125,6 +125,13 @@ def new_link(request):
             html_title=section_title, page=page)
 
     # Create link
-    Link.objects.create(url=link_url, title=link_title, section=section)
+    link = Link.objects.create(url=link_url, title=link_title, section=section)
+
+    response = {
+        'id': link.id,
+        'url': link_url,
+        'title': link_title,
+    }
+    return response
 
 
