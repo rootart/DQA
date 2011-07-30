@@ -3,6 +3,8 @@
 var Button = function(section_id, count) {
     this.$section = $('#' + section_id);
     this.count = count ? count : null;
+    this.widget = null;
+    this.$button = null;
     this.render(); 
 };
 
@@ -11,7 +13,7 @@ Button.prototype.render = function() {
         position: 'relative',
         height: '0px'
     });
-    var $button = $('<div>').css({
+    this.$button = $('<div>').css({
         position: 'absolute',
         background: '#000',
         color: '#fff',
@@ -19,10 +21,21 @@ Button.prototype.render = function() {
 
     });
     if (this.count) {
-        $button.text(this.count);
+        this.$button.text(this.count);
     } else {
-        $button.text(0);
+        this.$button.text(0);
     }
-    $wrapper.append($button);
+    $wrapper.append(this.$button);
     $wrapper.prependTo(this.$section);
+
+    this.$button.click($.proxy(this, 'clickHandler'));
+};
+
+Button.prototype.clickHandler = function(e) {
+    e.preventDefault();
+    if (!this.widget) {
+        this.widget = new Widget(this.$button, this.$section);
+    }
+
+    this.widget.open();
 };
