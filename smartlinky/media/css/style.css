@@ -27,6 +27,9 @@ header nav ul li a:active {
 	background:url(../imgs/background.jpg) repeat-x;
 	float:left;
 }
+.light {
+	background:url(../imgs/light.jpg) no-repeat;
+}
 #main h1 {
 	color: #fff; 
 	font-size: 35px;
@@ -39,16 +42,60 @@ article #feeds {
 	background:#fff;
 	border:1px solid #227895;
 }
-article .feeds_title {
+#feeds ul li  {
+	border-bottom:1px dashed #ababab;
+	padding:10px;
+}
+#feeds ul li p {
+	font-size:13px;
+	font-style:italic;
+}
+#feeds ul li span {
+	font-size:11px;
+}
+article #feeds h2{
+	line-height:44px;
+}
+article a {
+	color:#12a9db;
+}
+article .red_shadow {
 	background:#ea4a4a;
 	color:#fff;
 	font-size:27px;
 	height:44px;
-	margin-top:17px;
+	margin-bottom:3px;
+	margin-top:3px;
 	text-align:center;
 	text-transform:uppercase;
 }
-article .feeds_title h2{
-	line-height:44px;
-}
 /******* fine feeds **********/
+/******* search **********/
+#search {
+	float:right;
+}
+#search input { 
+	float:left;
+	height:53px;
+	width:80%;
+	border:1px solid #19a0be;
+	padding-left:22px;
+	font-family:"Arial";
+}
+#search button {
+	border:1px solid #19a0be;
+	cursor:pointer;
+	float:left;
+	height:53px;
+	width:60px;
+}
+input[type=search]: { 
+	font-size: 16px; 
+	height:22px;
+	width:100%;
+}
+		
+input[type=search]::-webkit-input-placeholder {
+	color: orangered;
+}
+/******* fine search **********/
