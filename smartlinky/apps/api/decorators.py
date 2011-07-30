@@ -5,6 +5,8 @@ from django.utils import simplejson as json
 
 
 def xss_json_response(f):
+    """Dump a function result into a json, wrap with HttpResponse and make xss friendly."""
+    
     @wraps(f)
     def wrapper(*args, **kwargs):
         content = f(*args, **kwargs)
