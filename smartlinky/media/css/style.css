@@ -53,7 +53,7 @@ article #feeds {
 	border:1px solid #227895;
 }
 #feeds ul li  {
-	background:url("../imgs/virgolette.png") no-repeat scroll 5px 8px transparent
+	background:url("../imgs/virgolette.png") no-repeat scroll 5px 8px transparent;
 	border-bottom:1px dashed #ababab;
 	padding:10px 15px 10px 35px;
 }
