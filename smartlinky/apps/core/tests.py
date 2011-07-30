@@ -43,6 +43,9 @@ SAMPLE_PAGES = {
     'pythondocs_builtins': {
         'url': 'http://docs.python.org/library/functions.html',
     },
+    'pythondocs_logging': {
+        'url': 'http://docs.python.org/library/logging.config.html',
+    },
 }
 
 SAMPLE_SECTIONS = {
@@ -53,6 +56,10 @@ SAMPLE_SECTIONS = {
     'pythondocs_builtins_non-essential-built-in-functions': {
         'html_id': 'non-essential-built-in-functions',
         'html_title': '3. Non-essential Built-in Functions',
+    },
+    'pythondocs_logging_configuration_functions': {
+        'html_id': 'configuration-functions',
+        'html_title': '15.8.1. Configuration functions',
     },
 }
 
