@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>apps.core.models &mdash; Smartlinky v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Smartlinky v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for apps.core.models</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c"># TODO: add db indexes</span>
+<span class="c"># TODO: add help text</span>
+<span class="c"># TODO: add managment command to remove all irrelevant links</span>
+<div class="viewcode-block" id="Documentation"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Documentation">[docs]</a><span class="k">class</span> <span class="nc">Documentation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Documentation is grouping pages according to the product that they document, </span>
+<span class="sd">    usually in one of it&#39;s versions (e.g. https://docs.djangoproject.com/en/1.3/).&quot;&quot;&quot;</span>
+    
+    <span class="n">url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">()</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">meta_title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># used to refine searches agains QAs APIs, extracted from site&#39;s head</span>
+
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="c"># TODO: add tests</span>
+<div class="viewcode-block" id="Documentation.delete_irrelevant_links"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Documentation.delete_irrelevant_links">[docs]</a>    <span class="k">def</span> <span class="nf">delete_irrelevant_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">older_than</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">by_create_date</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">by_mod_date</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean up irrelevant links for all sections of all pages of this documentation.</span>
+<span class="sd">        Delete links with creation or modification date older than a given date.</span>
+<span class="sd">        </span>
+<span class="sd">        .. warning:: Cleans up ALL links if &#39;older_than&#39; is not specified.&quot;&quot;&quot;</span>
+        <span class="n">pages</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pages</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pages</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">delete_irrelevant_links</span><span class="p">(</span><span class="n">older_than</span><span class="p">,</span> <span class="n">by_create_date</span><span class="p">,</span> <span class="n">by_mod_date</span><span class="p">)</span>
+        
+    <span class="c"># TODO: implement using fetch_meta from utils</span>
+    <span class="c"># TODO: add tests</span></div>
+<div class="viewcode-block" id="Documentation.fetch_meta"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Documentation.fetch_meta">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch the documentation&#39;s meta-related information (html meta)</span>
+<span class="sd">        and update corresponding fields.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span> 
+        
+                                
+<span class="c"># TODO: add db indexes</span>
+<span class="c"># TODO: add help text</span>
+<span class="c"># TODO: add managment command to remove all irrelevant links</span>
+<span class="c"># TODO: add uniqueness within a page by url</span></div></div>
+<div class="viewcode-block" id="Page"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Page">[docs]</a><span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Page represents one url (one page) of the documentation.&quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">()</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Documentation</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;pages&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">meta_title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># used to refine searches agains QAs APIs, extracted from site&#39;s head</span>
+    
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    
+    <span class="c"># TODO: add tests</span>
+<div class="viewcode-block" id="Page.delete_irrelevant_links"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Page.delete_irrelevant_links">[docs]</a>    <span class="k">def</span> <span class="nf">delete_irrelevant_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">older_than</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">by_create_date</span> <span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">by_mod_date</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean up irrelevant links for all sections of the page.</span>
+<span class="sd">        Delete links with creation or modification date older than a given date.</span>
+<span class="sd">        </span>
+<span class="sd">        .. warning:: Cleans up ALL links if &#39;older_than&#39; is not specified.&quot;&quot;&quot;</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span>
+        <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+            <span class="n">section</span><span class="o">.</span><span class="n">delete_irrelevant_links</span><span class="p">(</span><span class="n">older_than</span><span class="p">,</span> <span class="n">by_create_date</span><span class="p">,</span> <span class="n">by_mod_date</span><span class="p">)</span>
+        
+    <span class="c"># TODO: implement using fetch_meta from utils</span>
+    <span class="c"># TODO: add tests</span></div>
+<div class="viewcode-block" id="Page.fetch_meta"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Page.fetch_meta">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch the page&#39;s meta-related information (html meta) </span>
+<span class="sd">        and update corresponding fields.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>     
+
+
+<span class="c"># TODO: add db indexes</span>
+<span class="c"># TODO: add help text</span>
+<span class="c"># TODO: add objects managers or properties to retrieve specific links (irrelevant, relevant or all)</span>
+<span class="c"># TODO: add uniqueness within a page by html_id</span></div></div>
+<div class="viewcode-block" id="Section"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Section">[docs]</a><span class="k">class</span> <span class="nc">Section</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Section is a section of the documentation&#39;s page which is specific enough </span>
+<span class="sd">    to attach links to it.&quot;&quot;&quot;</span>
+
+    <span class="n">html_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">html_title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Page</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;sections&#39;</span><span class="p">)</span>
+    
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="c"># TODO: add tests</span>
+<div class="viewcode-block" id="Section.delete_irrelevant_links"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Section.delete_irrelevant_links">[docs]</a>    <span class="k">def</span> <span class="nf">delete_irrelevant_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">older_than</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">by_create_date</span> <span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">by_mod_date</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean up irrelevant links of the section.</span>
+<span class="sd">        Delete links with creation or modification date older than a given date.</span>
+<span class="sd">        </span>
+<span class="sd">        .. warning:: Cleans up ALL links if &#39;older_than&#39; is not specified.&quot;&quot;&quot;</span>
+        <span class="c"># TODO: check if this works</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+
+<span class="c"># TODO: add db indexes</span>
+<span class="c"># TODO: add help text</span>
+<span class="c"># TODO: add uniqueness within a section by url</span></div></div>
+<div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Link is a connection between an link and a section.</span>
+<span class="sd">    </span>
+<span class="sd">    Links are url-unique within a section.&quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">()</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c"># 40 char field, obligatory, default is the meta title of the linked site, serves also as a description</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Section</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;links&#39;</span><span class="p">)</span>
+    
+    <span class="n">is_relevant</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">up_votes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">clicks</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">validated_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">modified_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="c"># does auto_now_add set editable to False automatically?</span>
+    
+    <span class="c"># TODO: faster increment by counter type fields or raw sql</span>
+<div class="viewcode-block" id="Link.incr_up_votes"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link.incr_up_votes">[docs]</a>    <span class="k">def</span> <span class="nf">incr_up_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Increment &#39;up_votes&#39; by 1.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">up_votes</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c"># TODO: faster increment by counter type fields or raw sql</span></div>
+<div class="viewcode-block" id="Link.incr_clicks"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link.incr_clicks">[docs]</a>    <span class="k">def</span> <span class="nf">incr_clicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Increment &#39;clicks&#39; by 1.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicks</span> <span class="o">+=</span> <span class="mi">1</span>
+    </div>
+<div class="viewcode-block" id="Link.set_relevant"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link.set_relevant">[docs]</a>    <span class="k">def</span> <span class="nf">set_relevant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_relevant</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set &#39;is_relevant&#39; value to True(deafult) or False.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_relevant</span> <span class="o">=</span> <span class="n">is_relevant</span>
+    
+    <span class="c"># TODO: add tests</span>
+    <span class="c"># TODO: add url checking method to docstring</span></div>
+<div class="viewcode-block" id="Link.validate_url"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link.validate_url">[docs]</a>    <span class="k">def</span> <span class="nf">validate_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the url is still valid.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+    
+    <span class="c"># TODO: add tests</span></div>
+<div class="viewcode-block" id="Link.delete"><a class="viewcode-back" href="../../../in_code/apps.core.models.html#apps.core.models.Link.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Log the link data before deleting it.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;{link.delete} </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Link</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Berlin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

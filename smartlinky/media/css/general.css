@@ -24,7 +24,16 @@ body {
 .italic {font-style:italic;}
 
 .dashed_line {	border-bottom:1px dashed #ababab;}
+.down_10 { margin-top:5px;}
+.pipe li {
+	border-left:1px solid #424848;
+	padding-left:8px;
+	padding-right:8px;
+}
 
+li.no_pipe {
+	border-left:none;
+}
 a {	color:#424848;	text-decoration:none;}
 a:hover, a:focus { }
 a:active, a:visited { }

@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>smartlinky.apps.api.views &mdash; Smartlinky v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="Smartlinky v0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for smartlinky.apps.api.views</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">decorators</span> <span class="kn">import</span> <span class="n">xss_json_response</span>
+
+<span class="c"># TODO: remove when proper api views are working</span>
+<span class="kn">from</span> <span class="nn">views_demo</span> <span class="kn">import</span> <span class="n">demo_init</span><span class="p">,</span> <span class="n">demo_user_links</span><span class="p">,</span> <span class="n">demo_qa_links</span>
+
+ 
+<span class="c"># TODO: add tests</span>
+<span class="c"># TODO: add sample response to docstring</span>
+<span class="nd">@xss_json_response</span>
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../../../in_code/apps.api.views.html#smartlinky.apps.api.views.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return number of user links for known sections of a documentation page.</span>
+<span class="sd">    </span>
+<span class="sd">    :param url: url of the documentation page</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    </span>
+<span class="sd">    :returns:  dict</span>
+
+<span class="sd">    .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse</span>
+<span class="sd">        and makes it xss friendly</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># page</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">content</span>
+
+<span class="c"># TODO: add tests</span>
+<span class="c"># TODO: add sample response to docstring</span></div>
+<span class="nd">@xss_json_response</span>
+<div class="viewcode-block" id="user_links"><a class="viewcode-back" href="../../../../in_code/apps.api.views.html#smartlinky.apps.api.views.user_links">[docs]</a><span class="k">def</span> <span class="nf">user_links</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return all user links for a given section.</span>
+<span class="sd">    </span>
+<span class="sd">    :param url: url of the documentation page containing the section</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    </span>
+<span class="sd">    :param id: id of the html tag containing the section</span>
+<span class="sd">    :type id: str</span>
+
+<span class="sd">    :returns:  dict</span>
+
+<span class="sd">    .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse</span>
+<span class="sd">        and makes it xss friendly</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># page</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+    <span class="c"># section</span>
+    <span class="n">html_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">content</span>
+             
+<span class="c"># TODO: add tests</span>
+<span class="c"># TODO: add sample response to docstring</span></div>
+<span class="nd">@xss_json_response</span>
+<div class="viewcode-block" id="qa_links"><a class="viewcode-back" href="../../../../in_code/apps.api.views.html#smartlinky.apps.api.views.qa_links">[docs]</a><span class="k">def</span> <span class="nf">qa_links</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of QA links for a given section.</span>
+<span class="sd">    </span>
+<span class="sd">    :param url: url of the documentation page containing the section</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    </span>
+<span class="sd">    :param page_title: meta title of the documentation page containing the section</span>
+<span class="sd">    :type page_title: str</span>
+<span class="sd">    </span>
+<span class="sd">    :param id: id of the html tag containing the section</span>
+<span class="sd">    :type id: str</span>
+<span class="sd">    </span>
+<span class="sd">    :param section_title: title of section</span>
+<span class="sd">    :type section_title: str</span>
+
+<span class="sd">    :returns:  dict</span>
+
+<span class="sd">    .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse</span>
+<span class="sd">        and makes it xss friendly</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># page</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+    <span class="n">meta_title</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;page_title&#39;</span><span class="p">]</span>
+    <span class="c"># section</span>
+    <span class="n">html_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+    <span class="n">html_title</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;section_title&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">content</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Berlin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
