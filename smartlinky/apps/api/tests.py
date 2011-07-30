@@ -5,6 +5,8 @@ from django.utils import simplejson as json
 from apps.core.tests import create_sample_documentation, create_sample_page, create_sample_section, create_sample_link, \
     SAMPLE_DOCUMENTATIONS, SAMPLE_PAGES, SAMPLE_SECTIONS, SAMPLE_LINKS
 
+from apps.core.models import Link
+
 
 class APITest(TestCase):
     
@@ -105,3 +107,95 @@ class UsersLinksAPITest(APITest):
 #
 #class QALinksAPITest(APITest):
 #    pass
+
+class AddLinkAPITest(APITest):
+    def setUp(self):
+        self.path = reverse('api_add_link')
+        super(AddLinkAPITest, self).setUp()
+
+    def testWrongUrl(self):
+        Link.objects.all().delete()
+        kwargs = {
+            'link_url': 'BAD',
+            'url': 'http://www.wabidesign.it',
+            'page_title': 'Test',
+            'section_id': 'test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)
+        self.assertEqual(Link.objects.all().count(), 0)
+
+    def testMissingArguments(self):
+        kwargs = {
+            'link_url': 'http://www.wabidesign.it/',
+            'url': 'http://example.com',
+            'section_id': 'test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        self.assertEqual(response.status_code, 400)
+    
+        kwargs = {
+            'link_url': 'http://www.wabidesign.it/',
+            'url': 'http://example.com',
+            'page_title': 'Test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        self.assertEqual(response.status_code, 400)
+
+        kwargs = {
+            'link_url': 'http://www.wabidesign.it/',
+            'url': 'http://example.com',
+            'page_title': 'Test',
+            'section_id': 'test',
+        }
+        response = self.post(kwargs)
+        self.assertEqual(response.status_code, 400)
+
+    def testSimpleUrl(self):
+        Link.objects.all().delete()
+        kwargs = {
+            'link_url': 'http://www.wabidesign.it/',
+            'url': 'http://example.com',
+            'page_title': 'Test',
+            'section_id': 'test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('Antonella Tezza' in content_json['title'], True)
+        self.assertEqual(Link.objects.all().count(), 1)
+
+
+    def testMoreUrls(self):
+        Link.objects.all().delete()
+        kwargs = {
+            'link_url': 'http://virtuallight.pl/',
+            'url': 'http://example.com',
+            'page_title': 'Test',
+            'section_id': 'test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('things' in content_json['title'], True)
+        kwargs = {
+            'link_url': 'http://attila.maczak.hu/',
+            'url': 'http://example.com',
+            'page_title': 'Test',
+            'section_id': 'test',
+            'section_title': 'Test htm',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('Attila' in content_json['title'], True)
+
+        self.assertEqual(Link.objects.all().count(), 2)
+

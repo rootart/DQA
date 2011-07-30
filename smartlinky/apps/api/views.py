@@ -1,11 +1,13 @@
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from apps.core.models import Page, Section, Link
 from apps.utils.utils import get_page_title
 
 from decorators import xss_json_response
+from forms import AddLinkForm
 
 
 @xss_json_response
@@ -165,6 +167,7 @@ def qa_links(request):
 
 # TODO: add tests
 # TODO: add sample response to docstring
+@require_POST
 @csrf_exempt
 @xss_json_response
 def add_link(request):
@@ -186,32 +189,26 @@ def add_link(request):
     :param link_url: URL of new link
     :type link_url: str
     """
-    # page
-    url = request.POST['url']
-    page_title = request.POST['page_title']
-    
-    # section
-    section_id = request.POST['section_id']
-    section_title = request.POST['section_title']
-    
-    # link
-    link_url = request.POST['link_url']
 
-    try:
-        # Fetch & parse the linked page
-        link_title = get_page_title(link_url)
-    except:
-        # TODO: convert into a custom APIException
-        raise 'No title'
+    form = AddLinkForm(request.POST)
+    if form.is_valid():
+        try:
+            # Fetch & parse the linked page
+            link_title = get_page_title(form.cleaned_data['link_url'])
+        except Exception, e:
+            # TODO: convert into a custom APIException
+            raise Exception('No title')
 
-    page, created = Page.objects.get_or_create(url=url, defaults={'meta_title': page_title})
-    section, created = Section.objects.get_or_create(html_id=section_id, page=page, defaults={'html_title': section_title})
-    link, created = Link.objects.get_or_create(url=link_url, section=section, defaults={'title': link_title})
+        page, created = Page.objects.get_or_create(url=form.cleaned_data['url'], defaults={'meta_title': form.cleaned_data['page_title']})
+        section, created = Section.objects.get_or_create(html_id=form.cleaned_data['section_id'], page=page, defaults={'html_title': form.cleaned_data['section_title']})
+        link, created = Link.objects.get_or_create(url=form.cleaned_data['link_url'], section=section, defaults={'title': link_title})
 
-    response = {
-        'id': link.id,
-        'url': link_url,
-        'title': link_title,
-        'is_relevant': True,
-    }
-    return response
+        response = {
+            'id': link.id,
+            'url': form.cleaned_data['link_url'],
+            'title': link_title,
+            'is_relevant': True,
+        }
+        return response
+    #TODO: better message
+    raise Exception('problem!')
