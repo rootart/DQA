@@ -12,13 +12,13 @@ MANAGERS = ADMINS = (
 # TODO: create postgreslq settings for production
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_ROOT, 'sqlite3.db'),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
-    }
+    },
 }
 
 TIME_ZONE = 'Europe/Berlin'
@@ -34,7 +34,6 @@ MEDIA_URL = 'media'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
-TMP_ROOT = '/tmp'
 
 STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
