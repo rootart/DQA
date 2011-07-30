@@ -102,5 +102,5 @@ PLUGIN_CONFIG = {
 
 try:
     from settings_local import *
-except:
+except ImportError:
     pass
