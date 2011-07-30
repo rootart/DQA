@@ -24,7 +24,7 @@ body {
 .italic {font-style:italic;}
 
 .dashed_line {	border-bottom:1px dashed #ababab;}
-
+.down_10 { margin-top:5px;}
 a {	color:#424848;	text-decoration:none;}
 a:hover, a:focus { }
 a:active, a:visited { }

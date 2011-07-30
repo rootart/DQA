@@ -12,9 +12,9 @@
 		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/style.css" media="screen" />
     
 	</head>
-	<body>
-		<div class="row">
-			<header>
+	<body class="back_top">
+		<div class="big_row">
+			<header class="row">
 				<div class="logo col col_7"><img src="{{ MEDIA_URL }}/imgs/logo.gif" alt="smartlinky" /></div>
 				<nav class="col col_9">
 					<ul class="fontface">
@@ -27,7 +27,7 @@
 				<div class="clear"></div>
 			</header>
 		</div>
-		<section id="main" class="big_row back_middle">
+		<section id="main" class="back_middle big_row">
 			<div class="row light">
 				<h1 class="shadow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Donec sapien odio</h1>
 				<article>
@@ -55,15 +55,57 @@
 				</article>
 				<article id="search">
 					<div class="col col_8">
-					<form> 
-						<input class="box_shadow_inside_light rounded" type=search results=5 name=s placeholder=Search... autosave=unique> 
-						<button class="box_shadow_inside_light red_shadow rounded"> <img src="{{ MEDIA_URL }}/imgs/search_icon.png" /> </button> 
-					</form> 
+						<form> 
+							<input class="box_shadow_inside_light rounded" type=search results=5 name=s placeholder=Search... autosave=unique> 
+							<button class="box_shadow_inside red_shadow rounded"> <img src="{{ MEDIA_URL }}/imgs/search_icon.png" /> </button> 
+
+						</form>
 					</div>
+					<div class="clear"></div>
+					<div id="results" class="col col_8 rounded box_shadow">
+						<div class="dashed_line"></div>
+							<div class="box_shadow_inside red_shadow">
+								<h2>Search Results of <span class="var_results">Lorem</a></h2>
+							</div>
+							<div class="dashed_line"></div>
+							<div class="page">Showing  1  to  10  of  12 </div>
+							<div class="num_page">  Page    <a href="#">1</a>  <a href="#">2</a>   <a href="#">></a></div>
+							<div class="clear"></div>
+							<div class="res">
+								<h3>Ut tempus vehicula tellus ac tristique. </h3>
+								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+								<a href="#" class="rounded">details</a>
+							</div>
+							<div class="res">
+								<h3>Ut tempus vehicula tellus ac tristique. </h3>
+								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+								<a href="#" class="rounded">details</a>
+							</div>
+							<div class="res">
+								<h3>Ut tempus vehicula tellus ac tristique. </h3>
+								<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
+								<a href="#" class="rounded">details</a>
+							</div>
+						</div>
 				</article>
 			</div>
 		</section>
-		<footer>
+		<div class="clear"></div>
+		<footer class="back_footer">
+			<div class="row">
+				<div class="col col_6"><img src="{{ MEDIA_URL }}/imgs/logo_small.png" /></div>
+				<div class="col col_5 down_10"><a href="http://djangodash.com/teams/c2/berlin/">Berlin Django Dash 2011</a></div>
+				<div class="col col_5 down_10">
+					<nav>
+						<ul>
+							<li><a href="#">home</a></li>
+							<li><a href="#">example</a></li>
+							<li><a href="#">reports</a></li>
+							<li><a href="#">about us</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
 		</footer>
 	</body>
 </html>

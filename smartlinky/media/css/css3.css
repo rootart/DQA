@@ -47,9 +47,9 @@
 	box-shadow: 0px 0px 0px 8px #3d88a1; 
 }
 .box_shadow_inside {
--webkit-box-shadow: inset 0px 0px 16px 0px #424848;
--moz-box-shadow: inset 0px 0px 16px 0px #424848;
-box-shadow: inset 0px 0px 16px 0px #424848;
+-webkit-box-shadow: inset 0px 0px 16px 0px #621111;
+-moz-box-shadow: inset 0px 0px 16px 0px #621111;
+box-shadow: inset 0px 0px 16px 0px #621111;
 }
 .box_shadow_inside_light {
 -webkit-box-shadow: inset 0px 0px 8px 0px #ccc;
