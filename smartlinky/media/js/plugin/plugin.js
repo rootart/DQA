@@ -4,14 +4,21 @@
     parser.parse();
     //Initialize
     $.ajax({
-        url: '{{api-url}}',
+        url: '{{api-url}}' + 'init',
         data: {
-            url: window.location.href,
-            title: document.title,
-            sections: parser.sections
+            url: window.location.href
         },
-        crossDomain: true,
-        success: function(){
+        dataType: 'json',
+        success: function(data){
+            for (var key in parser.sections) {
+                if (parser.sections.hasOwnProperty(key)) {
+                    if (data.sections[key]) {
+                        new Button(key, data.sections[key]);
+                    } else {
+                        new Button(key);
+                    }
+                }
+            }
         } 
     });
 });})($);

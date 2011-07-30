@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
             # Replace configuration patterns
             for config in configs:
-                filecontent.replace(*config)
+                filecontent = filecontent.replace(*config)
 
             plugincontent += filecontent
             f.close()
