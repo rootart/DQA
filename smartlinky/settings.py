@@ -94,6 +94,9 @@ PLUGIN_FILES = (
     ('js', 'plugin', 'plugin.js'),
 )
 PLUGIN_FILENAME = 'plugin.js'
+PLUGIN_CONFIG = {
+    'api-url': 'http://smartlinky/api/',
+}
 
 try:
     from settings_local import *

@@ -1,5 +1,5 @@
 var Parser = function() {
-    var sections = {};
+    this.sections = {};
 };
 
 /**

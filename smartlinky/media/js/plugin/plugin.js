@@ -4,9 +4,10 @@
     parser.parse();
     //Initialize
     $.ajax({
-        url: '%%api-url%%',
+        url: '{{api-url}}',
         data: {
             url: window.location.href,
+            title: document.title,
             sections: parser.sections
         },
         crossDomain: true,
