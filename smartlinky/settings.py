@@ -90,6 +90,7 @@ LOGGING = {
 
 PLUGIN_FILES = (
     ('js', 'plugin', 'jquery.plugin.js'),
+    ('js', 'plugin', 'jquery-ui.js'),
     ('js', 'plugin', 'Button.js'),
     ('js', 'plugin', 'Widget.js'),
     ('js', 'plugin', 'Parser.js'),

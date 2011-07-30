@@ -39,7 +39,9 @@ Widget.prototype.handleUserLinksData = function(data) {
     this.$irrelevantlinks.empty();
     if (data.links.length) {
         for (var i = 0; i < data.links.length; i++) {
-            var $wrapper = $('<div>').css({});
+            var $wrapper = $('<div>')
+                .css({});
+
 
             //Link
             var $link = $('<a>')
@@ -56,8 +58,14 @@ Widget.prototype.handleUserLinksData = function(data) {
             $wrapper.append($up_votes);
             if (data.links[i].is_relevant) {
                 this.$userlinks.append($wrapper);
+                $wrapper.addClass('smartlinky-relevant').draggable({
+                    revert: "invalid"
+                });
             } else {
                 this.$irrelevantlinks.append($wrapper);
+                $wrapper.addClass('smartlinky-irrelevant').draggable({
+                    revert: "invalid"
+                });
             }
         }
     }    
@@ -93,7 +101,9 @@ Widget.prototype.render = function() {
     this.$userlinks = $('<div>').css({
         padding: '3px',
         border: '1px dotted #00f'
-    }).text('loading...');
+    }).text('loading...').droppable({
+        accept: '.smartlinky-irrelevant'
+    });
     // Q&A section
     this.$qalinks = $('<div>').css({
         padding: '3px',
@@ -103,7 +113,11 @@ Widget.prototype.render = function() {
     this.$irrelevantlinks = $('<div>').css({
         padding: '3px',
         border: '1px dotted #00f'
-    }).text('loading...');
+    }).text('loading...').droppable({
+        accept: '.smartlinky-relevant',
+        over: function(e, ui) {
+        }
+    });
 
     // Close button
     this.$widget.append($('<span>').css({

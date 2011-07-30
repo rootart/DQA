@@ -13,7 +13,7 @@
  *
  * Date: Thu Jun 30 14:16:56 2011 -0400
  */
-var $ = (function( window, undefined, jqueryObject ) {
+var jQuery = (function( window, undefined, jqueryObject ) {
 
 // Use the correct document accordingly with window argument (sandbox)
 var document = window.document,
@@ -8978,3 +8978,4 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 return jQuery;
 })(window);
+var $ = jQuery;
