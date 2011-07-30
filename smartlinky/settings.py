@@ -32,7 +32,7 @@ SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = ''
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
