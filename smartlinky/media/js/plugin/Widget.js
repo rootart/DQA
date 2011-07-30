@@ -172,24 +172,37 @@ Widget.prototype.addLink = function(e) {
         border: '1px dotted #00f'
     });
 
-    this.$addWidget.append($('<form>').append($('<input>').attr({
-        type: 'text',
-        name: 'url'
-    }).css({}))).submit($.proxy(this, 'handleNewLinkSubmit'));
-
-    this.$addWidget.prepend($('<label>').text('Add URL:'));
-    this.$addWidget.append($('<input>').attr({
+    this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
+    this.$form.append($('<input>').attr({
+            type: 'text',
+            name: 'url'
+        }).css({}));
+    this.$form.prepend($('<label>').text('Add URL:'));
+    this.$form.append($('<input>').attr({
         type: 'submit',
         name: 'submit',
         value: 'Submit'
     }));
-    
+
+    this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
-    
 };
 
 Widget.prototype.handleNewLinkSubmit = function(e) {
     e.preventDefault();
-
-
+    $.ajax({
+        url: '{{api-url}}' + 'add_link',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            page_title: document.title,
+            url: window.location.href,
+            section_id: this.section.id,
+            section_title: this.section.title,
+            link_url: this.$addWidget.find('input[name="url"]').val(),
+        },
+        success: function(data) {
+            alert(data);
+        }
+    });
 };
