@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.utils',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -143,6 +144,12 @@ LOGGING = {
         },
     }
 }
+
+PLUGIN_FILES = (
+    ('js', 'plugin', 'jquery.plugin.js'),
+    ('js', 'plugin', 'plugin.js'),
+)
+PLUGIN_FILENAME = 'plugin.js'
 
 try:
     from settings_local import *
