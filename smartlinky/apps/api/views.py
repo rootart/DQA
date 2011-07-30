@@ -1,13 +1,14 @@
+from django.db.models import Count
 from django.http import HttpResponseBadRequest
+
+# TODO: remove when proper api views are working
+from views_demo import demo_init, demo_user_links, demo_qa_links
 from decorators import xss_json_response
 
 from apps.core.models import Page, Section, Link
 from apps.utils.utils import get_page_title
 
-# TODO: remove when proper api views are working
-from views_demo import demo_init, demo_user_links, demo_qa_links
 
- 
 # TODO: add tests
 # TODO: add sample response to docstring
 @xss_json_response
@@ -24,6 +25,16 @@ def init(request):
     """
     # page
     url = request.GET['url']
+    content = {'sections': {}}
+    
+    try:
+        page = Page.objects.get(url=url)
+    except Page.DoesNotExist:
+        return content
+    
+    for section in page.sections.annotate(num_links=Count('links')):
+        content['sections'][section.html_id] = section.num_links
+    
     return content
 
 # TODO: add tests

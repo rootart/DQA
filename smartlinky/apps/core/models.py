@@ -42,7 +42,7 @@ class Documentation(models.Model):
 # TODO: add db indexes
 # TODO: add help text
 # TODO: add managment command to remove all irrelevant links
-# TODO: add uniqueness within a page by url
+# TODO: add uniqueness by url
 class Page(models.Model):
     """Page represents one url (one page) of the documentation."""
 
