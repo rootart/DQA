@@ -101,6 +101,8 @@ PLUGIN_CONFIG = {
     'api-url': 'http://smartlinky/api/',
 }
 
+QA_CACHE_TIMEOUT = 60 * 60
+
 try:
     from settings_local import *
 except ImportError:
