@@ -1,8 +1,9 @@
-from django.utils import simplejson as json
-from django.http import HttpResponse
+from decorators import xss_json_response
 
 
+@xss_json_response
 def demo_init(request):
+#    GET: url
     init = {
         'sections': {
             's-queryset-api-reference': 3,
@@ -10,15 +11,11 @@ def demo_init(request):
             's-pickling-querysets': 2
         }
     }
-    
-    content = json.dumps(init)
-    response = HttpResponse(content, mimetype='application/json')
-    response['Access-Control-Allow-Origin']  = '*'
-    response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT, DELETE' 
-    return response
+    return init
 
-
+@xss_json_response
 def demo_user_links(request):
+#    GET: url, id
     links = {
         'links': [
             {
@@ -45,14 +42,11 @@ def demo_user_links(request):
 
         ]
     }
-    
-    content = json.dumps(links)
-    response = HttpResponse(content, mimetype='application/json')
-    response['Access-Control-Allow-Origin']  = '*'
-    response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT, DELETE' 
-    return response
+    return links
 
-def demo_qa_links(request):
+@xss_json_response
+def demo_links(request):
+#    GET: url, id, page_title, section_title
     links = {
         'links': [
             {
@@ -70,9 +64,4 @@ def demo_qa_links(request):
 
         ]
     }
-    
-    content = json.dumps(links)
-    response = HttpResponse(content, mimetype='application/json')
-    response['Access-Control-Allow-Origin']  = '*'
-    response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, PUT, DELETE' 
-    return response
+    return links
