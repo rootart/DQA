@@ -1,7 +1,10 @@
-from decorators import xss_json_response
+from django.db.models import Count
+
+from apps.core.models import Page
 
 # TODO: remove when proper api views are working
 from views_demo import demo_init, demo_user_links, demo_qa_links
+from decorators import xss_json_response
 
  
 # TODO: add tests
@@ -20,6 +23,16 @@ def init(request):
     """
     # page
     url = request.GET['url']
+    content = {'sections': {}}
+    
+    try:
+        page = Page.objects.get(url=url)
+    except Page.DoesNotExist:
+        return content
+    
+    for section in page.sections.annotate(num_links=Count('links')):
+        content['sections'][section.html_id] = section.num_links
+    
     return content
 
 # TODO: add tests
