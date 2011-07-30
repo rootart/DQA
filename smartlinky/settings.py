@@ -1,5 +1,4 @@
 import os
-import sys
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 
@@ -31,10 +30,11 @@ SITE_ID = 1
 SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = ''
+MEDIA_URL = 'media'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
+TMP_ROOT = '/tmp'
 
 STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
@@ -42,7 +42,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-TEMPLATE_DIRS = ()
+TEMPLATE_DIRS = ('templates',)
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -65,11 +65,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.utils',
-    'apps.core',
     'apps.api',
+    'apps.core',
+    'apps.utils',
 )
 
+# TODO: define custom logging setting
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -90,9 +91,14 @@ LOGGING = {
 
 PLUGIN_FILES = (
     ('js', 'plugin', 'jquery.plugin.js'),
+    ('js', 'plugin', 'Button.js'),
+    ('js', 'plugin', 'Parser.js'),
     ('js', 'plugin', 'plugin.js'),
 )
 PLUGIN_FILENAME = 'plugin.js'
+PLUGIN_CONFIG = {
+    'api-url': 'http://smartlinky/api/',
+}
 
 try:
     from settings_local import *
