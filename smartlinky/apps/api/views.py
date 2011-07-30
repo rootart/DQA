@@ -43,7 +43,6 @@ def init(request):
     
     return response
 
-# TODO: add tests
 @xss_json_response
 def users_links(request):
     """Return all links added by users for a given section.
@@ -89,6 +88,7 @@ def users_links(request):
     
     # page
     url = request.GET['url']
+    
     # section
     html_id = request.GET['section_id']
     
@@ -163,16 +163,13 @@ def qa_links(request):
 #    html_title = request.GET['section_title']
 #    return response
 
-# TODO: reformat docstrings and add sample output
 # TODO: add tests
-
-
-
-
+# TODO: add sample response to docstring
 @csrf_exempt
 @xss_json_response
 def add_link(request):
-    """Create a new link. If the section and page don't exist, it'll create them.
+    """Create a new link in a given section of a documentation page.
+    If the section and page don't exist create them as well.
 
     :param page_title: Title of documentation's page
     :type page_title: str
@@ -189,33 +186,27 @@ def add_link(request):
     :param link_url: URL of new link
     :type link_url: str
     """
-    page_title = request.POST['page_title']
+    # page
     url = request.POST['url']
+    page_title = request.POST['page_title']
+    
+    # section
     section_id = request.POST['section_id']
     section_title = request.POST['section_title']
+    
+    # link
     link_url = request.POST['link_url']
 
     try:
         # Fetch & parse the linked page
         link_title = get_page_title(link_url)
     except:
+        # TODO: convert into a custom APIException
         raise 'No title'
 
-    try:
-        section = Section.objects.get(html_id=section_id, page__url=url)
-    except Section.DoesNotExist:
-        try:
-            page = Page.objects.get(url=url)
-        except Page.DoesNotExist:
-            # Create page
-            page = Page.objects.create(url=url, meta_title=page_title)
-        # Create section     
-        section = Section.objects.create(html_id=section_id, 
-            html_title=section_title, page=page)
-
-    if section:
-        # Create link
-        link = Link.objects.create(url=link_url, title=link_title, section=section)
+    page, created = Page.objects.get_or_create(url=url, defaults={'meta_title': page_title})
+    section, created = Section.objects.get_or_create(html_id=section_id, page=page, defaults={'html_title': section_title})
+    link, created = Link.objects.get_or_create(url=link_url, section=section, defaults={'title': link_title})
 
     response = {
         'id': link.id,
