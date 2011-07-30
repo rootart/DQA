@@ -31,7 +31,7 @@ SITE_ID = 1
 SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = ''
+MEDIA_URL = 'media'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
@@ -90,6 +90,7 @@ LOGGING = {
 
 PLUGIN_FILES = (
     ('js', 'plugin', 'jquery.plugin.js'),
+    ('js', 'plugin', 'Parser.js'),
     ('js', 'plugin', 'plugin.js'),
 )
 PLUGIN_FILENAME = 'plugin.js'
