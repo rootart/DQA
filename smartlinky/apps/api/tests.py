@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import simplejson as json
@@ -103,5 +104,21 @@ class UsersLinksAPITest(APITest):
 #class UserLinksAPITest(APITest):
 #    pass
 #
-#class QALinksAPITest(APITest):
-#    pass
+
+class QALinksAPITest(APITest):
+    
+    def setUp(self):
+        self.path = reverse('api_qa_links')
+        super(QALinksAPITest, self).setUp()
+        
+    def testCache(self):
+        kwargs = {
+            'url': self.section1.page.url,
+            'page_title': self.section1.page.meta_title,
+            'section_id': self.section1.html_id,
+            'section_title': self.section1.html_title,
+        }
+        response = self.get(kwargs)
+        cache_key = '%s%s' % (self.section1.page.url, self.section1.html_id)
+        links = cache.get(cache_key)
+        self.assertNotEquals(links, None)

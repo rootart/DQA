@@ -1,8 +1,11 @@
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Page, Section, Link
+from apps.utils.qa_backends import stackoverflow
 from apps.utils.utils import get_page_title
 
 from decorators import xss_json_response
@@ -20,7 +23,7 @@ def init(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-# TODO: add as sample response to docstring
+#    TODO: add as sample response to docstring
 #    return {
 #        'sections': {
 #            's-queryset-api-reference': 3,
@@ -58,7 +61,7 @@ def users_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-# TODO: add as sample response to docstring
+#    TODO: add as sample response to docstring
 #    return {
 #        'links': [
 #            {
@@ -113,7 +116,6 @@ def users_links(request):
     
     return response
              
-# TODO: add tests
 @xss_json_response
 def qa_links(request):
     """Return a set of QA links for a given section.
@@ -135,33 +137,41 @@ def qa_links(request):
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
+#    TODO: add as sample response to docstring
+#    return  {
+#        'links': [
+#            {
+#                'url': 'http://test.com',
+#                'title': 'Title',
+#            },
+#            {
+#                'url': 'http://example.com',
+#                'title': 'Example',
+#            },
+#            {
+#                'url': 'http://super.com',
+#                'title': 'Super',
+#            },
+#
+#        ]
+#    }
 
-    # TODO: add as sample response to docstring
-    return  {
-        'links': [
-            {
-                'url': 'http://test.com',
-                'title': 'Title',
-            },
-            {
-                'url': 'http://example.com',
-                'title': 'Example',
-            },
-            {
-                'url': 'http://super.com',
-                'title': 'Super',
-            },
+    # page
+    url = request.GET['url']
+    page_title = request.GET['page_title']
+    
+    # section
+    html_id = request.GET['section_id']
+    section_title = request.GET['section_title']
 
-        ]
-    }
-# TODO: implement
-#    # page
-#    url = request.GET['url']
-#    meta_title = request.GET['page_title']
-#    # section
-#    html_id = request.GET['section_id']
-#    html_title = request.GET['section_title']
-#    return response
+    cache_key = '%s%s' % (url, html_id)
+    links = cache.get(cache_key)
+    if links == None:
+        links = stackoverflow.get_links(page_title, section_title)
+        cache.set(cache_key, links, settings.QA_CACHE_TIMEOUT)
+        
+    response = {'links': links}
+    return response
 
 # TODO: add tests
 # TODO: add sample response to docstring
