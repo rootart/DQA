@@ -1,6 +1,7 @@
 @charset "utf-8";
 /******* header **********/
 header {
+	height:80px;
 	padding:28px 0 18px 0;
 }
 header nav ul {
@@ -23,12 +24,20 @@ header nav ul li a:active {
 }
 /******* fine header **********/
 /******* main **********/
-.back_middle {
-	background:url(../imgs/background.jpg) repeat-x;
-	float:left;
+.back_top {
+	background:url('../imgs/back_top.jpg') 0 5px repeat-x;
+}
+.back_middle{
+	background:url('../imgs/background.jpg');
+}
+.back_footer{
+	background:url('../imgs/back_footer.jpg') repeat-x;
 }
 .light {
-	background:url(../imgs/light.jpg) no-repeat;
+	background:url('../imgs/light.jpg') no-repeat;
+}
+#main {
+	padding-bottom:56px;
 }
 #main h1 {
 	color: #fff; 
@@ -134,4 +143,18 @@ article#search #results .res a{
 	padding:4px 10px;
 }
 /******* fine results **********/
-
+/******* footer **********/
+footer{
+	padding-bottom:48px;
+	padding-top:48px;
+}
+footer nav ul{
+	float:right;
+}
+footer nav ul li {
+	display:inline;
+}
+footer nav ul li a{
+	color:#12a9db;
+}
+/******* fine footer **********/
