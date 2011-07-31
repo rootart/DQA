@@ -17,7 +17,7 @@ var Widget = function(section, $button, $section) {
 /* {@ Init methods */
 Widget.prototype.render = function() {
     // Widget box
-    this.$widget = $('<div>').css(style.widget);
+    this.$widget = $('<div>').css(style.widget).hide();
     // Userlinks section
     var userlinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
     $('<li>').css(style.userlinks_title).text('USER LINKS').appendTo(userlinks_container);
@@ -55,7 +55,7 @@ Widget.prototype.loadLinks = function() {
         url: '{{api-url}}' + 'users_links',
         data: {
             url: window.location.href,
-            section_id: $section.attr('id')
+            section_id: this.section.id
         },
         dataType: 'json',
         success: $.proxy(this, 'handleUserLinksData')
@@ -65,7 +65,7 @@ Widget.prototype.loadLinks = function() {
         url: '{{api-url}}' + 'qa_links',
         data: {
             url: window.location.href,
-            section_id: $section.attr('id'),
+            section_id: this.section.id,
             page_title: document.title,
             section_title: this.section.title
 
@@ -151,6 +151,13 @@ Widget.prototype.close = function(e) {
     }
     this.$widget.hide(); 
 };
+
+Widget.prototype.toggle = function(e) {
+    if (e) {
+        e.preventDefault();
+    }
+    this.$widget.toggle(); 
+}
 
 Widget.prototype.addLink = function(e) {
     if (e) {
