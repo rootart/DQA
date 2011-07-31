@@ -1,12 +1,10 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
-from django.views.generic.simple import direct_to_template
 
 
 urlpatterns = patterns('',
     url(r'^api/', include('apps.api.urls')),
-    url(r'^$', direct_to_template, {'template': 'index.html'}, name='index'),
-    url(r'^about$', direct_to_template, {'template': 'about.html'}, name='about'),
+    url(r'^', include('apps.site.urls')),
 )
 
 if settings.DEBUG:
