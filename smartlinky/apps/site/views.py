@@ -20,7 +20,9 @@ def index(request):
 
 # TODO: tests
 # TODO: docstrings
+# TODO: caching
 #@cache_page(60*60)
+@never_cache
 def about(request):
     """
     """
