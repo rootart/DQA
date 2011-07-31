@@ -10,18 +10,8 @@ var Button = function(section, section_id, count) {
 };
 
 Button.prototype.render = function() {
-    var $wrapper = $('<div>').css({
-        position: 'relative',
-        height: '0px'
-    });
-    this.$button = $('<div>').css({
-        position: 'absolute',
-        background: '#000',
-        color: '#fff',
-        padding: '8px',
-        'z-index': 200,
-
-    });
+    var $wrapper = $('<div>').css(style.wrapper);
+    this.$button = $('<div>').css(style.button);
     if (this.count) {
         this.$button.text(this.count);
     } else {
