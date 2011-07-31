@@ -27,6 +27,6 @@ Button.prototype.handleClick = function(e) {
     if (!this.widget) {
         this.widget = new Widget(this.section, this.$button, this.$section);
     }
-
-    this.widget.open();
+    
+    this.widget.toggle();
 };
