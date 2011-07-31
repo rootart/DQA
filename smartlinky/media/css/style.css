@@ -66,6 +66,7 @@ article .red_shadow {
 article #extention_chrome {
 	margin-top:25px;
 	margin-bottom:25px;
+	margin-right:15px;
 }
 article #extention_chrome .download_chrome_blu {
 	background: rgb(15,150,199);
@@ -98,7 +99,7 @@ article #feeds {
 	float:right;
 	background:#fff;
 	border:1px solid #227895;
-	margin-top:15px 10px 10px 10px;
+	margin:15px 10px 10px 10px;
 }
 article #feeds ul li  {
 	background:url("../imgs/virgolette.png") no-repeat scroll 5px 8px transparent;
