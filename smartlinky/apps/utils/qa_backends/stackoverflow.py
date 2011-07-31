@@ -18,31 +18,53 @@ def remove_html_tags(data):
 # TODO: add comments and credits according to http://stackapps.com/questions/198/py-stackexchange-an-api-wrapper-for-python
 # TODO: docstrings
 # TODO: tests
-def get_links_via_API(page_title, section_title):
-    search_query = '%s %s' % (page_title, section_title)
+# TODO: limit the number of results via API
+def get_links_via_API(search_query):
     search_results = SO.search(intitle=smart_str(search_query), pagesize=5).items
     links = [{'url': sr.url, 'title': remove_html_tags(sr.title)} for sr in search_results]
-    return links[:settings.QA_LINKS_COUNT]
+    return links
 
 # TODO: docstrings
 # TODO: tests
-def get_links_via_google(page_title, section_title):
-    search_query = '%s %s' % (page_title, section_title)
-    url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s%s' % (urllib.urlencode({'q': smart_str(search_query)}), urllib.urlencode({'site': 'stackoverflow.com'}))
+# TODO: limit the number of results via API
+def get_links_via_google(search_query, site='http://stackoverflow.com'):
+    get_params = urllib.urlencode({'q': smart_str(search_query)})
+    if site:
+        get_params += urllib.urlencode({'site': site})
+    url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s' % get_params
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     search_results = json.load(response)['responseData']['results']
     links = [{'url': sr['url'], 'title': remove_html_tags(sr['title'])} for sr in search_results]
-    return links[:settings.QA_LINKS_COUNT]
+    return links
 
 # TODO: docstrings
 # TODO: tests
 def get_links(page_title, section_title):
     """Switch between querying StackOverflow via it's API or via Google."""
+    # HACK: until we figure out how to query more precisely then google might give more results
     _get_links = get_links_via_google if settings.STACKOVERFLOW_VIA_GOOGLE else get_links_via_API
-    links = _get_links(page_title, section_title)
-    if not links:
-        links = _get_links('', section_title)
-    if not links:
-        links = _get_links(page_title, '')
-    return links     
+    
+    # most precise search
+    links = _get_links(''.join((page_title, section_title)))[:settings.QA_LINKS_COUNT]
+    
+    need_more = len(links) - settings.QA_LINKS_COUNT
+    if need_more > 0 :
+        # only section_title
+        links.extend(_get_links(section_title)[:need_more])
+    else:
+        return links 
+
+    need_more = len(links) - settings.QA_LINKS_COUNT
+    if need_more > 0 :
+        # only page_title
+        links.extend(_get_links(page_title)[:need_more])
+    else:
+        return links
+        
+    need_more = len(links) - settings.QA_LINKS_COUNT
+    if need_more > 0 :
+        # via google without http://stackoverflow.com site
+        links.extend(get_links_via_google(''.join((page_title, section_title)), site=None)[:need_more])
+
+    return links

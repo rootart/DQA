@@ -147,7 +147,7 @@ class UsersLinksAPITest(APITest):
         }
         response = self.get(kwargs)
         links = []
-        for link in self.section2.links.all().order_by('up_votes'):
+        for link in self.section2.links.all().order_by('-up_votes'):
             links.append({
                 'id': link.id,
                 'url': link.url,
