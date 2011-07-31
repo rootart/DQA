@@ -39,6 +39,7 @@ var style = {
         'background-clip': 'padding-box'
     },
     'list': {
+	listStyle: 'none',
 	color: '#404646',
 	fontSize: '16px',
 	height: '20px',
@@ -97,6 +98,7 @@ var style = {
         'border-right': '1px solid #46B0D1',
         'border-top': '1px solid #46B0D1',
         'background': 'none repeat scroll 0 0 #85D1E9',
+		listStyle: 'none',
         'display': 'inline'
     },
     'userlinks_list': {
@@ -123,10 +125,10 @@ var style = {
         'font-weight': 'bold',
         'padding': '6px 10px 11px',
         'text-transform': 'uppercase',
-        'border-left': '1px solid #46B0D1',
-        'border-right': '1px solid #46B0D1',
-        'border-top': '1px solid #46B0D1',
-        'background': 'none repeat scroll 0 0 #85D1E9',
+        'border-left': '1px solid #BEBEBE',
+        'border-right': '1px solid #BEBEBE',
+        'border-top': '1px solid #BEBEBE',
+        'background': 'none repeat scroll 0 0 #E3E3E3',
         'display': 'inline' 
     },
     'qalinks_list': {
