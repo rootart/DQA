@@ -9146,13 +9146,15 @@ var style = {
     },
     'container': {
         position: 'absolute',
-        right: '-60px',
+        right: '-32px',
+        'top': '-16px',
         fontFamily: 'Arial, "Helvetica", sans-serif',
         fontSize: '11px'
     },
     'button': {
         'float': 'right',
         background: 'transparent url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
+        opacity: '0.5',
         height: '34px',
         width: '14px',
         padding: '6px 6px 6px 27px',
@@ -9313,10 +9315,16 @@ style.button_active = $.extend({}, style.button, {
     borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
     borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
     margin: '0px',
-    background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px'
+    background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
+    opacity: '1',
 });
 
-
+/**
+ * Basic button widget.
+ *
+ * Every section on the page has a button. The button initializes the smartlinky
+ * widget (after click event).
+ */
 var Button = function(section, section_id, count) {
     this.section = section;
     this.$section = $('#' + section_id);
@@ -9364,6 +9372,10 @@ var Widget = function(section, $button, $section) {
 };
 
 /* {@ Init methods */
+
+/**
+ *
+ */
 Widget.prototype.render = function() {
     // Widget box
     this.$widget = $('<div>').css(style.widget).hide();
@@ -9439,7 +9451,9 @@ Widget.prototype.handleUserLinksData = function(data) {
         for (var i = 0; i < data.links.length; i++) {
             this.insertLink(data.links[i]);
         }
-    }    
+    } else {
+        this.noLinksMessage();
+    }
 };
 
 Widget.prototype.insertLink = function(linkData) {
@@ -9462,12 +9476,15 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .data('up-votes', linkData.up_votes)
             .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;
                 $.post("http://smartlinky.com/api/vote_up", {'id': $(this).data('link-id')}, function(){
-                    $(star).remove();
+                    var up_votes = parseInt($(star).data('up-votes'), 10) + 1;
+                    $(star).data('up-votes', up_votes);
+                    $(star).text('('+ up_votes + ')');
                 });
             });
         //    .text(linkData.up_votes);
@@ -9498,6 +9515,10 @@ Widget.prototype.handleQALinksData = function(data) {
         }
     }    
 };
+
+Widget.prototype.noLinksMessage = function() {
+    $('<li>').css(style.list_item).text('No links added yet.').appendTo(this.$userlinks);
+}
 
 
 /**
@@ -9542,9 +9563,9 @@ Widget.prototype.addLink = function(e) {
 
     this.$addWidget = $('<div>').css({
         padding: '8px',
-		background: '#fbf2a4',
-		marginLeft: '4px',
-		marginBottom: '25px'
+        background: '#fbf2a4',
+        marginLeft: '4px',
+        marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
@@ -9559,9 +9580,9 @@ Widget.prototype.addLink = function(e) {
         name: 'submit',
         value: 'Submit'
     }).css(
-		style.add_button).css( 
-		'margin-top', '0px'
-	));
+        style.add_button).css( 
+        'margin-top', '0px'
+    ));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
@@ -9586,7 +9607,8 @@ Widget.prototype.handleNewLinkSubmit = function(e) {
 
 Widget.prototype.handleAddLinkSuccess = function(data) {
     this.insertLink(data);
-}
+    this.$addWidget.remove();
+};
 var Parser = function() {
     this.sections = {};
 };
@@ -9612,6 +9634,12 @@ Parser.prototype.match = function(key, section) {
 };
 
 (function($){$(function(){
+    if (document.smartlinky_loaded === true) {
+        // Avoid conflicts
+        return;
+    }
+    document.smartlinky_loaded = true;
+
     var parser = new Parser();
     parser.parse();
     //Initialize
