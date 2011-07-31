@@ -57,6 +57,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'smartlinky.urls'
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -65,6 +66,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'apps.api',
     'apps.core',
+    'apps.site',
     'apps.utils',
 )
 
