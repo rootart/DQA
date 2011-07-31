@@ -135,14 +135,10 @@ Widget.prototype.insertLink = function(linkData) {
 
         if (linkData.is_relevant) {
             this.$userlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-relevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-relevant');
         } else {
             this.$irrelevantlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-irrelevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-irrelevant');
         }
     } else {
         $wrapper.css(style.qalinks_element);
