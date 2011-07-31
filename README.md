@@ -53,12 +53,12 @@ Therefore it's important to generate this file after the deployment.
 
 The generation process uses 3 settings variables:
 > PLUGIN_FILES
->> The file paths, that are compiled to one file
+> > The file paths, that are compiled to one file
 
 > PLUGIN_FILENAME
->> Filename of generated/compiled file
+> > Filename of generated/compiled file
 
 > PLUGIN_CONFIG
->> Configuration for javascript code
+> > Configuration for javascript code
 
 The settings for the production environment can be found in settings.py.
