@@ -1,7 +1,7 @@
-smartlinky/site_media/media/plugin.js
-smartlinky/site_media/media/plugin.min.js
+smartlinky/media/plugin.js
+smartlinky/media/plugin.min.js
 smartlinky/settings_local.py
 smartlinky/sqlite3.db
 smartlinky/logs/*.log
-smartlinky/site_media/static
+smartlinky/site_media
 *pyc

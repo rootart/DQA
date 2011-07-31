@@ -31,11 +31,11 @@ SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'media')
 MEDIA_URL = '/site_media/media/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'static')
-STATIC_URL = '/site_media/static/'
+STATIC_URL = '/site_media/media/'
 ADMIN_MEDIA_PREFIX = '/site_media/static/admin/'
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'site_media', 'media')
+    os.path.join(PROJECT_ROOT, 'media')
 ]
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
