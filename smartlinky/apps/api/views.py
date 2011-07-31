@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -17,6 +18,8 @@ from forms import AddLinkForm
 def init(request):
     """Return number of user links for known sections of a documentation page.
     
+    GET type request.
+
     :param url: url of the documentation page
     :type url: str
     
@@ -52,6 +55,8 @@ def init(request):
 def users_links(request):
     """Return all links added by users for a given section.
     
+    GET type request.
+
     :param url: url of the documentation page containing the section
     :type url: str
     
@@ -106,12 +111,13 @@ def users_links(request):
             'is_relevant': link.is_relevant,
             'up_votes': link.up_votes,
         })
-    
     return response
              
 @xss_json_response
 def qa_links(request):
     """Return a set of QA links for a given section.
+    
+    GET type request.
     
     :param url: url of the documentation page containing the section
     :type url: str
@@ -153,16 +159,20 @@ def qa_links(request):
         links = stackoverflow.get_links(page_title, section_title)
         cache.set(cache_key, links, settings.QA_CACHE_TIMEOUT)
         
+    # TODO: fill up to 5 with links from google for "page_title Q&A" 
     response = {'links': links}
     return response
 
-# TODO: add sample response to docstring
+# TODO: add error responses to docstring
+# TODO: limit calls per ip in time
 @require_POST
 @csrf_exempt
 @xss_json_response
 def add_link(request):
     """Create a new link in a given section of a documentation page.
     If the section and page don't exist create them as well.
+
+    POST type request.
 
     :param page_title: Title of documentation's page
     :type page_title: str
@@ -178,6 +188,14 @@ def add_link(request):
 
     :param link_url: URL of new link
     :type link_url: str
+    
+    :returns:  dict
+    
+    :example:
+        {'id': 7,
+        'url': 'http://one.to.rule_them.al/l,
+        'title': 'Knights of Foo Bar,
+        'is_relevant': True,}
     """
     form = AddLinkForm(request.POST)
     if form.is_valid():
@@ -200,29 +218,71 @@ def add_link(request):
             'is_relevant': True,
         }
         return response
-    #TODO: better message
+    # TODO: convert into a custom APIException
+    # TODO: better message
     raise Exception('problem!')
 
 # TODO: docs
 # TODO: samples
 # TODO: tests
 # TODO: implement
+# TODO: limit calls per ip for a link id in time
 @require_POST
 @csrf_exempt
 @xss_json_response
 def vote_up(request):
+    """Increment the 'up_votes' count for a link.
+    
+    POST type request.
+    
+    :param : id of a link
+    :type : int
+    
+    :returns: dict
+    
+    :example:
+        {}
     """
-    """
+    link_id = int(request.POST['id'])
+    link = get_object_or_404(Link, id=link_id)
+    link.incr_vote_up()
+    link.save()
     return {}
 
 # TODO: docs
 # TODO: samples
 # TODO: tests
 # TODO: implement
+# TODO: limit calls per ip for a link id in time
 @require_POST
 @csrf_exempt
 @xss_json_response
 def set_relevant(request):
+    """Set the 'is_relevant' flag of a link.
+    
+    POST type request.
+    
+    :param : id of a link
+    :type : int
+    
+    :param : is_relevant
+    :values : 0 or 1
+    :type : int
+    
+    :returns: dict
+    
+    :example:
+        {}
     """
-    """
+    link_id = int(request.POST['id'])
+    is_relevant = int(request.POST['is_relevant'])
+    
+    if not is_relevant in [0, 1]:
+        # TODO: convert into a custom APIException
+        # TODO: better message
+        raise Exception('invalid format')
+    
+    link = get_object_or_404(Link, id=link_id)
+    link.set_relevant(bool(is_relevant))
+    link.save()
     return {}
