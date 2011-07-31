@@ -3,13 +3,13 @@
     <head>
 		<meta charset=utf-8>
 		<title>Smartlinky</title>
-	    <script src="{{ MEDIA_URL }}/js/modernizr-1.7.min.js"></script>
+	    <script src="{{ MEDIA_URL }}js/modernizr-1.7.min.js"></script>
 		
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/css3.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/general.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/grid.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/style.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/css3.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/general.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/grid.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" media="screen" />
     	
     	{% block head_extra %}
         {% endblock head_extra %}
@@ -31,8 +31,10 @@
 			</header>
 		</div>
 		<section id="main" class="back_middle big_row">
-                {% block main %}
+			<div class="row light">
+			   {% block main %}
                 {% endblock %}
+			</div>
 		</section>
 		<div class="clear"></div>
 		<footer class="back_footer">

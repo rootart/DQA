@@ -11,84 +11,10 @@ var Widget = function(section, $button, $section) {
     this.$irrelevantlinks = null;
 
     this.render();
-    $.ajax({
-        url: '{{api-url}}' + 'users_links',
-        data: {
-            url: window.location.href,
-            section_id: $section.attr('id')
-        },
-        dataType: 'json',
-        success: $.proxy(this, 'handleUserLinksData')
-    });
-    $.ajax({
-        url: '{{api-url}}' + 'qa_links',
-        data: {
-            url: window.location.href,
-            section_id: $section.attr('id'),
-            page_title: document.title,
-            section_title: this.section.title
-
-        },
-        dataType: 'json',
-        success: $.proxy(this, 'handleQALinksData')
-    });
+    this.loadLink();
 };
 
-Widget.prototype.handleUserLinksData = function(data) {
-    this.$userlinks.empty();
-    this.$irrelevantlinks.empty();
-    if (data.links.length) {
-        for (var i = 0; i < data.links.length; i++) {
-            this.insertLink(data.links[i]);
-        }
-    }    
-};
-
-Widget.prototype.insertLink = function(linkData) {
-    var $wrapper = $('<div>')
-        .css({});
-
-
-    //Link
-    var $link = $('<a>')
-        .css({})
-        .attr('href', linkData.url)
-        .text(linkData.title);
-    $wrapper.append($link);
-
-    if (linkData.id) {
-        // Up votes counter
-        var $up_votes = $('<span>')
-            .css({})
-            .text(linkData.up_votes);
-        $wrapper.append($up_votes);
-
-        if (linkData.is_relevant) {
-            this.$userlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-relevant').draggable({
-                revert: "invalid"
-            });
-        } else {
-            this.$irrelevantlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-irrelevant').draggable({
-                revert: "invalid"
-            });
-        }
-    } else {
-        this.$qalinks.append($wrapper);
-    }
-}
-
-Widget.prototype.handleQALinksData = function(data) {
-    this.$qalinks.empty();
-    if (data.links.length) {
-        for (var i = 0; i < data.links.length; i++) {
-            this.insertLink(data.links[i]); 
-        }
-    }    
-};
-
-
+/* {@ Init methods */
 Widget.prototype.render = function() {
     // Widget box
     this.$widget = $('<div>').css({
@@ -149,6 +75,92 @@ Widget.prototype.render = function() {
     this.$button.before(this.$widget);
 };
 
+Widget.prototype.loadLinks = function() {
+    // Load Users Links
+    $.ajax({
+        url: '{{api-url}}' + 'users_links',
+        data: {
+            url: window.location.href,
+            section_id: $section.attr('id')
+        },
+        dataType: 'json',
+        success: $.proxy(this, 'handleUserLinksData')
+    });
+    // Load Q&A Links
+    $.ajax({
+        url: '{{api-url}}' + 'qa_links',
+        data: {
+            url: window.location.href,
+            section_id: $section.attr('id'),
+            page_title: document.title,
+            section_title: this.section.title
+
+        },
+        dataType: 'json',
+        success: $.proxy(this, 'handleQALinksData')
+    });
+};
+/* Init methods @} */
+
+
+Widget.prototype.handleUserLinksData = function(data) {
+    this.$userlinks.empty();
+    this.$irrelevantlinks.empty();
+    if (data.links.length) {
+        for (var i = 0; i < data.links.length; i++) {
+            this.insertLink(data.links[i]);
+        }
+    }    
+};
+
+Widget.prototype.insertLink = function(linkData) {
+    var $wrapper = $('<div>')
+        .css({});
+
+
+    //Link
+    var $link = $('<a>')
+        .css({})
+        .attr('href', linkData.url)
+        .text(linkData.title);
+    $wrapper.append($link);
+
+    if (linkData.id) {
+        // Up votes counter
+        var $up_votes = $('<span>')
+            .css({})
+            .text(linkData.up_votes);
+        $wrapper.append($up_votes);
+
+        if (linkData.is_relevant) {
+            this.$userlinks.append($wrapper);
+            $wrapper.addClass('smartlinky-relevant').draggable({
+                revert: "invalid"
+            });
+        } else {
+            this.$irrelevantlinks.append($wrapper);
+            $wrapper.addClass('smartlinky-irrelevant').draggable({
+                revert: "invalid"
+            });
+        }
+    } else {
+        this.$qalinks.append($wrapper);
+    }
+}
+
+Widget.prototype.handleQALinksData = function(data) {
+    this.$qalinks.empty();
+    if (data.links.length) {
+        for (var i = 0; i < data.links.length; i++) {
+            this.insertLink(data.links[i]); 
+        }
+    }    
+};
+
+
+/**
+ * Open widget
+ */
 Widget.prototype.open = function(e) {
     if (e) {
         e.preventDefault();
@@ -156,6 +168,9 @@ Widget.prototype.open = function(e) {
     this.$widget.show();
 };
 
+/**
+ * Close widget
+ */
 Widget.prototype.close = function(e) {
     if (e) {
         e.preventDefault();

@@ -3,3 +3,4 @@ sphinx==1.0.7
 py-stackexchange
 beautifulsoup
 gondor==1.0b1.post9
+BeautifulSoup==3.2.0
