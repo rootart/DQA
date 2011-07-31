@@ -23,7 +23,7 @@ def create_sample_link(section, **kwargs):
     link = Link.objects.create(section=section, **kwargs)
     return link
 
-# TODO: move those fixtures to json fixtures
+# TODO: move json fixtures
 SAMPLE_DOCUMENTATIONS = {
     'djangodocs': {
         'url': 'https://docs.djangoproject.com/en/1.3/',
@@ -35,6 +35,7 @@ SAMPLE_DOCUMENTATIONS = {
     },
 }    
 
+# TODO: move json fixtures
 SAMPLE_PAGES = {
     'pythondocs_intro': {
         'url': 'http://docs.python.org/library/intro.html',
@@ -47,6 +48,7 @@ SAMPLE_PAGES = {
     },
 }
 
+# TODO: move json fixtures
 SAMPLE_SECTIONS = {
     'pythondocs_builtins_built-in-functions': {
         'html_id': 'built-in-functions',
@@ -62,14 +64,17 @@ SAMPLE_SECTIONS = {
     },
 }
 
+# TODO: move json fixtures
 SAMPLE_LINKS = {
     'link1': {
         'url': 'http://www.joelonsoftware.com/articles/fog0000000069.html',
         'title': 'Things You Should Never Do, Part I',
+        'is_relevant': False, 
     },
     'link2': {
         'url': 'http://rhettinger.wordpress.com/2011/01/28/open-your-source-more/',
         'title': 'Open Source Challenge: Open Your Source, More',
+        'is_relevant': True, 
     },
     'link3': {
         'url': 'http://xkcd.com/162/',
@@ -77,7 +82,7 @@ SAMPLE_LINKS = {
     },
 }
 
-
+# TODO: docstrings
 class DocumentationTestCase(TestCase):
     
     def setUp(self):
@@ -90,6 +95,7 @@ class DocumentationTestCase(TestCase):
         pythondocs = create_sample_documentation(**SAMPLE_DOCUMENTATIONS['pythondocs'])
         self.assertNotEqual(pythondocs, None)
         
+# TODO: docstrings
 class PageTestCase(TestCase):
     
     def setUp(self):
@@ -102,6 +108,7 @@ class PageTestCase(TestCase):
         pythondocs_builtins = create_sample_page(**SAMPLE_PAGES['pythondocs_builtins'])
         self.assertNotEqual(pythondocs_builtins, None) 
 
+# TODO: docstrings
 class SectionTestCase(TestCase):
     
     def setUp(self):
@@ -115,6 +122,7 @@ class SectionTestCase(TestCase):
         pythondocs_builtins_non_essential_built_in_functions = create_sample_section(self.page, **SAMPLE_SECTIONS['pythondocs_builtins_non-essential-built-in-functions'])
         self.assertNotEqual(pythondocs_builtins_non_essential_built_in_functions, None)
 
+# TODO: docstrings
 class LinkTestCase(TestCase):
     
     def setUp(self):
