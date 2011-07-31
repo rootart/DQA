@@ -56,10 +56,10 @@ var style = {
 	marginTop: '0px'
     },
     'widget': {
-	background: '#f3f3f3 url("{{media-url}}imgs/logo_small_widget.png") no-repeat 95% 95%',
+	background: '#f3f3f3 ',
     margin: '0 47px 0 0',
     border: 'rgba(187, 187, 187, 0.4) 8px solid',
-	padding: '10px 10px 80px',
+	padding: '10px 10px 70px',
     '-moz-background-clip': 'padding',    
     '-webkit-background-clip': 'padding', 
     'background-clip': 'padding-box'
@@ -159,7 +159,13 @@ var style = {
 		color: '#404646'
     },
     'logo_small': {
-        'float': 'right'
+        'float': 'right',
+        background: 'url("{{media-url}}imgs/logo_small_widget.png") no-repeat',
+        width: '98px',
+        height: '15px',
+        clear: 'both',
+        display: 'block',
+        marginTop: '17px'
     },
     'star': {
         'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll center bottom transparent',

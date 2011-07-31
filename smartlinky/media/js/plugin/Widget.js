@@ -43,6 +43,15 @@ Widget.prototype.render = function() {
         }
     });
 
+    // Add small smartlinky logo
+    $('<a>')
+        .attr({
+            href: 'http://smartlinky.com',
+            target: '_blank'
+        })
+        .css(style.logo_small)
+        .appendTo(this.$widget);
+
     this.$button.after(this.$widget);
 };
 
