@@ -77,12 +77,12 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'file_smartlinky': {  
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler', 
-            'formatter': 'verbose',  
-            'filename': os.path.join(PROJECT_ROOT, 'logs', 'smartlinky.log')
-        },
+        #'file_smartlinky': {  
+        #    'level': 'DEBUG',
+        #    'class': 'logging.FileHandler', 
+        #    'formatter': 'verbose',  
+        #    'filename': os.path.join(PROJECT_ROOT, 'logs', 'smartlinky.log')
+        #},
 
     },
     'formatters': {
@@ -97,7 +97,7 @@ LOGGING = {
             'propagate': True,
         },
         'smartlinky': {
-            'handlers': ['file_smartlinky'],
+            'handlers': ['mail_admins'],
             'level': 'DEBUG',
             'propagate': True,
         }, 
@@ -107,6 +107,7 @@ LOGGING = {
 PLUGIN_FILES = (
     ('js', 'plugin', 'jquery.plugin.js'),
     ('js', 'plugin', 'jquery-ui.js'),
+    ('js', 'plugin', 'style.js'),
     ('js', 'plugin', 'Button.js'),
     ('js', 'plugin', 'Widget.js'),
     ('js', 'plugin', 'Parser.js'),
