@@ -35,8 +35,8 @@ li.no_pipe {
 	border-left:none;
 }
 a {	color:#424848;	text-decoration:none;}
-a:hover, a:focus { }
-a:active, a:visited { }
+a:hover, a:focus { outline:none; }
+a:active, a:visited { outline:none;}
 
 blockquote {
 		font-family: Georgia,"Times New Roman", Times, serif; 

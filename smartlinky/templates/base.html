@@ -10,8 +10,11 @@
 		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/general.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/grid.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" media="screen" />
-    	
-    	{% block head_extra %}
+    	<!--[if lt IE 9]>
+				<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ie.css" />
+			<![endif]-->
+		{% block head_extra %}
+			
         {% endblock head_extra %}
                 
 	</head>
