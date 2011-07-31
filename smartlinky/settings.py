@@ -31,7 +31,7 @@ SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'media')
 MEDIA_URL = '/site_media/media/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'static')
-STATIC_URL = '/site_media/media/'
+STATIC_URL = '/site_media/static/'
 ADMIN_MEDIA_PREFIX = '/site_media/static/admin/'
 
 STATICFILES_DIRS = [
@@ -46,6 +46,13 @@ TEMPLATE_DIRS = ('templates',)
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
 )
 
 MIDDLEWARE_CLASSES = (
