@@ -20,20 +20,20 @@ def init(request):
     :param url: url of the documentation page
     :type url: str
     
-    :returns:  dict
+    :returns: dict
+    
+    :example:
+        {
+        'sections': {
+        's-queryset-api-reference': 3,
+        's-when-querysets-are-evaluated': 5,
+        's-pickling-querysets': 2
+        }
+        }
 
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-#    TODO: add as sample response to docstring
-#    return {
-#        'sections': {
-#            's-queryset-api-reference': 3,
-#            's-when-querysets-are-evaluated': 5,
-#            's-pickling-querysets': 2
-#        }
-#    }
-    
     # page
     url = request.GET['url']
     
@@ -58,39 +58,30 @@ def users_links(request):
     :param section_id: id of the html tag containing the section
     :type section_id: str
 
-    :returns:  dict
+    :returns: dict
+
+    :example:
+        {'links': [{
+        'id': 12,
+        'url': 'http://test.com',
+        'title': 'Title',
+        'is_relevant': True,
+        'up_votes': 5,}, {
+        'id': 17,
+        'url': 'http://example.com',
+        'title': 'Example',
+        'is_relevant': True,
+        'up_votes': 2,}, {
+        'id': 14,
+        'url': 'http://super.com',
+        'title': 'Super',
+        'is_relevant': False,
+        'up_votes': 2,},]}
+    
 
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-#    TODO: add as sample response to docstring
-#    return {
-#        'links': [
-#            {
-#                'id': 12,
-#                'url': 'http://test.com',
-#                'title': 'Title',
-#                'is_relevant': True,
-#                'up_votes': 5,
-#            },
-#            {
-#                'id': 17,
-#                'url': 'http://example.com',
-#                'title': 'Example',
-#                'is_relevant': True,
-#                'up_votes': 2,
-#            },
-#            {
-#                'id': 14,
-#                'url': 'http://super.com',
-#                'title': 'Super',
-#                'is_relevant': False,
-#                'up_votes': 2,
-#            },
-#
-#        ]
-#    }
-    
     # page
     url = request.GET['url']
     
@@ -135,29 +126,19 @@ def qa_links(request):
     :type section_title: str
 
     :returns:  dict
+    
+    :example:
+        {'links': [{
+        'url': 'http://test.com',
+        'title': 'Title',}, {
+        'url': 'http://example.com',
+        'title': 'Example',}, {
+        'url': 'http://super.com',
+        'title': 'Super',},]}
 
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
     """
-#    TODO: add as sample response to docstring
-#    return  {
-#        'links': [
-#            {
-#                'url': 'http://test.com',
-#                'title': 'Title',
-#            },
-#            {
-#                'url': 'http://example.com',
-#                'title': 'Example',
-#            },
-#            {
-#                'url': 'http://super.com',
-#                'title': 'Super',
-#            },
-#
-#        ]
-#    }
-
     # page
     url = request.GET['url']
     page_title = request.GET['page_title']
@@ -206,6 +187,7 @@ def add_link(request):
             link_title = get_page_title(form.cleaned_data['link_url'])
         except Exception, e:
             # TODO: convert into a custom APIException
+            # TODO: better message
             raise Exception('No title')
 
         page, created = Page.objects.get_or_create(url=form.cleaned_data['url'], defaults={'meta_title': form.cleaned_data['page_title']})
