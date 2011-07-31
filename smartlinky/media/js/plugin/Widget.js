@@ -100,7 +100,10 @@ Widget.prototype.insertLink = function(linkData) {
     //Link
     var $link = $('<a>')
         .css(style.link)
-        .attr('href', linkData.url)
+        .attr({
+            href: linkData.url,
+            target: '_blank' 
+        })
         .text(linkData.title);
     $wrapper.append($link);
 
