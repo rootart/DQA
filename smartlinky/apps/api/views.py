@@ -8,12 +8,13 @@ from django.views.decorators.http import require_POST
 
 from apps.core.models import Page, Section, Link
 from apps.utils.qa_backends import stackoverflow
-from apps.utils.utils import get_page_title
+from apps.utils.utils import get_page_title, check_req_lim, update_req_lim
 
 from decorators import xss_json_response
 from forms import AddLinkForm
 
 
+@never_cache
 @xss_json_response
 def init(request):
     """Return number of user links for known sections of a documentation page.
@@ -51,6 +52,7 @@ def init(request):
     
     return response
 
+@never_cache
 @xss_json_response
 def users_links(request):
     """Return all links added by users for a given section.
@@ -165,8 +167,8 @@ def qa_links(request):
 
 # TODO: limit of 10 calls per IP in 60 seconds
 @never_cache 
-@require_POST
 @csrf_exempt
+@require_POST
 @xss_json_response
 def add_link(request):
     """Create a new link in a given section of a documentation page.
@@ -197,6 +199,9 @@ def add_link(request):
         'title': 'Knights of Foo Bar,
         'is_relevant': True,}
     """
+    req_lim_key = 'add_link' 
+    check_req_lim(request, req_lim_key)
+    
     form = AddLinkForm(request.POST)
     if form.is_valid():
         try:
@@ -217,16 +222,15 @@ def add_link(request):
             'is_relevant': True,
             'up_votes': link.up_votes,
         }
+        update_req_lim(request, req_lim_key)
         return response
     
     error_message = '. '.join("%s: '%s'" % (' '.join(value), key) for key, value in form.errors.items())
     raise Exception(error_message)
 
-# TODO: tests
-# TODO: limit of 10 calls per IP in 60 seconds
 @never_cache 
-@require_POST
 @csrf_exempt
+@require_POST
 @xss_json_response
 def vote_up(request):
     """Increment the 'up_votes' count for a link.
@@ -252,16 +256,19 @@ def vote_up(request):
     except Link.DoesNotExist:
         error_message = "A Link with id %s does not exist." % link_id
         raise Exception(error_message)
-
+    
+    req_lim_key = 'vote_up.%s' % link_id
+    check_req_lim(request, req_lim_key)
+    
     link.incr_up_votes()
     link.save()
     
+    update_req_lim(request, req_lim_key)
     return {'up_votes': link.up_votes}
 
-# TODO: limit of 10 calls per IP in 60 seconds
 @never_cache 
-@require_POST
 @csrf_exempt
+@require_POST
 @xss_json_response
 def set_relevant(request):
     """Set the 'is_relevant' flag of a link.
@@ -286,6 +293,9 @@ def set_relevant(request):
         error_message = "Value of 'id' must be an integer."
         raise Exception(error_message)
     
+    req_lim_key = 'set_relevant.%s' % link_id
+    check_req_lim(request, req_lim_key)
+    
     try:
         is_relevant = int(request.POST['is_relevant'])
     except ValueError:
@@ -304,4 +314,6 @@ def set_relevant(request):
     
     link.set_relevant(bool(is_relevant))
     link.save()
+    
+    update_req_lim(request, req_lim_key)
     return {}

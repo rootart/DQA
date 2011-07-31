@@ -13,14 +13,16 @@ def index(request):
     """Main view of the site that also performs link feed."""
     
     ctx = {} 
-    recent_links = Link.objects.all().order_by('created_at')[:4]
+    recent_links = Link.objects.all().order_by('-created_at')[:4]
     ctx['feeds'] = recent_links
     
     return render_to_response('site/index.html', ctx, context_instance=RequestContext(request))
 
 # TODO: tests
 # TODO: docstrings
+# TODO: caching
 #@cache_page(60*60)
+@never_cache
 def about(request):
     """
     """

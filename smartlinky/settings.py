@@ -136,6 +136,8 @@ STACKOVERFLOW_VIA_GOOGLE = True
 # this is not secret 
 GOOGLE_API_KEY = 'ABQIAAAA0rO84wkZ2K-mInSO_vPD-hTnbcKH7GRJu-fwtfJOSK5HyrXTWxTonFGxc8s-ltXoUcS8s_gIVMAytQ'
 
+REQUESTS_RATE_LIMIT = 3 # requests not more frequent than 1 per REQUESTS_RATE_LIMIT seconds
+
 try:
     from settings_local import *
 except ImportError:
