@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import simplejson as json
 
+from apps.core.models import Link, Section, Page
 from apps.core.tests import create_sample_documentation, create_sample_page, create_sample_section, create_sample_link, \
     SAMPLE_DOCUMENTATIONS, SAMPLE_PAGES, SAMPLE_SECTIONS, SAMPLE_LINKS
 
@@ -24,11 +25,37 @@ class APITest(TestCase):
         self.link3 = create_sample_link(self.section2, **SAMPLE_LINKS['link3'])
     
     def get(self, data={}, *args, **kwargs):
-        return self.client.get(self.path, data, *args, **kwargs)
+        response = self.client.get(self.path, data, *args, **kwargs)
+        # HACK: read above def refresh_objects(self)
+        self.refresh_objects()
+        return response
 
     def post(self, data, *args, **kwargs):
-        return self.client.post(self.path, data, *args, **kwargs)
+        response = self.client.post(self.path, data, *args, **kwargs)
+        # HACK: read above def refresh_objects(self)
+        self.refresh_objects()
+        return response
     
+    # TODO: investigate and fix the issue with objects not being fetched from db
+    #    steps to reproduce:
+    #    1. remove self.refresh_objects() from def post(self, data, *args, **kwargs)
+    #    2. remove self.refresh_objects() from def get(self, data={}, *args, **kwargs)
+    #    3. run tests for the 'api' app
+    def refresh_objects(self):
+        try:
+            self.page1 = Page.objects.get(pk=self.page1.pk)
+            self.page2 = Page.objects.get(pk=self.page2.pk)
+            self.page3 = Page.objects.get(pk=self.page3.pk)
+            self.section1 = Section.objects.get(pk=self.section1.pk)
+            self.section2 = Section.objects.get(pk=self.section2.pk)
+            self.section3 = Section.objects.get(pk=self.section3.pk)
+            self.link1 = Link.objects.get(pk=self.link1.pk)
+            self.link2 = Link.objects.get(pk=self.link2.pk)
+            self.link3 = Link.objects.get(pk=self.link3.pk)
+        except:
+            # probably some were removed
+            pass
+
 # TODO: docstrings
 class InitAPITest(APITest):
     
@@ -244,13 +271,43 @@ class QALinksAPITest(APITest):
         self.assertNotEquals(links, None)
         
 # TODO: docstrings
-# TODO: implement
 class VoteUpAPITest(APITest):
     
     def setUp(self):
         self.path = reverse('api_vote_up')
         super(VoteUpAPITest, self).setUp()
+    
+    def testNotIntegerId(self):
+        kwargs = {
+            'id': 'foo',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)
         
+    def testIncrementUpVotes(self):
+        up_votes = self.link1.up_votes
+        kwargs = {
+            'id': self.link1.id,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.link1.up_votes, up_votes + 1)
+                  
+    def testNoLink(self):
+        link_id = self.link1.id
+        Link.objects.all().delete()
+        kwargs = {
+            'id': link_id,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)
+              
 # TODO: docstrings
 class SetRelevantAPITest(APITest):
     
@@ -278,7 +335,6 @@ class SetRelevantAPITest(APITest):
         self.assertEqual(response.status_code, 400)
         self.assertEqual('message' in content_json, True)
 
-    # TODO: fix this test and check others for the same issue
     def testSetRelevantTrue(self):
         kwargs = {
             'id': self.link1.id,
@@ -297,7 +353,6 @@ class SetRelevantAPITest(APITest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.link2.is_relevant, True)
 
-    # TODO: fix this test and check others for the same issue
     def testSetRelevantFalse(self):
         kwargs = {
             'id': self.link1.id,
