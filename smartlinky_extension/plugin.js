@@ -9395,7 +9395,7 @@ Widget.prototype.render = function() {
     $('<li>').css(style.qalinks_title).text("EXTERNAL Q&A's").appendTo(qalinks_container);
     this.$qalinks = $('<ul>').css(style.qalinks_list);
     $('<li>').css(style.list_item).append(this.$qalinks).appendTo(qalinks_container);
-    $('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
+    //$('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
 
     // Irrelevant links section
     this.$irrelevantlinks = $('<ul>').droppable({
@@ -9476,15 +9476,17 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
-            .data('up-votes', linkData.up_votes)
-            .text('(' + linkData.up_votes + ')')
-            .click(function(e){
+            .text('(' + linkData.up_votes + ')');
+        $up_votes.click(function(e){
                 e.preventDefault();
-                var star = this;
-                $.post("http://smartlinky.com/api/vote_up", {'id': $(this).data('link-id')}, function(){
-                    var up_votes = parseInt($(star).data('up-votes'), 10) + 1;
-                    $(star).data('up-votes', up_votes);
-                    $(star).text('('+ up_votes + ')');
+                $.ajax({
+                    url: "http://smartlinky.com/api/vote_up", 
+                    data: {'id': $(this).data('link-id')}, 
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data){
+                        $up_votes.text('('+ data.up_votes + ')');
+                    }
                 });
             });
         //    .text(linkData.up_votes);
@@ -9492,14 +9494,10 @@ Widget.prototype.insertLink = function(linkData) {
 
         if (linkData.is_relevant) {
             this.$userlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-relevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-relevant');
         } else {
             this.$irrelevantlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-irrelevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-irrelevant');
         }
     } else {
         $wrapper.css(style.qalinks_element);
