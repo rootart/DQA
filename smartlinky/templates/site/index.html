@@ -1,35 +1,15 @@
 ﻿{% extends 'base.html' %}
 {% block main %}
-	<h1 class="shadow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Donec sapien odio</h1>
-	<article>
-		<div id="feeds" class="col col_7 rounded box_shadow">
-			<div class="dashed_line"></div>
-			<div class="box_shadow_inside red_shadow">
-				<h2>link feed</h2>
-			</div>
-			<div class="dashed_line"></div>
-			<ul>
-				<!-- TODO: get feeds via ajax -->
-				{% for link in feeds %}
-					<li>
-						<!-- TODO: speed up faster lookups on those fields -->
-						<!-- TODO: style page and section references -->
-						<!-- TODO: style timestamp -->
-						<p>{{ link.created_at|time }} :: <a href="{{ link.url }}">{{ link.title }}</a></p>
-						<span>in <a href="{{ link.section.page.url }}">{{ link.section.html_title }} of {{ link.section.page.meta_title }}</a></span>
-					</li>
-				{% endfor %}
-			</ul>
+	<article id="search"  class="col">
+		<div class="col col_8">
+			<h1 class="shadow">Improve docs. Just link it ;)</h1>
 		</div>
-	</article>
-	<article id="search">
 		<div class="col col_8">
 			<form> 
 				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %}> 
 				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ STATIC_URL }}imgs/search_icon.png" alt="search icon" /> </button> 
 			</form>
 		</div>
-		<div class="clear"></div>
 		<div id="results" class="col col_8 rounded box_shadow">
 			<div class="dashed_line"></div>
 				<div class="box_shadow_inside red_shadow">
@@ -62,5 +42,34 @@
 					{% endfor %}
 				{% endif %}
 			</div>
+	</article>
+	<article>
+		<div class="col_5 float_right">
+			<div class="download_chrome_blu rounded_top_right rounded_top_left">
+				<h4 class="shadow download_icon">Install Now, It's Free!</h4>
+			</div>
+			<div class="download_chrome rounded_bottom_right rounded_bottom_left">
+				<h4 class="chrome_icon">For Google Chrome</h4>
+			</div>
+		</div>
+		<div id="feeds" class="col col_5 rounded box_shadow">
+			<div class="dashed_line"></div>
+			<div class="box_shadow_inside red_shadow">
+				<h2>link feed</h2>
+			</div>
+			<div class="dashed_line"></div>
+			<ul>
+				<!-- TODO: get feeds via ajax -->
+				{% for link in feeds %}
+					<li>
+						<!-- TODO: speed up faster lookups on those fields -->
+						<!-- TODO: style page and section references -->
+						<!-- TODO: style timestamp -->
+						<p>{{ link.created_at|time }} :: <a href="{{ link.url }}">{{ link.title }}</a></p>
+						<span>in <a href="{{ link.section.page.url }}">{{ link.section.html_title }} of {{ link.section.page.meta_title }}</a></span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</article>
 {% endblock %}
