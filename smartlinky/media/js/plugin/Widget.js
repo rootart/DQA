@@ -22,20 +22,20 @@ Widget.prototype.render = function() {
     var userlinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
     $('<li>').css(style.userlinks_title).text('USER LINKS').appendTo(userlinks_container);
     $('<li>').css(style.add_button).text('ADD +').click($.proxy(this, 'addLink')).appendTo(userlinks_container);
-    
     this.$userlinks = $('<ul>').css(style.userlinks_list).droppable({
         accept: '.smartlinky-irrelevant'
     });
-    
-    $('<li>').append(this.$userlinks).appendTo(userlinks_container);
+    $('<li>').css(style.list_item).append(this.$userlinks).appendTo(userlinks_container);
+    $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(userlinks_container);
 
-    $('<li>').css(style.user_links_more).text('ADD +').appendTo(userlinks_container);
+    // Q&A links section
+    var qalinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
 
-    // Q&A section
-    this.$qalinks = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
-    }).text('loading...');
+    $('<li>').css(style.qalinks_title).text("EXTERNAL Q&A's").appendTo(qalinks_container);
+    this.$qalinks = $('<ul>').css(style.qalinks_list);
+    $('<li>').css(style.list_item).append(this.$qalinks).appendTo(qalinks_container);
+    $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(qalinks_container);
+
     // Irrelevant links section
     this.$irrelevantlinks = $('<div>').css({
         padding: '3px',
@@ -88,13 +88,12 @@ Widget.prototype.handleUserLinksData = function(data) {
 };
 
 Widget.prototype.insertLink = function(linkData) {
-    var $wrapper = $('<div>')
-        .css({});
+    var $wrapper = $('<li>').css(style.user_links_element);
 
 
     //Link
     var $link = $('<a>')
-        .css({})
+        .css(style.link)
         .attr('href', linkData.url)
         .text(linkData.title);
     $wrapper.append($link);
@@ -102,8 +101,16 @@ Widget.prototype.insertLink = function(linkData) {
     if (linkData.id) {
         // Up votes counter
         var $up_votes = $('<span>')
-            .css({})
-            .text(linkData.up_votes);
+            .css(style.star)
+            .data('link-id', linkData.id)
+            .click(function(e){
+                e.preventDefault();
+                var star = this;
+                $.post("{{api-url}}vote_up", {'id': $(this).data('link-id')}, function(){
+                    $(star).remove();
+                });
+            });
+        //    .text(linkData.up_votes);
         $wrapper.append($up_votes);
 
         if (linkData.is_relevant) {
@@ -157,6 +164,11 @@ Widget.prototype.toggle = function(e) {
         e.preventDefault();
     }
     this.$widget.toggle(); 
+    if (this.$widget.is(':visible')) {
+        this.$button.css(style.button_active);
+    } else {
+        this.$button.css(style.button);
+    }
 }
 
 Widget.prototype.addLink = function(e) {

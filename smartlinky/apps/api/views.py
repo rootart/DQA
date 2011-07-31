@@ -254,7 +254,7 @@ def vote_up(request):
     except Link.DoesNotExist:
         error_message = "A Link with id %s does not exist." % link_id
         raise Exception(error_message)
-    
+
     link.incr_up_votes()
     link.save()
     
@@ -306,5 +306,4 @@ def set_relevant(request):
     
     link.set_relevant(bool(is_relevant))
     link.save()
-    
     return {}

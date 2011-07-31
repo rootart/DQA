@@ -1,11 +1,4 @@
 ﻿{% extends 'base.html' %}
-
-{% block head_extra %}
-<!--[ lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ie.css" />
-<![endif]-->
-{% endblock head_extra %}
-
 {% block main %}
 	<h1 class="shadow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Donec sapien odio</h1>
 	<article>
@@ -32,8 +25,8 @@
 	<article id="search">
 		<div class="col col_8">
 			<form> 
-				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %} > 
-				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ MEDIA_URL }}imgs/search_icon.png" /> </button> 
+				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %}> 
+				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ STATIC_URL }}imgs/search_icon.png" alt="search icon" /> </button> 
 			</form>
 		</div>
 		<div class="clear"></div>

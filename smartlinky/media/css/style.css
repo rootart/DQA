@@ -92,12 +92,13 @@ article#search {
 	padding-bottom:10px;
 }
 article#search input { 
-	float:left;
-	height:53px;
-	width:375px;
 	border:1px solid #19a0be;
-	padding-left:22px;
+	float:left;
 	font-family:"Arial";
+	height:53px;
+	margin-top:2px;
+	padding-left:22px;
+	width:375px;
 }
 article#search button {
 	border:1px solid #19a0be;
@@ -191,12 +192,24 @@ footer nav ul li a:active{
 	text-align:left;
 }
 #main .about p {
-	font-size:13px;
-	line-height:21px;
+	background:rgba(250, 250, 250, .2);
+	font-size:16px;
+	line-height:24px;
+	padding:2em;
+}
+#main .about a:hover {
+	text-align:left;
 }
 #main .about img {
 	float:left;
 	margin:0 7px 0 0;
 	border:2px solid #3d88a1;
 }
-
+#main .about .social img{
+	margin-top:10px;
+	border:none;
+}
+#main .about .social img:hover,
+#main .about a:hover{
+	opacity: 0.6;
+}

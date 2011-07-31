@@ -4,7 +4,7 @@
         <h1  class="shadow">About Smartlinky</h1>
 		<div class="col col_16">
 			<h2>Our project</h2>
-			<p>The idea is to connect on-line tech documentation sites with sites that may enrich the documentation. 
+			<p class="rounded">The idea is to connect on-line tech documentation sites with sites that may enrich the documentation. 
 			For example, for each section of one documentation we can attached links to blog posts, twitter feeds, stackoverflow answers etc, regarding this section.
 			Users will be able to add links or influence the order of existing ones. 
 			Users will be able to jump to external resource directly from the section they are interested in.</p>
@@ -27,32 +27,35 @@
 			<h2>Develop</h2>
 		</div>
 		<div class="clear"></div>
-		<h1  class="shadow">About us</h1>
+		<h1  class="shadow">The team</h1>
 		<div class="col col_5">
 			 <h2>Antonella [sempresaurita]</h2>
-			 <img src="{{ MEDIA_URL }}imgs/antonella.png" />
+			 <img src="{{ STATIC_URL }}imgs/antonella.png" alt="antonella" />
 			 <a href="http://www.wabidesign.it/">www.wabidesign.it</a>
-			 <div class="clear_right"></div>
-			<a href="http://www.facebook.com/antonellatezza"><img src="{{ MEDIA_URL }}imgs/facebook-icon.png" /></a>
-			<a href="http://twitter.com/#!/antonellatezza"><img src="{{ MEDIA_URL }}imgs/twitter-icon.png" /></a>
-			<a href="http://www.linkedin.com/profile/view?id=11325395"><img src="{{ MEDIA_URL }}imgs/linked-icon.png" /></a>
+			<div class="clear_right social">
+				<a href="http://www.facebook.com/antonellatezza"><img src="{{ STATIC_URL }}imgs/facebook-icon.png" alt="fb icon" /></a>
+				<a href="http://twitter.com/#!/antonellatezza"><img src="{{ STATIC_URL }}imgs/twitter-icon.png" alt="twitter icon" /></a>
+				<a href="http://www.linkedin.com/profile/view?id=11325395"><img src="{{ STATIC_URL }}imgs/linked-icon.png" alt="linked icon" /></a>
+			</div>
 		</div>
 		<div class="col col_5">
 			<h2>Mateusz [virtuallight]</h2>
-			<img src="{{ MEDIA_URL }}imgs/mateusz.jpeg" />
+			<img src="{{ STATIC_URL }}imgs/mateusz.jpeg" alt="mateusz" />
 			<a href="http://virtuallight.pl/">www.virtuallight.pl</a>
-			<div class="clear_right"></div>
-			<a href="http://www.facebook.com/mat.jankowski"><img src="{{ MEDIA_URL }}imgs/facebook-icon.png" /></a>
-			<a href="http://www.linkedin.com/profile/view?id=129058247&trk=tab_pro"><img src="{{ MEDIA_URL }}imgs/linked-icon.png" /></a>
+			<div class="clear_right social">
+				<a href="http://www.facebook.com/mat.jankowski"><img src="{{ STATIC_URL }}imgs/facebook-icon.png" alt="fb icon" /></a>
+				<a href="http://www.linkedin.com/profile/view?id=129058247"><img src="{{ STATIC_URL }}imgs/linked-icon.png" alt="linked icon" /></a>
+			</div>
 		</div>
 		<div class="col col_6">
 			<h2>Attila [macat]</h2>
-			<img src="{{ MEDIA_URL }}imgs/attila.png" />
-			<a href="http://attila.maczak.hu" title="Attila Maczak">attila.maczak.hu</a>
-			<div class="clear_right"></div>
-			<a href="http://www.facebook.com/macat"><img src="{{ MEDIA_URL }}imgs/facebook-icon.png" /></a>
-			<a href="http://twitter.com/#!/macat"><img src="{{ MEDIA_URL }}imgs/twitter-icon.png" /></a>
-			<a href="http://www.linkedin.com/profile/view?id=22861244"><img src="{{ MEDIA_URL }}imgs/linked-icon.png" /></a>
+			<img src="{{ STATIC_URL }}imgs/attila.png" alt="attila" />
+			<a href="http://www.macat.hu">www.macat.hu</a>
+			<div class="clear_right social">
+			<a href="http://www.facebook.com/macat"><img src="{{ STATIC_URL }}imgs/facebook-icon.png" alt="fb icon" /></a>
+			<a href="http://twitter.com/#!/macat"><img src="{{ STATIC_URL }}imgs/twitter-icon.png" alt="twitter icon" /></a>
+			<a href="http://www.linkedin.com/profile/view?id=22861244"><img src="{{ STATIC_URL }}imgs/linked-icon.png" alt="linked icon" /></a>
+			</div>
 		</div>
 	</div>
 {% endblock %}

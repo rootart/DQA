@@ -1,0 +1,14 @@
+﻿*header nav ul { 
+	margin-top:8px;
+	padding-top:10px;
+}
+article#search button:hover {	background: #621111;	}
+article#search #results .res a:hover {	background: #3d88a1;	}
+article #feeds,
+article#search #results {
+	border:8px solid #3D88A1;
+}
+article#search input {
+	height:32px;
+	padding-top:20px;
+}
