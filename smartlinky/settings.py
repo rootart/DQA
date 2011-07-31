@@ -108,4 +108,7 @@ STACKOVERFLOW_VIA_GOOGLE = True
 try:
     from settings_local import *
 except ImportError:
-    pass
+    try:
+        from local_settings import *
+    except ImportError:
+        pass
