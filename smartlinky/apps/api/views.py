@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Count
 from django.http import HttpResponseBadRequest
-from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import never_cache, cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -14,6 +14,7 @@ from decorators import xss_json_response
 from forms import AddLinkForm
 
 
+@cache_page(60)
 @xss_json_response
 def init(request):
     """Return number of user links for known sections of a documentation page.
@@ -51,6 +52,7 @@ def init(request):
     
     return response
 
+@cache_page(60)
 @xss_json_response
 def users_links(request):
     """Return all links added by users for a given section.
@@ -113,6 +115,7 @@ def users_links(request):
         })
     return response
              
+@never_cache
 @xss_json_response
 def qa_links(request):
     """Return a set of QA links for a given section.
@@ -163,8 +166,8 @@ def qa_links(request):
     response = {'links': links}
     return response
 
-# TODO: add error responses to docstring
-# TODO: limit calls per ip in time
+# TODO: limit of 10 calls per IP in 60 seconds
+@never_cache 
 @require_POST
 @csrf_exempt
 @xss_json_response
@@ -203,9 +206,8 @@ def add_link(request):
             # Fetch & parse the linked page
             link_title = get_page_title(form.cleaned_data['link_url'])
         except Exception, e:
-            # TODO: convert into a custom APIException
-            # TODO: better message
-            raise Exception('No title')
+            error_message = 'Title could not be fetched for this url: %s' % form.cleaned_data['link_url']
+            raise Exception(error_message)
 
         page, created = Page.objects.get_or_create(url=form.cleaned_data['url'], defaults={'meta_title': form.cleaned_data['page_title']})
         section, created = Section.objects.get_or_create(html_id=form.cleaned_data['section_id'], page=page, defaults={'html_title': form.cleaned_data['section_title']})
@@ -218,15 +220,13 @@ def add_link(request):
             'is_relevant': True,
         }
         return response
-    # TODO: convert into a custom APIException
-    # TODO: better message
-    raise Exception('problem!')
+    
+    error_message = '. '.join("%s: '%s'" % (' '.join(value), key) for key, value in form.errors.items())
+    raise Exception(error_message)
 
-# TODO: docs
-# TODO: samples
 # TODO: tests
-# TODO: implement
-# TODO: limit calls per ip for a link id in time
+# TODO: limit of 10 calls per IP in 60 seconds
+@never_cache 
 @require_POST
 @csrf_exempt
 @xss_json_response
@@ -243,17 +243,25 @@ def vote_up(request):
     :example:
         {}
     """
-    link_id = int(request.POST['id'])
-    link = get_object_or_404(Link, id=link_id)
-    link.incr_vote_up()
+    try:
+        link_id = int(request.POST['id'])
+    except ValueError:
+        error_message = "Value of 'id' must be an integer."
+        raise Exception(error_message)
+    
+    try:
+        link = Link.objects.get(id=link_id)
+    except Link.DoesNotExist:
+        error_message = "A Link with id %s does not exist." % link_id
+        raise Exception(error_message)
+    
+    link.incr_up_votes()
     link.save()
+    
     return {}
 
-# TODO: docs
-# TODO: samples
-# TODO: tests
-# TODO: implement
-# TODO: limit calls per ip for a link id in time
+# TODO: limit of 10 calls per IP in 60 seconds
+@never_cache 
 @require_POST
 @csrf_exempt
 @xss_json_response
@@ -274,15 +282,29 @@ def set_relevant(request):
     :example:
         {}
     """
-    link_id = int(request.POST['id'])
-    is_relevant = int(request.POST['is_relevant'])
+    try:
+        link_id = int(request.POST['id'])
+    except ValueError:
+        error_message = "Value of 'id' must be an integer"
+        raise Exception(error_message)
+    
+    try:
+        is_relevant = int(request.POST['is_relevant'])
+    except ValueError:
+        error_message = "Value of 'is_relevant' must be an integer"
+        raise Exception(error_message)
     
     if not is_relevant in [0, 1]:
-        # TODO: convert into a custom APIException
-        # TODO: better message
-        raise Exception('invalid format')
+        error_message = "Value of 'is_relevant' must be 1 or 0"
+        raise Exception(error_message)
     
-    link = get_object_or_404(Link, id=link_id)
+    try:
+        link = Link.objects.get(id=link_id)
+    except Link.DoesNotExist:
+        error_message = "A link with id %s does not exist." % link_id
+        raise Exception(error_message)
+    
     link.set_relevant(bool(is_relevant))
     link.save()
+    
     return {}
