@@ -70,15 +70,18 @@ SAMPLE_LINKS = {
         'url': 'http://www.joelonsoftware.com/articles/fog0000000069.html',
         'title': 'Things You Should Never Do, Part I',
         'is_relevant': False, 
+        'up_votes': 10, 
     },
     'link2': {
         'url': 'http://rhettinger.wordpress.com/2011/01/28/open-your-source-more/',
         'title': 'Open Source Challenge: Open Your Source, More',
         'is_relevant': True, 
+        'up_votes': 5, 
     },
     'link3': {
         'url': 'http://xkcd.com/162/',
         'title': 'Angular Momentum',
+        'up_votes': 15, 
     },
 }
 

@@ -78,13 +78,12 @@ def users_links(request):
         'url': 'http://example.com',
         'title': 'Example',
         'is_relevant': True,
-        'up_votes': 2,}, {
+        'up_votes': 3,}, {
         'id': 14,
         'url': 'http://super.com',
         'title': 'Super',
         'is_relevant': False,
         'up_votes': 2,},]}
-    
 
     .. note:: xss_json_response decorator dumps the response into a json, wraps with a HttpResponse
         and makes it xss friendly
@@ -105,7 +104,8 @@ def users_links(request):
     except Section.DoesNotExist:
         return response
     
-    for link in section.links.all():
+    links = section.links.all().order_by('up_votes')
+    for link in links:
         response['links'].append({
             'id': link.id,
             'url': link.url,
@@ -285,17 +285,17 @@ def set_relevant(request):
     try:
         link_id = int(request.POST['id'])
     except ValueError:
-        error_message = "Value of 'id' must be an integer"
+        error_message = "Value of 'id' must be an integer."
         raise Exception(error_message)
     
     try:
         is_relevant = int(request.POST['is_relevant'])
     except ValueError:
-        error_message = "Value of 'is_relevant' must be an integer"
+        error_message = "Value of 'is_relevant' must be an integer."
         raise Exception(error_message)
     
     if not is_relevant in [0, 1]:
-        error_message = "Value of 'is_relevant' must be 1 or 0"
+        error_message = "Value of 'is_relevant' must be 1 or 0."
         raise Exception(error_message)
     
     try:

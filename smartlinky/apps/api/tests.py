@@ -113,6 +113,26 @@ class UsersLinksAPITest(APITest):
             'links': links
         }))
            
+    def testOrder(self):
+        kwargs = {
+            'url': self.section2.page.url,
+            'section_id': self.section2.html_id,
+        }
+        response = self.get(kwargs)
+        links = []
+        for link in self.section2.links.all().order_by('up_votes'):
+            links.append({
+                'id': link.id,
+                'url': link.url,
+                'title': link.title,
+                'is_relevant': link.is_relevant,
+                'up_votes': link.up_votes,
+            })
+        self.assertEqual(response.status_code, 200)
+        content_json = json.loads(response.content)
+        json_links = content_json['links']
+        self.assertEqual(links, json_links)
+        
 # TODO: docstrings
 class AddLinkAPITest(APITest):
     def setUp(self):
