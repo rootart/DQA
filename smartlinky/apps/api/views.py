@@ -256,7 +256,7 @@ def vote_up(request):
     link.incr_up_votes()
     link.save()
     
-    return {}
+    return {'up_votes': link.up_votes}
 
 # TODO: limit of 10 calls per IP in 60 seconds
 @never_cache 
