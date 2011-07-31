@@ -245,7 +245,7 @@ def vote_up(request):
     """
     link_id = int(request.POST['id'])
     link = get_object_or_404(Link, id=link_id)
-    link.incr_vote_up()
+    link.incr_up_votes()
     link.save()
     return {}
 

@@ -9,10 +9,14 @@ var cleaner = {
     background: 'transparent',
     color: '#000',
     margin: 0,
-    padding: 0
+    padding: 0,
+    listStyle: 'none'
 };
 
 var style = {
+    'list_item': {
+        listStyle: 'none'
+    },
     'wrapper': {
         height: '0px',
         position: 'relative'
@@ -148,7 +152,8 @@ var style = {
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
-        'width': '15px'
+        'width': '15px',
+        'cursor': 'pointer'
     }
 
         
