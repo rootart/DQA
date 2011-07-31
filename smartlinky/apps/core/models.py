@@ -6,9 +6,10 @@ from django.db import models
 
 logger = logging.getLogger('smartlinky')
 
-# TODO: add db indexes
-# TODO: add help text
-# TODO: add managment command to remove all irrelevant links
+# TODO: indexes
+# TODO: help texts
+# TODO: managment command to remove all irrelevant links
+# TODO: docstrings for fields
 class Documentation(models.Model):
     """Documentation is grouping pages according to the product that they document, 
     usually in one of it's versions (e.g. https://docs.djangoproject.com/en/1.3/)."""
@@ -17,11 +18,11 @@ class Documentation(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(default='', blank=True)
 
-    meta_title = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
+    meta_title = models.TextField(default='', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
-    # TODO: add tests
+    # TODO: tests
     def delete_irrelevant_links(self, older_than=None, by_create_date=True, by_mod_date=False):
         """Clean up irrelevant links for all sections of all pages of this documentation.
         Delete links with creation or modification date older than a given date.
@@ -31,28 +32,29 @@ class Documentation(models.Model):
         for page in self.pages:
             page.delete_irrelevant_links(older_than, by_create_date, by_mod_date)
         
-    # TODO: implement using fetch_meta from utils
-    # TODO: add tests
+    # TODO: tests
+    # TODO: implement
     def fetch_meta(self):
         """Fetch the documentation's meta-related information (html meta)
         and update corresponding fields."""
         raise NotImplementedError 
         
                                 
-# TODO: add db indexes
-# TODO: add help text
-# TODO: add managment command to remove all irrelevant links
+# TODO: indexes
+# TODO: help texts
+# TODO: managment command to remove all irrelevant links
+# TODO: docstrings for fields
 class Page(models.Model):
     """Page represents one url (one page) of the documentation."""
 
     url = models.URLField(unique=True)
     documentation = models.ForeignKey(Documentation, related_name='pages', null=True, blank=True)
 
-    meta_title = models.TextField(default='', blank=True) # used to refine searches agains QAs APIs, extracted from site's head
+    meta_title = models.TextField(default='', blank=True)
     
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     
-    # TODO: add tests
+    # TODO: tests
     def delete_irrelevant_links(self, older_than=None, by_create_date =True, by_mod_date=False):
         """Clean up irrelevant links for all sections of the page.
         Delete links with creation or modification date older than a given date.
@@ -62,17 +64,18 @@ class Page(models.Model):
         for section in self.sections:
             section.delete_irrelevant_links(older_than, by_create_date, by_mod_date)
         
-    # TODO: implement using fetch_meta from utils
-    # TODO: add tests
+    # TODO: tests
+    # TODO: implement
     def fetch_meta(self):
         """Fetch the page's meta-related information (html meta) 
         and update corresponding fields."""
         raise NotImplementedError     
 
 
-# TODO: add db indexes
-# TODO: add help text
-# TODO: add objects managers or properties to retrieve specific links (irrelevant, relevant or all)
+# TODO: indexes
+# TODO: help texts
+# TODO: managers for relevant and irrelevant links per section
+# TODO: docstrings for fields
 class Section(models.Model):
     """Section is a section of the documentation's page which is specific enough 
     to attach links to it."""
@@ -86,25 +89,26 @@ class Section(models.Model):
     class Meta:
         unique_together = (("html_id", "page"),)
         
-    # TODO: add tests
+    # TODO: tests
+    # TODO: implement
     def delete_irrelevant_links(self, older_than=None, by_create_date =True, by_mod_date=False):
         """Clean up irrelevant links of the section.
         Delete links with creation or modification date older than a given date.
         
         .. warning:: Cleans up ALL links if 'older_than' is not specified."""
         # TODO: check if this works
-        self.sections.delete()
+        raise NotImplementedError
 
-
-# TODO: add db indexes
-# TODO: add help text
+# TODO: indexes
+# TODO: help texts
+# TODO: docstrings for fields
 class Link(models.Model):
     """Link is a connection between an link and a section.
     
     Links are url-unique within a section."""
 
     url = models.URLField()
-    title = models.CharField(max_length=100) # 40 char field, obligatory, default is the meta title of the linked site, serves also as a description
+    title = models.CharField(max_length=100)
     section = models.ForeignKey(Section, related_name='links')
     
     is_relevant = models.BooleanField(default=True)
@@ -113,7 +117,7 @@ class Link(models.Model):
 
     validated_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True, auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False) # does auto_now_add set editable to False automatically?
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     
     class Meta:
         unique_together = (("url", "section"),)
@@ -128,18 +132,19 @@ class Link(models.Model):
         """Increment 'clicks' by 1."""
         self.clicks += 1
     
+    # TODO: faster increment by toogle type fields or raw sql
     def set_relevant(self, is_relevant=True):
         """Set 'is_relevant' value to True(deafult) or False."""
         self.is_relevant = is_relevant
     
-    # TODO: add tests
-    # TODO: add url checking method to docstring
+    # TODO: tests
+    # TODO: implement 
     def validate_url(self):
         """Check if the url is still valid."""
         raise NotImplementedError
     
-    # TODO: add tests
+    # TODO: tests
     def delete(self, *args, **kwargs):
         """Log the link data before deleting it."""
-        logger.info('{link.delete} %s' % self.__dict__)
+        logger.info('{%s} %s' % (__name__, self.__dict__))
         super(Link, self).delete(*args, **kwargs)
