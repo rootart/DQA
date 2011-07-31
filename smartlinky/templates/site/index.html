@@ -2,7 +2,7 @@
 
 {% block head_extra %}
 <!--[ lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/ie.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ie.css" />
 <![endif]-->
 {% endblock head_extra %}
 
@@ -16,54 +16,58 @@
 			</div>
 			<div class="dashed_line"></div>
 			<ul>
-				<li>
-					<p>Lorem <a href="#">@ipsum </a>dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-					<span>from <a href="#">Antonella Twitter</a></span>
-				</li>
-				<li>
-					<p>Lorem <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-					<span>from <a href="#">Antonella Twitter</a></span>
-				</li>
-				<li>
-					<p>Lorem  <a href="#">@ipsum </a> dolor sit amet, consectetur adipiscing elit. Proin et massa dolor, vitae placerat dui. </p>
-					<span>from <a href="#">Antonella Twitter</a></span>
-				</li>
+				<!-- TODO: get feeds via ajax -->
+				{% for link in feeds %}
+					<li>
+						<!-- TODO: speed up faster lookups on those fields -->
+						<!-- TODO: style page and section references -->
+						<!-- TODO: style timestamp -->
+						<p>{{ link.created_at|time }} :: <a href="{{ link.url }}">{{ link.title }}</a></p>
+						<span>in <a href="{{ link.section.page.url }}">{{ link.section.html_title }} of {{ link.section.page.meta_title }}</a></span>
+					</li>
+				{% endfor %}
 			</ul>
 		</div>
 	</article>
 	<article id="search">
 		<div class="col col_8">
 			<form> 
-				<input class="box_shadow_inside_light rounded" type=search name=s placeholder=Search... autosave=unique> 
+				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %} > 
 				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ MEDIA_URL }}/imgs/search_icon.png" /> </button> 
-
 			</form>
 		</div>
 		<div class="clear"></div>
 		<div id="results" class="col col_8 rounded box_shadow">
 			<div class="dashed_line"></div>
 				<div class="box_shadow_inside red_shadow">
-					<h2>Search Results of <span class="var_results">Lorem</a></h2>
+					{% if query %}
+						<h2>Search Results of <span class="var_results">{{ query }}</a></h2>
+					{% else %}
+						<h2>Be brave! Search now :)</h2>
+					{% endif %}
 				</div>
 				<div class="dashed_line"></div>
-				<div class="page">Showing  1  to  10  of  12 </div>
-				<div class="num_page">  Page    <a href="#">1</a>  <a href="#">2</a>   <a href="#">></a></div>
-				<div class="clear"></div>
-				<div class="res">
-					<h3>Ut tempus vehicula tellus ac tristique. </h3>
-					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-					<a href="#" class="rounded">details</a>
-				</div>
-				<div class="res">
-					<h3>Ut tempus vehicula tellus ac tristique. </h3>
-					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-					<a href="#" class="rounded">details</a>
-				</div>
-				<div class="res">
-					<h3>Ut tempus vehicula tellus ac tristique. </h3>
-					<p>Proin id lobortis ante. Maecenas metus nisi, auctor vitae sodales sit amet, egestas vel urna. Etiam in eros risus, ac adipiscing nibh.</p>
-					<a href="#" class="rounded">details</a>
-				</div>
+				{% if search_results_pag %}
+					<div class="page">
+						Showing {{ search_results_pag.start_index }} to  {{ search_results_pag.end_index }}  of  {{ search_results_pag.paginator.count }} </div>
+					<div class="num_page">  Page
+					{% for p in search_results_pag.paginator.page_range %}
+						<!-- TODO: preserver search query in the paginator links -->
+						<a href="{% url site_index %}?q={{ query }}&page={{ p }}">{{ p }}</a>
+					{% endfor %}
+					</div>
+					<div class="clear"></div>
+					<!-- TODO: get search_results_pag via ajax -->
+					{% for link in search_results_pag.object_list %}
+						<div class="res">
+							<h3>{{ link.title }}</h3>
+							<!-- TODO: speed up faster lookups on those fields -->
+							<!-- TODO: style page and section references -->
+							<p>PAGE: {{ link.section.page.meta_title }}, SECTION: {{ link.section.html_title }}</p>
+							<a href="{{ link.url }}" class="rounded">details</a>
+						</div>
+					{% endfor %}
+				{% endif %}
 			</div>
 	</article>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('smartlinky')
 
 # TODO: add db indexes
 # TODO: add help text

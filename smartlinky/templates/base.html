@@ -3,13 +3,13 @@
     <head>
 		<meta charset=utf-8>
 		<title>Smartlinky</title>
-	    <script src="{{ MEDIA_URL }}/js/modernizr-1.7.min.js"></script>
+	    <script src="{{ MEDIA_URL }}js/modernizr-1.7.min.js"></script>
 		
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/css3.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/general.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/grid.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/style.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/css3.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/general.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/grid.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" media="screen" />
     	
     	{% block head_extra %}
         {% endblock head_extra %}
@@ -18,13 +18,13 @@
 	<body class="back_top">
 		<div class="big_row">
 			<header class="row">
-				<div class="logo col col_7"><img src="{{ MEDIA_URL }}/imgs/logo.gif" alt="smartlinky" /></div>
+				<div class="logo col col_7"><a href="{% url site_index %}"><img src="{{ MEDIA_URL }}/imgs/logo.gif" alt="smartlinky" /></a></div>
 				<nav class="col col_9">
 					<ul class="fontface">
 						<li><a href="{% url site_index %}"  class="rounded">home</a></li>
 						<li><a href="#"  class="rounded">example</a></li>
 						<!--<li><a href="#"  class="rounded">reports</a></li>-->
-						<li><a href="{% url site_about %}"  class="rounded">about us</a></li>
+						<li><a href="{% url site_about %}"  class="rounded">about</a></li>
 					</ul>
 				</nav>
 				<div class="clear"></div>
@@ -39,7 +39,7 @@
 		<div class="clear"></div>
 		<footer class="back_footer">
 			<div class="row">
-				<div class="col col_6"><img src="{{ MEDIA_URL }}/imgs/logo_small.png" /></div>
+				<div class="col col_6"><a href="{% url site_index %}"><img src="{{ MEDIA_URL }}/imgs/logo_small.png" /></a></div>
 				<div class="col col_5 down_10"><a href="http://djangodash.com/teams/c2/berlin/">Berlin Django Dash 2011</a></div>
 				<div class="col col_5 down_10">
 					<nav>
@@ -47,7 +47,7 @@
 							<li class="no_pipe"><a href="{% url site_index %}">home</a></li>
 							<li><a href="#">example</a></li>
 							<!--<li><a href="#">reports</a></li>-->
-							<li><a href="{% url site_about %}">about us</a></li>
+							<li><a href="{% url site_about %}">about</a></li>
 							<li><a href="{% url site_about %}"><img src="{{ MEDIA_URL }}/imgs/mail.png" /></a></li>
 						</ul>
 					</nav>
