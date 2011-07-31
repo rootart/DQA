@@ -43,6 +43,15 @@ Widget.prototype.render = function() {
         }
     });
 
+    // Add small smartlinky logo
+    $('<a>')
+        .attr({
+            href: 'http://smartlinky.com',
+            target: '_blank'
+        })
+        .css(style.logo_small)
+        .appendTo(this.$widget);
+
     this.$button.after(this.$widget);
 };
 
@@ -101,6 +110,7 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;
@@ -179,21 +189,27 @@ Widget.prototype.addLink = function(e) {
     }
 
     this.$addWidget = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
+        padding: '8px',
+		background: '#fbf2a4',
+		marginLeft: '4px',
+		marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
     this.$form.append($('<input>').attr({
             type: 'text',
-            name: 'url'
+            name: 'url',
+            value: 'http://'
         }).css({}));
     this.$form.prepend($('<label>').text('Add URL:'));
     this.$form.append($('<input>').attr({
         type: 'submit',
         name: 'submit',
         value: 'Submit'
-    }));
+    }).css(
+		style.add_button).css( 
+		'margin-top', '0px'
+	));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);

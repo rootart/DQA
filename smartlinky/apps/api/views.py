@@ -104,7 +104,7 @@ def users_links(request):
     except Section.DoesNotExist:
         return response
     
-    links = section.links.all().order_by('up_votes')
+    links = section.links.all().order_by('-up_votes')
     for link in links:
         response['links'].append({
             'id': link.id,
