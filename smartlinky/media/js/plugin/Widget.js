@@ -38,7 +38,7 @@ Widget.prototype.render = function() {
     $('<li>').css(style.qalinks_title).text("EXTERNAL Q&A's").appendTo(qalinks_container);
     this.$qalinks = $('<ul>').css(style.qalinks_list);
     $('<li>').css(style.list_item).append(this.$qalinks).appendTo(qalinks_container);
-    $('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
+    //$('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
 
     // Irrelevant links section
     this.$irrelevantlinks = $('<ul>').droppable({
@@ -135,14 +135,10 @@ Widget.prototype.insertLink = function(linkData) {
 
         if (linkData.is_relevant) {
             this.$userlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-relevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-relevant');
         } else {
             this.$irrelevantlinks.append($wrapper);
-            $wrapper.addClass('smartlinky-irrelevant').draggable({
-                revert: "invalid"
-            });
+            $wrapper.addClass('smartlinky-irrelevant');
         }
     } else {
         $wrapper.css(style.qalinks_element);
