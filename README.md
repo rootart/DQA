@@ -17,6 +17,8 @@ Deploy on Gondor.io
 
 You can easily deploy it to Gondor.io service. 
 
+0. go to web project root
+
 1. Set up your Gondor.io environment (you can find more information on Gondor.io help pages https://gondor.io/support/)
 
 2. Run deployment script:
@@ -32,6 +34,7 @@ You can easily deploy it to Gondor.io service.
 
 Deploy on localhost
 -------------------
+0. go to web project root
 
 1. Install requirements:
 
