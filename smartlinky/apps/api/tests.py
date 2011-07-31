@@ -266,8 +266,7 @@ class QALinksAPITest(APITest):
         }
         response = self.get(kwargs)
         self.assertEqual(response.status_code, 200)
-        cache_key = '%s%s' % (self.section1.page.url, self.section1.html_id)
-        links = cache.get(cache_key)
+        links = cache.get(self.section1.cache_key)
         self.assertNotEquals(links, None)
         
 # TODO: docstrings

@@ -156,7 +156,7 @@ def qa_links(request):
     html_id = request.GET['section_id']
     section_title = request.GET['section_title']
 
-    cache_key = '%s%s' % (url, html_id)
+    cache_key = '%s%s' % (url, html_id) # same as cache_key in Section's cache_key property
     links = cache.get(cache_key)
     if links == None:
         links = stackoverflow.get_links(page_title, section_title)
