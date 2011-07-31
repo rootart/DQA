@@ -180,8 +180,10 @@ Widget.prototype.addLink = function(e) {
     }
 
     this.$addWidget = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
+        padding: '8px',
+		background: '#fbf2a4',
+		marginLeft: '4px',
+		marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
@@ -194,7 +196,7 @@ Widget.prototype.addLink = function(e) {
         type: 'submit',
         name: 'submit',
         value: 'Submit'
-    }));
+    }).css(style.add_button));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);

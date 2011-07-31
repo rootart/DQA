@@ -57,12 +57,12 @@ var style = {
     },
     'widget': {
 	background: '#f3f3f3 url("{{media-url}}imgs/logo_small_widget.png") no-repeat 95% 95%',
-        margin: '0 47px 0 0',
-        border: 'rgba(187, 187, 187, 0.4) 8px solid',
+    margin: '0 47px 0 0',
+    border: 'rgba(187, 187, 187, 0.4) 8px solid',
 	padding: '10px 10px 80px',
-        '-moz-background-clip': 'padding',    
-        '-webkit-background-clip': 'padding', 
-        'background-clip': 'padding-box'
+    '-moz-background-clip': 'padding',    
+    '-webkit-background-clip': 'padding', 
+    'background-clip': 'padding-box'
     },
     'container_title': {
 	color: '#404646',
@@ -77,7 +77,7 @@ var style = {
     },
     'user_links': {
         paddingTop: '4px',
-		marginTop: '10px',
+		marginTop: '14px',
         paddingLeft: '8px'
     },
     'user_links_element': {
