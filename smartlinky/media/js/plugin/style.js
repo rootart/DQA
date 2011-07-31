@@ -23,13 +23,15 @@ var style = {
     },
     'container': {
         position: 'absolute',
-        right: '-60px',
+        right: '-32px',
+        'top': '-16px',
         fontFamily: 'Arial, "Helvetica", sans-serif',
         fontSize: '11px'
     },
     'button': {
         'float': 'right',
         background: 'transparent url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
+        opacity: '0.5',
         height: '34px',
         width: '14px',
         padding: '6px 6px 6px 27px',
@@ -190,5 +192,6 @@ style.button_active = $.extend({}, style.button, {
     borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
     borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
     margin: '0px',
-    background: '#f3f3f3 url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px'
+    background: '#f3f3f3 url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
+    opacity: '1',
 });
