@@ -26,7 +26,7 @@ Widget.prototype.render = function() {
         accept: '.smartlinky-irrelevant'
     });
     $('<li>').css(style.list_item).append(this.$userlinks).appendTo(userlinks_container);
-    $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(userlinks_container);
+    $('<li>').css(style.user_links_more).text('SHOW MORE').hide().appendTo(userlinks_container);
 
     // Q&A links section
     var qalinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
@@ -37,10 +37,7 @@ Widget.prototype.render = function() {
     $('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
 
     // Irrelevant links section
-    this.$irrelevantlinks = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
-    }).text('loading...').droppable({
+    this.$irrelevantlinks = $('<ul>').droppable({
         accept: '.smartlinky-relevant',
         over: function(e, ui) {
         }
@@ -88,7 +85,7 @@ Widget.prototype.handleUserLinksData = function(data) {
 };
 
 Widget.prototype.insertLink = function(linkData) {
-    var $wrapper = $('<li>').css(style.user_links_element);
+    var $wrapper = $('<li>');
 
 
     //Link
@@ -99,6 +96,7 @@ Widget.prototype.insertLink = function(linkData) {
     $wrapper.append($link);
 
     if (linkData.id) {
+        $wrapper.css(style.user_links_element);
         // Up votes counter
         var $up_votes = $('<span>')
             .css(style.star)
@@ -125,6 +123,7 @@ Widget.prototype.insertLink = function(linkData) {
             });
         }
     } else {
+        $wrapper.css(style.qalinks_element);
         this.$qalinks.append($wrapper);
     }
 }

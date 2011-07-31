@@ -84,6 +84,10 @@ var style = {
 	borderBottom: '1px solid #46b0d1',
         display: 'block'
     },
+    'qalinks_element': {
+	borderBottom: '1px solid #bebebe',
+        display: 'block'
+    },
     'user_links_more': {
         background: 'none repeat scroll 0 0 #46B0D1',
         'border-bottom-left-radius': '5px',
