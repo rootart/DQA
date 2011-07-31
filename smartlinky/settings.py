@@ -28,11 +28,11 @@ USE_L10N = True
 SITE_ID = 1
 SECRET_KEY = '&(@aujq&hv17i(_to(udw#dojx2y)yj96(&_r&x8mm75t1hsyv'
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = 'media'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATIC_URL = '/static/'
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'media')
+MEDIA_URL = '/site_media/media/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media', 'static')
+STATIC_URL = '/site_media/static/'
+ADMIN_MEDIA_PREFIX = '/site_media/static/admin/'
 
 STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
