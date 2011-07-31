@@ -9,6 +9,7 @@ from apps.core.tests import create_sample_documentation, create_sample_page, cre
 from apps.core.models import Link
 
 
+# TODO: docstrings
 class APITest(TestCase):
     
     def setUp(self):
@@ -28,6 +29,7 @@ class APITest(TestCase):
     def post(self, data, *args, **kwargs):
         return self.client.post(self.path, data, *args, **kwargs)
     
+# TODO: docstrings
 class InitAPITest(APITest):
     
     def setUp(self):
@@ -57,6 +59,7 @@ class InitAPITest(APITest):
             },
         }))
         
+# TODO: docstrings
 class UsersLinksAPITest(APITest):
     
     def setUp(self):
@@ -110,6 +113,7 @@ class UsersLinksAPITest(APITest):
             'links': links
         }))
            
+# TODO: docstrings
 class AddLinkAPITest(APITest):
     def setUp(self):
         self.path = reverse('api_add_link')
@@ -199,6 +203,7 @@ class AddLinkAPITest(APITest):
         self.assertEqual('Attila' in content_json['title'], True)
         self.assertEqual(Link.objects.all().count(), 2)
 
+# TODO: docstrings
 class QALinksAPITest(APITest):
     
     def setUp(self):
@@ -218,12 +223,15 @@ class QALinksAPITest(APITest):
         links = cache.get(cache_key)
         self.assertNotEquals(links, None)
         
+# TODO: docstrings
+# TODO: implement
 class VoteUpAPITest(APITest):
     
     def setUp(self):
         self.path = reverse('api_vote_up')
         super(VoteUpAPITest, self).setUp()
         
+# TODO: docstrings
 class SetRelevantAPITest(APITest):
     
     def setUp(self):
@@ -250,6 +258,7 @@ class SetRelevantAPITest(APITest):
         self.assertEqual(response.status_code, 400)
         self.assertEqual('message' in content_json, True)
 
+    # TODO: fix this test and check others for the same issue
     def testSetRelevantTrue(self):
         kwargs = {
             'id': self.link1.id,
@@ -259,18 +268,34 @@ class SetRelevantAPITest(APITest):
         content_json = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.link1.is_relevant, True)
+        kwargs = {
+            'id': self.link2.id,
+            'is_relevant': 1,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.link2.is_relevant, True)
 
-# TODO: make this test work and check other tests for the same error
-#    def testSetRelevantFalse(self):
-#        kwargs = {
-#            'id': self.link2.id,
-#            'is_relevant': 0,
-#        }
-#        response = self.post(kwargs)
-#        content_json = json.loads(response.content)
-#        self.assertEqual(response.status_code, 200)
-#        self.assertEqual(self.link2.is_relevant, False)
-        
+    # TODO: fix this test and check others for the same issue
+    def testSetRelevantFalse(self):
+        kwargs = {
+            'id': self.link1.id,
+            'is_relevant': 0,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.link1.is_relevant, False)
+        kwargs = {
+            'id': self.link2.id,
+            'is_relevant': 0,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.link2.is_relevant, False)      
+          
     def testNoLink(self):
         link_id = self.link1.id
         Link.objects.all().delete()

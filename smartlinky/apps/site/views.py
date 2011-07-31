@@ -1,13 +1,14 @@
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.decorators.cache import never_cache, cache_page
 
 from apps.core.models import Link
 
 
 # TODO: tests
-# TODO: caching
 # TODO: docstrings
+@never_cache
 def index(request):
     """Main view of the site that also performs search and adds feeds."""
     
@@ -41,9 +42,8 @@ def index(request):
     return render_to_response('site/index.html', ctx, context_instance=RequestContext(request))
 
 # TODO: tests
-# TODO: caching
 # TODO: docstrings
-# TODO: stats
+@cache_page(60*60)
 def about(request):
     """
     """
