@@ -146,7 +146,8 @@ var style = {
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
-        'width': '15px'
+        'width': '15px',
+        'cursor': 'pointer'
     }
 
         

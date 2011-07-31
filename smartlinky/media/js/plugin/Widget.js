@@ -101,7 +101,15 @@ Widget.prototype.insertLink = function(linkData) {
     if (linkData.id) {
         // Up votes counter
         var $up_votes = $('<span>')
-            .css(style.star);
+            .css(style.star)
+            .data('link-id', linkData.id)
+            .click(function(e){
+                e.preventDefault();
+                var star = this;
+                $.post("{{api-url}}vote_up", {'id': $(this).data('link-id')}, function(){
+                    $(star).remove();
+                });
+            });
         //    .text(linkData.up_votes);
         $wrapper.append($up_votes);
 
