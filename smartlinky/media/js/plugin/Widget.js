@@ -110,6 +110,7 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;

@@ -168,12 +168,14 @@ var style = {
         marginTop: '17px'
     },
     'star': {
-        'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll center bottom transparent',
+        'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll left bottom transparent',
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
-        'width': '15px',
-        'cursor': 'pointer'
+        paddingLeft: '15px',
+        marginRight: '3px',
+        'cursor': 'pointer',
+        textAlign: 'right'
     }
 
         
