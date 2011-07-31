@@ -116,6 +116,7 @@ article#search h2 {
 /******* search **********/
 article#search {
 	padding-bottom:10px;
+	margin-top: 32px;
 }
 article#search input { 
 	border:1px solid #19a0be;

@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>apps.core.tests &mdash; Smartlinky v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Smartlinky v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+    <script type="text/javascript" src="http://smartlinky.com/site_media/static/plugin.js"></script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for apps.core.tests</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Documentation</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">Section</span><span class="p">,</span> <span class="n">Link</span>
+
+
+<div class="viewcode-block" id="create_sample_documentation"><a class="viewcode-back" href="../../../in_code/apps.core.tests.html#apps.core.tests.create_sample_documentation">[docs]</a><span class="k">def</span> <span class="nf">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a sample Documentation object.&quot;&quot;&quot;</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">Documentation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">documentation</span>
+</div>
+<div class="viewcode-block" id="create_sample_page"><a class="viewcode-back" href="../../../in_code/apps.core.tests.html#apps.core.tests.create_sample_page">[docs]</a><span class="k">def</span> <span class="nf">create_sample_page</span><span class="p">(</span><span class="n">documentation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a sample Page object.&quot;&quot;&quot;</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">documentation</span><span class="o">=</span><span class="n">documentation</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">page</span>
+</div>
+<div class="viewcode-block" id="create_sample_section"><a class="viewcode-back" href="../../../in_code/apps.core.tests.html#apps.core.tests.create_sample_section">[docs]</a><span class="k">def</span> <span class="nf">create_sample_section</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a sample Section object.&quot;&quot;&quot;</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="n">Section</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">section</span>
+</div>
+<div class="viewcode-block" id="create_sample_link"><a class="viewcode-back" href="../../../in_code/apps.core.tests.html#apps.core.tests.create_sample_link">[docs]</a><span class="k">def</span> <span class="nf">create_sample_link</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a sample Link object.&quot;&quot;&quot;</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="n">Link</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">link</span>
+
+<span class="c"># TODO: move json fixtures</span></div>
+<span class="n">SAMPLE_DOCUMENTATIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;djangodocs&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;https://docs.djangoproject.com/en/1.3/&#39;</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Django 1.3 documentation&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;pythondocs&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://docs.python.org/library/&#39;</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Python 2.7 documentation&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>    
+
+<span class="c"># TODO: move json fixtures</span>
+<span class="n">SAMPLE_PAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;pythondocs_intro&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://docs.python.org/library/intro.html&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;pythondocs_builtins&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://docs.python.org/library/functions.html&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;pythondocs_logging&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://docs.python.org/library/logging.config.html&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c"># TODO: move json fixtures</span>
+<span class="n">SAMPLE_SECTIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;pythondocs_builtins_built-in-functions&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;html_id&#39;</span><span class="p">:</span> <span class="s">&#39;built-in-functions&#39;</span><span class="p">,</span>
+        <span class="s">&#39;html_title&#39;</span><span class="p">:</span> <span class="s">&#39;2. Built-in Functions&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;pythondocs_builtins_non-essential-built-in-functions&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;html_id&#39;</span><span class="p">:</span> <span class="s">&#39;non-essential-built-in-functions&#39;</span><span class="p">,</span>
+        <span class="s">&#39;html_title&#39;</span><span class="p">:</span> <span class="s">&#39;3. Non-essential Built-in Functions&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&#39;pythondocs_logging_configuration_functions&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;html_id&#39;</span><span class="p">:</span> <span class="s">&#39;configuration-functions&#39;</span><span class="p">,</span>
+        <span class="s">&#39;html_title&#39;</span><span class="p">:</span> <span class="s">&#39;15.8.1. Configuration functions&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c"># TODO: move json fixtures</span>
+<span class="n">SAMPLE_LINKS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;link1&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://www.joelonsoftware.com/articles/fog0000000069.html&#39;</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Things You Should Never Do, Part I&#39;</span><span class="p">,</span>
+        <span class="s">&#39;is_relevant&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> 
+        <span class="s">&#39;up_votes&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> 
+    <span class="p">},</span>
+    <span class="s">&#39;link2&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://rhettinger.wordpress.com/2011/01/28/open-your-source-more/&#39;</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Open Source Challenge: Open Your Source, More&#39;</span><span class="p">,</span>
+        <span class="s">&#39;is_relevant&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> 
+        <span class="s">&#39;up_votes&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> 
+    <span class="p">},</span>
+    <span class="s">&#39;link3&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;http://xkcd.com/162/&#39;</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Angular Momentum&#39;</span><span class="p">,</span>
+        <span class="s">&#39;up_votes&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> 
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c"># TODO: docstrings</span>
+<span class="k">class</span> <span class="nc">DocumentationTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+        
+    <span class="k">def</span> <span class="nf">testCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test if documentations are created properly.&quot;&quot;&quot;</span>
+        <span class="n">djangodocs</span> <span class="o">=</span> <span class="n">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_DOCUMENTATIONS</span><span class="p">[</span><span class="s">&#39;djangodocs&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">djangodocs</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">pythondocs</span> <span class="o">=</span> <span class="n">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_DOCUMENTATIONS</span><span class="p">[</span><span class="s">&#39;pythondocs&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">pythondocs</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        
+<span class="c"># TODO: docstrings</span>
+<span class="k">class</span> <span class="nc">PageTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_DOCUMENTATIONS</span><span class="p">[</span><span class="s">&#39;pythondocs&#39;</span><span class="p">])</span>
+     
+    <span class="k">def</span> <span class="nf">testCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test if pages are created properly.&quot;&quot;&quot;</span>
+        <span class="n">pythondocs_intro</span> <span class="o">=</span> <span class="n">create_sample_page</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_PAGES</span><span class="p">[</span><span class="s">&#39;pythondocs_intro&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">pythondocs_intro</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>   
+        <span class="n">pythondocs_builtins</span> <span class="o">=</span> <span class="n">create_sample_page</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_PAGES</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">pythondocs_builtins</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> 
+
+<span class="c"># TODO: docstrings</span>
+<span class="k">class</span> <span class="nc">SectionTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_DOCUMENTATIONS</span><span class="p">[</span><span class="s">&#39;pythondocs&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">create_sample_page</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_PAGES</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins&#39;</span><span class="p">])</span>
+     
+    <span class="k">def</span> <span class="nf">testCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test if sections are created properly.&quot;&quot;&quot;</span>
+        <span class="n">pythondocs_builtins_built_in_functions</span> <span class="o">=</span> <span class="n">create_sample_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_SECTIONS</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins_built-in-functions&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">pythondocs_builtins_built_in_functions</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>   
+        <span class="n">pythondocs_builtins_non_essential_built_in_functions</span> <span class="o">=</span> <span class="n">create_sample_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_SECTIONS</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins_non-essential-built-in-functions&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">pythondocs_builtins_non_essential_built_in_functions</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+<span class="c"># TODO: docstrings</span>
+<span class="k">class</span> <span class="nc">LinkTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">documentation</span> <span class="o">=</span> <span class="n">create_sample_documentation</span><span class="p">(</span><span class="o">**</span><span class="n">SAMPLE_DOCUMENTATIONS</span><span class="p">[</span><span class="s">&#39;pythondocs&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">create_sample_page</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_PAGES</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="n">create_sample_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_SECTIONS</span><span class="p">[</span><span class="s">&#39;pythondocs_builtins_built-in-functions&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">create_sample_link</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">,</span> <span class="o">**</span><span class="n">SAMPLE_LINKS</span><span class="p">[</span><span class="s">&#39;link1&#39;</span><span class="p">])</span> <span class="c"># not really about this section...</span>
+        
+    <span class="k">def</span> <span class="nf">testIncrUpVotes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test &#39;incr_up_votes&#39; method of Link.&quot;&quot;&quot;</span>
+        <span class="n">up_votes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">up_votes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">incr_up_votes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">up_votes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">up_votes</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">testIncrClicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test &#39;incr_clicks&#39; method of Link.&quot;&quot;&quot;</span>
+        <span class="n">clicks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">clicks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">incr_clicks</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">clicks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">clicks</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">testSetRelevant</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Test &#39;set_relevant&#39; method of Link.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">set_relevant</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">is_relevant</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">set_relevant</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">is_relevant</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Berlin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

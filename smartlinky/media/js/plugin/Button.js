@@ -1,5 +1,10 @@
 
-
+/**
+ * Basic button widget.
+ *
+ * Every section on the page has a button. The button initializes the smartlinky
+ * widget (after click event).
+ */
 var Button = function(section, section_id, count) {
     this.section = section;
     this.$section = $('#' + section_id);

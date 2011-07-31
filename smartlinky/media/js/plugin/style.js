@@ -22,19 +22,20 @@ var style = {
         position: 'relative'
     },
     'container': {
-	width: '365px',
-	position: 'absolute',
-        right: '-60px',
-	fontFamily: 'Arial, "Helvetica", sans-serif',
-	fontSize: '11px'
+        position: 'absolute',
+        right: '-32px',
+        'top': '-16px',
+        fontFamily: 'Arial, "Helvetica", sans-serif',
+        fontSize: '11px'
     },
     'button': {
-	'float': 'right',
-	background: 'transparent url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
-	height: '34px',
-	width: '14px',
-	padding: '6px 6px 6px 27px',
-	color: '#fff',
+        'float': 'right',
+        background: 'transparent url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
+        opacity: '0.5',
+        height: '34px',
+        width: '14px',
+        padding: '6px 6px 6px 27px',
+        color: '#fff',
         cursor: 'pointer',
         border: '0px',
         margin: '8px',
@@ -43,49 +44,50 @@ var style = {
         'background-clip': 'padding-box'
     },
     'list': {
-	listStyle: 'none',
-	color: '#404646',
-	fontSize: '16px',
-	height: '20px',
-	overflow: 'hidden'
+        listStyle: 'none',
+        color: '#404646',
+        fontSize: '16px',
+        height: '20px',
+        overflow: 'hidden'
     },
     'list_element' : {
-	listStyle: 'none',
-	display: 'block',
-	textTransform: 'none',
-	marginTop: '0px'
+        listStyle: 'none',
+        display: 'block',
+        textTransform: 'none',
+        marginTop: '0px'
     },
     'widget': {
-	background: '#f3f3f3 url("{{media-url}}imgs/logo_small_widget.png") no-repeat 95% 95%',
-    margin: '0 47px 0 0',
-    border: 'rgba(187, 187, 187, 0.4) 8px solid',
-	padding: '10px 10px 80px',
-    '-moz-background-clip': 'padding',    
-    '-webkit-background-clip': 'padding', 
-    'background-clip': 'padding-box'
+        width: '300px',
+        background: '#f3f3f3 ',
+        margin: '0 47px 0 0',
+        border: 'rgba(187, 187, 187, 0.4) 8px solid',
+        padding: '10px 10px 70px',
+        '-moz-background-clip': 'padding',    
+        '-webkit-background-clip': 'padding', 
+        'background-clip': 'padding-box'
     },
     'container_title': {
-	color: '#404646',
-	fontSize: '16px',
-	height: '20px',
-	overflow: 'hidden'
+        color: '#404646',
+        fontSize: '16px',
+        height: '20px',
+        overflow: 'hidden'
     },
     'block_list_item': {
-	display: 'inline',
-	textTransform: 'uppercase',
-	listStyle: 'none'
+        display: 'inline',
+        textTransform: 'uppercase',
+        listStyle: 'none'
     },
     'user_links': {
         paddingTop: '4px',
-		marginTop: '14px',
+        marginTop: '14px',
         paddingLeft: '8px'
     },
     'user_links_element': {
-	borderBottom: '1px solid #46b0d1',
+    borderBottom: '1px solid #46b0d1',
         display: 'block'
     },
     'qalinks_element': {
-	borderBottom: '1px solid #bebebe',
+    borderBottom: '1px solid #bebebe',
         display: 'block'
     },
     'user_links_more': {
@@ -94,7 +96,7 @@ var style = {
         'border-bottom-right-radius': '5px',
         fontWeight: 'bold',
         padding: '6px 10px',
-		cursor: 'pointer',
+        cursor: 'pointer',
         'float': 'right'
     },
     'userlinks_title': {
@@ -107,7 +109,7 @@ var style = {
         'border-right': '1px solid #46B0D1',
         'border-top': '1px solid #46B0D1',
         'background': 'none repeat scroll 0 0 #85D1E9',
-		listStyle: 'none',
+        listStyle: 'none',
         'display': 'inline'
     },
     'userlinks_list': {
@@ -117,18 +119,17 @@ var style = {
         paddingLeft: '1.2em'
     },
     'add_button': {
-	color: '#fff',
-	background: '#d94545',
-	padding: '2px 5px',
-	cursor: 'pointer',
-	marginTop: '-7px',
+        color: '#fff',
+        background: '#d94545',
+        padding: '2px 5px',
+        cursor: 'pointer',
+        marginTop: '-7px',
         display: 'inline',
         'float': 'right'
     },
-//    'star':
     'link': {
-	textDecoration: 'none',
-	color: '#404646'        
+        textDecoration: 'none',
+        color: '#404646'        
     },
     'qalinks_title': {
         'border-top-left-radius': '5px',
@@ -143,31 +144,39 @@ var style = {
         'display': 'inline' 
     },
     'qalinks_list': {
-	background: '#e3e3e3',
-	border: '1px solid #BEBEBE',
+        background: '#e3e3e3',
+        border: '1px solid #BEBEBE',
         paddingTop: '4px',
         paddingLeft: '1.2em'
     },
     'external_links_more': {
-	    background: '#B0B3B3',
+        background: '#B0B3B3',
         'border-bottom-left-radius': '5px',
         'border-bottom-right-radius': '5px',
         fontWeight: 'bold',
         padding: '6px 10px',
-		cursor: 'pointer',
+        cursor: 'pointer',
         'float': 'right',
-		color: '#404646'
+        color: '#404646'
     },
     'logo_small': {
-        'float': 'right'
+        'float': 'right',
+        background: 'url("{{media-url}}imgs/logo_small_widget.png") no-repeat',
+        width: '98px',
+        height: '15px',
+        clear: 'both',
+        display: 'block',
+        marginTop: '17px'
     },
     'star': {
-        'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll center bottom transparent',
+        'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll left bottom transparent',
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
-        'width': '15px',
-        'cursor': 'pointer'
+        paddingLeft: '15px',
+        marginRight: '3px',
+        'cursor': 'pointer',
+        textAlign: 'right'
     }
 
         
@@ -183,5 +192,6 @@ style.button_active = $.extend({}, style.button, {
     borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
     borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
     margin: '0px',
-    background: '#f3f3f3 url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px'
+    background: '#f3f3f3 url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
+    opacity: '1',
 });

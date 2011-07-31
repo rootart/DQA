@@ -25,7 +25,9 @@
     <link rel="top" title="Smartlinky v0.1 documentation" href="../index.html" />
     <link rel="up" title="&lt;no title&gt;" href="contents.html" />
     <link rel="next" title="Core Tests" href="apps.core.tests.html" />
-    <link rel="prev" title="Api Views" href="apps.api.views.html" /> 
+    <link rel="prev" title="Core Admin" href="apps.core.admin.html" />
+    <script type="text/javascript" src="http://smartlinky.com/site_media/static/plugin.js"></script>
+
   </head>
   <body>
     <div class="related">
@@ -41,7 +43,7 @@
           <a href="apps.core.tests.html" title="Core Tests"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="apps.api.views.html" title="Api Views"
+          <a href="apps.core.admin.html" title="Core Admin"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
           <li><a href="contents.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
@@ -146,6 +148,12 @@ and update corresponding fields.</p>
 <em class="property">class </em><tt class="descclassname">apps.core.models.</tt><tt class="descname">Section</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/apps/core/models.html#Section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apps.core.models.Section" title="Permalink to this definition">¶</a></dt>
 <dd><p>Section is a section of the documentation&#8217;s page which is specific enough 
 to attach links to it.</p>
+<dl class="attribute">
+<dt id="apps.core.models.Section.cache_key">
+<tt class="descname">cache_key</tt><a class="headerlink" href="#apps.core.models.Section.cache_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a cache key based on unique fields.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="apps.core.models.Section.delete_irrelevant_links">
 <tt class="descname">delete_irrelevant_links</tt><big>(</big><em>older_than=None</em>, <em>by_create_date=True</em>, <em>by_mod_date=False</em><big>)</big><a class="reference internal" href="../_modules/apps/core/models.html#Section.delete_irrelevant_links"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#apps.core.models.Section.delete_irrelevant_links" title="Permalink to this definition">¶</a></dt>
@@ -168,8 +176,8 @@ Delete links with creation or modification date older than a given date.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="apps.api.views.html"
-                        title="previous chapter">Api Views</a></p>
+  <p class="topless"><a href="apps.core.admin.html"
+                        title="previous chapter">Core Admin</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="apps.core.tests.html"
                         title="next chapter">Core Tests</a></p>
@@ -208,7 +216,7 @@ Delete links with creation or modification date older than a given date.</p>
           <a href="apps.core.tests.html" title="Core Tests"
              >next</a> |</li>
         <li class="right" >
-          <a href="apps.api.views.html" title="Api Views"
+          <a href="apps.core.admin.html" title="Core Admin"
              >previous</a> |</li>
         <li><a href="../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
           <li><a href="contents.html" >&lt;no title&gt;</a> &raquo;</li> 

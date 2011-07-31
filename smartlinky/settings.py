@@ -133,6 +133,8 @@ PLUGIN_CONFIG = {
 QA_CACHE_TIMEOUT = 60 * 60
 QA_LINKS_COUNT = 5
 STACKOVERFLOW_VIA_GOOGLE = True
+# this is not secret 
+GOOGLE_API_KEY = 'ABQIAAAA0rO84wkZ2K-mInSO_vPD-hTnbcKH7GRJu-fwtfJOSK5HyrXTWxTonFGxc8s-ltXoUcS8s_gIVMAytQ'
 
 try:
     from settings_local import *

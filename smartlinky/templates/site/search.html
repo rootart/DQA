@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block main %}
+	<article id="search">
+		<div class="col col_8">
+			<form method="GET" action="{% url site_search %}"> 
+				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %}> 
+				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ STATIC_URL }}imgs/search_icon.png" alt="search icon" /> </button> 
+			</form>
+		</div>
+		<div class="clear"></div>
+		<div id="results" class="col col_13 rounded box_shadow">
+			<div class="dashed_line"></div>
+				<div class="box_shadow_inside red_shadow">
+					{% if query %}
+						<h2>Search Results of <span class="var_results">{{ query }}</a></h2>
+					{% else %}
+						<h2>Be brave! Search now :)</h2>
+					{% endif %}
+				</div>
+				<div class="dashed_line"></div>
+				{% if search_results_pag %}
+					<div class="page">
+						Showing {{ search_results_pag.start_index }} to  {{ search_results_pag.end_index }}  of  {{ search_results_pag.paginator.count }} </div>
+					<div class="num_page">  Page
+					{% for p in search_results_pag.paginator.page_range %}
+						<!-- TODO: preserver search query in the paginator links -->
+						<a href="{% url site_index %}?q={{ query }}&page={{ p }}">{{ p }}</a>
+					{% endfor %}
+					</div>
+					<div class="clear"></div>
+					<!-- TODO: get search_results_pag via ajax -->
+					{% for link in search_results_pag.object_list %}
+						<div class="res">
+							<h3>{{ link.title }}</h3>
+							<!-- TODO: speed up faster lookups on those fields -->
+							<!-- TODO: style page and section references -->
+							<p>PAGE: {{ link.section.page.meta_title }}, SECTION: {{ link.section.html_title }}</p>
+							<a href="{{ link.url }}" class="rounded">details</a>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		<div class="clear"></div>
+	</article>
+{% endblock %}
+

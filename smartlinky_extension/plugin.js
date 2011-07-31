@@ -9145,19 +9145,20 @@ var style = {
         position: 'relative'
     },
     'container': {
-	width: '365px',
-	position: 'absolute',
-        right: '-60px',
-	fontFamily: 'Arial, "Helvetica", sans-serif',
-	fontSize: '11px'
+        position: 'absolute',
+        right: '-32px',
+        'top': '-16px',
+        fontFamily: 'Arial, "Helvetica", sans-serif',
+        fontSize: '11px'
     },
     'button': {
-	'float': 'right',
-	background: 'transparent url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
-	height: '34px',
-	width: '14px',
-	padding: '6px 6px 6px 27px',
-	color: '#fff',
+        'float': 'right',
+        background: 'transparent url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
+        opacity: '0.5',
+        height: '34px',
+        width: '14px',
+        padding: '6px 6px 6px 27px',
+        color: '#fff',
         cursor: 'pointer',
         border: '0px',
         margin: '8px',
@@ -9166,43 +9167,50 @@ var style = {
         'background-clip': 'padding-box'
     },
     'list': {
-	color: '#404646',
-	fontSize: '16px',
-	height: '20px',
-	overflow: 'hidden'
+        listStyle: 'none',
+        color: '#404646',
+        fontSize: '16px',
+        height: '20px',
+        overflow: 'hidden'
     },
     'list_element' : {
-	listStyle: 'none',
-	display: 'block',
-	textTransform: 'none',
-	marginTop: '0px'
+        listStyle: 'none',
+        display: 'block',
+        textTransform: 'none',
+        marginTop: '0px'
     },
     'widget': {
-	background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/logo_small_widget.png") no-repeat 95% 95%',
+        width: '300px',
+        background: '#f3f3f3 ',
         margin: '0 47px 0 0',
         border: 'rgba(187, 187, 187, 0.4) 8px solid',
-	padding: '10px 10px 60px',
+        padding: '10px 10px 70px',
         '-moz-background-clip': 'padding',    
         '-webkit-background-clip': 'padding', 
         'background-clip': 'padding-box'
     },
     'container_title': {
-	color: '#404646',
-	fontSize: '16px',
-	height: '20px',
-	overflow: 'hidden'
+        color: '#404646',
+        fontSize: '16px',
+        height: '20px',
+        overflow: 'hidden'
     },
     'block_list_item': {
-	display: 'inline',
-	textTransform: 'uppercase',
-	listStyle: 'none'
+        display: 'inline',
+        textTransform: 'uppercase',
+        listStyle: 'none'
     },
     'user_links': {
         paddingTop: '4px',
+        marginTop: '14px',
         paddingLeft: '8px'
     },
     'user_links_element': {
-	borderBottom: '1px solid #46b0d1',
+    borderBottom: '1px solid #46b0d1',
+        display: 'block'
+    },
+    'qalinks_element': {
+    borderBottom: '1px solid #bebebe',
         display: 'block'
     },
     'user_links_more': {
@@ -9210,20 +9218,21 @@ var style = {
         'border-bottom-left-radius': '5px',
         'border-bottom-right-radius': '5px',
         fontWeight: 'bold',
-        marginTop: '-9px',
         padding: '6px 10px',
+        cursor: 'pointer',
         'float': 'right'
     },
     'userlinks_title': {
         'border-top-left-radius': '5px',
         'border-top-right-radius': '5px',
         'font-weight': 'bold',
-        'padding': '6px 10px 11px',
+        'padding': '7px 10px 3px',
         'text-transform': 'uppercase',
         'border-left': '1px solid #46B0D1',
         'border-right': '1px solid #46B0D1',
         'border-top': '1px solid #46B0D1',
         'background': 'none repeat scroll 0 0 #85D1E9',
+        listStyle: 'none',
         'display': 'inline'
     },
     'userlinks_list': {
@@ -9233,48 +9242,64 @@ var style = {
         paddingLeft: '1.2em'
     },
     'add_button': {
-	color: '#fff',
-	background: '#d94545',
-	padding: '2px 5px',
+        color: '#fff',
+        background: '#d94545',
+        padding: '2px 5px',
+        cursor: 'pointer',
+        marginTop: '-7px',
         display: 'inline',
         'float': 'right'
     },
-//    'star':
     'link': {
-	textDecoration: 'none',
-	color: '#404646'        
+        textDecoration: 'none',
+        color: '#404646'        
     },
     'qalinks_title': {
         'border-top-left-radius': '5px',
         'border-top-right-radius': '5px',
         'font-weight': 'bold',
-        'padding': '6px 10px 11px',
+        'padding': '7px 10px 3px',
         'text-transform': 'uppercase',
-        'border-left': '1px solid #46B0D1',
-        'border-right': '1px solid #46B0D1',
-        'border-top': '1px solid #46B0D1',
-        'background': 'none repeat scroll 0 0 #85D1E9',
+        'border-left': '1px solid #BEBEBE',
+        'border-right': '1px solid #BEBEBE',
+        'border-top': '1px solid #BEBEBE',
+        'background': 'none repeat scroll 0 0 #E3E3E3',
         'display': 'inline' 
     },
     'qalinks_list': {
-	background: '#e3e3e3',
-	border: '1px solid #b0b3b3',
+        background: '#e3e3e3',
+        border: '1px solid #BEBEBE',
         paddingTop: '4px',
         paddingLeft: '1.2em'
     },
     'external_links_more': {
-	color: '#404646'        
+        background: '#B0B3B3',
+        'border-bottom-left-radius': '5px',
+        'border-bottom-right-radius': '5px',
+        fontWeight: 'bold',
+        padding: '6px 10px',
+        cursor: 'pointer',
+        'float': 'right',
+        color: '#404646'
     },
     'logo_small': {
-        'float': 'right'
+        'float': 'right',
+        background: 'url("http://smartlinky.com/site_media/static/imgs/logo_small_widget.png") no-repeat',
+        width: '98px',
+        height: '15px',
+        clear: 'both',
+        display: 'block',
+        marginTop: '17px'
     },
     'star': {
-        'background': 'url("http://smartlinky.com/site_media/static/imgs/star.png") no-repeat scroll center bottom transparent',
+        'background': 'url("http://smartlinky.com/site_media/static/imgs/star.png") no-repeat scroll left bottom transparent',
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
-        'width': '15px',
-        'cursor': 'pointer'
+        paddingLeft: '15px',
+        marginRight: '3px',
+        'cursor': 'pointer',
+        textAlign: 'right'
     }
 
         
@@ -9290,10 +9315,16 @@ style.button_active = $.extend({}, style.button, {
     borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
     borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
     margin: '0px',
-    background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px'
+    background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
+    opacity: '1',
 });
 
-
+/**
+ * Basic button widget.
+ *
+ * Every section on the page has a button. The button initializes the smartlinky
+ * widget (after click event).
+ */
 var Button = function(section, section_id, count) {
     this.section = section;
     this.$section = $('#' + section_id);
@@ -9341,6 +9372,10 @@ var Widget = function(section, $button, $section) {
 };
 
 /* {@ Init methods */
+
+/**
+ *
+ */
 Widget.prototype.render = function() {
     // Widget box
     this.$widget = $('<div>').css(style.widget).hide();
@@ -9352,7 +9387,7 @@ Widget.prototype.render = function() {
         accept: '.smartlinky-irrelevant'
     });
     $('<li>').css(style.list_item).append(this.$userlinks).appendTo(userlinks_container);
-    $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(userlinks_container);
+    $('<li>').css(style.user_links_more).text('SHOW MORE').hide().appendTo(userlinks_container);
 
     // Q&A links section
     var qalinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
@@ -9360,17 +9395,23 @@ Widget.prototype.render = function() {
     $('<li>').css(style.qalinks_title).text("EXTERNAL Q&A's").appendTo(qalinks_container);
     this.$qalinks = $('<ul>').css(style.qalinks_list);
     $('<li>').css(style.list_item).append(this.$qalinks).appendTo(qalinks_container);
-    $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(qalinks_container);
+    $('<li>').css(style.external_links_more).text('SHOW MORE').appendTo(qalinks_container);
 
     // Irrelevant links section
-    this.$irrelevantlinks = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
-    }).text('loading...').droppable({
+    this.$irrelevantlinks = $('<ul>').droppable({
         accept: '.smartlinky-relevant',
         over: function(e, ui) {
         }
     });
+
+    // Add small smartlinky logo
+    $('<a>')
+        .attr({
+            href: 'http://smartlinky.com',
+            target: '_blank'
+        })
+        .css(style.logo_small)
+        .appendTo(this.$widget);
 
     this.$button.after(this.$widget);
 };
@@ -9410,30 +9451,40 @@ Widget.prototype.handleUserLinksData = function(data) {
         for (var i = 0; i < data.links.length; i++) {
             this.insertLink(data.links[i]);
         }
-    }    
+    } else {
+        this.noLinksMessage();
+    }
 };
 
 Widget.prototype.insertLink = function(linkData) {
-    var $wrapper = $('<li>').css(style.user_links_element);
+    var $wrapper = $('<li>');
 
 
     //Link
     var $link = $('<a>')
         .css(style.link)
-        .attr('href', linkData.url)
+        .attr({
+            href: linkData.url,
+            target: '_blank' 
+        })
         .text(linkData.title);
     $wrapper.append($link);
 
     if (linkData.id) {
+        $wrapper.css(style.user_links_element);
         // Up votes counter
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .data('up-votes', linkData.up_votes)
+            .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;
                 $.post("http://smartlinky.com/api/vote_up", {'id': $(this).data('link-id')}, function(){
-                    $(star).remove();
+                    var up_votes = parseInt($(star).data('up-votes'), 10) + 1;
+                    $(star).data('up-votes', up_votes);
+                    $(star).text('('+ up_votes + ')');
                 });
             });
         //    .text(linkData.up_votes);
@@ -9451,6 +9502,7 @@ Widget.prototype.insertLink = function(linkData) {
             });
         }
     } else {
+        $wrapper.css(style.qalinks_element);
         this.$qalinks.append($wrapper);
     }
 }
@@ -9463,6 +9515,10 @@ Widget.prototype.handleQALinksData = function(data) {
         }
     }    
 };
+
+Widget.prototype.noLinksMessage = function() {
+    $('<li>').css(style.list_item).text('No links added yet.').appendTo(this.$userlinks);
+}
 
 
 /**
@@ -9506,21 +9562,27 @@ Widget.prototype.addLink = function(e) {
     }
 
     this.$addWidget = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
+        padding: '8px',
+        background: '#fbf2a4',
+        marginLeft: '4px',
+        marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
     this.$form.append($('<input>').attr({
             type: 'text',
-            name: 'url'
+            name: 'url',
+            value: 'http://'
         }).css({}));
     this.$form.prepend($('<label>').text('Add URL:'));
     this.$form.append($('<input>').attr({
         type: 'submit',
         name: 'submit',
         value: 'Submit'
-    }));
+    }).css(
+        style.add_button).css( 
+        'margin-top', '0px'
+    ));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
@@ -9545,7 +9607,8 @@ Widget.prototype.handleNewLinkSubmit = function(e) {
 
 Widget.prototype.handleAddLinkSuccess = function(data) {
     this.insertLink(data);
-}
+    this.$addWidget.remove();
+};
 var Parser = function() {
     this.sections = {};
 };
@@ -9571,6 +9634,12 @@ Parser.prototype.match = function(key, section) {
 };
 
 (function($){$(function(){
+    if (document.smartlinky_loaded === true) {
+        // Avoid conflicts
+        return;
+    }
+    document.smartlinky_loaded = true;
+
     var parser = new Parser();
     parser.parse();
     //Initialize

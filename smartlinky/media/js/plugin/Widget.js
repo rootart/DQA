@@ -15,6 +15,10 @@ var Widget = function(section, $button, $section) {
 };
 
 /* {@ Init methods */
+
+/**
+ *
+ */
 Widget.prototype.render = function() {
     // Widget box
     this.$widget = $('<div>').css(style.widget).hide();
@@ -42,6 +46,15 @@ Widget.prototype.render = function() {
         over: function(e, ui) {
         }
     });
+
+    // Add small smartlinky logo
+    $('<a>')
+        .attr({
+            href: 'http://smartlinky.com',
+            target: '_blank'
+        })
+        .css(style.logo_small)
+        .appendTo(this.$widget);
 
     this.$button.after(this.$widget);
 };
@@ -81,7 +94,9 @@ Widget.prototype.handleUserLinksData = function(data) {
         for (var i = 0; i < data.links.length; i++) {
             this.insertLink(data.links[i]);
         }
-    }    
+    } else {
+        this.noLinksMessage();
+    }
 };
 
 Widget.prototype.insertLink = function(linkData) {
@@ -91,7 +106,10 @@ Widget.prototype.insertLink = function(linkData) {
     //Link
     var $link = $('<a>')
         .css(style.link)
-        .attr('href', linkData.url)
+        .attr({
+            href: linkData.url,
+            target: '_blank' 
+        })
         .text(linkData.title);
     $wrapper.append($link);
 
@@ -101,11 +119,15 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .data('up-votes', linkData.up_votes)
+            .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;
                 $.post("{{api-url}}vote_up", {'id': $(this).data('link-id')}, function(){
-                    $(star).remove();
+                    var up_votes = parseInt($(star).data('up-votes'), 10) + 1;
+                    $(star).data('up-votes', up_votes);
+                    $(star).text('('+ up_votes + ')');
                 });
             });
         //    .text(linkData.up_votes);
@@ -136,6 +158,10 @@ Widget.prototype.handleQALinksData = function(data) {
         }
     }    
 };
+
+Widget.prototype.noLinksMessage = function() {
+    $('<li>').css(style.list_item).text('No links added yet.').appendTo(this.$userlinks);
+}
 
 
 /**
@@ -180,15 +206,16 @@ Widget.prototype.addLink = function(e) {
 
     this.$addWidget = $('<div>').css({
         padding: '8px',
-		background: '#fbf2a4',
-		marginLeft: '4px',
-		marginBottom: '25px'
+        background: '#fbf2a4',
+        marginLeft: '4px',
+        marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
     this.$form.append($('<input>').attr({
             type: 'text',
-            name: 'url'
+            name: 'url',
+            value: 'http://'
         }).css({}));
     this.$form.prepend($('<label>').text('Add URL:'));
     this.$form.append($('<input>').attr({
@@ -196,9 +223,9 @@ Widget.prototype.addLink = function(e) {
         name: 'submit',
         value: 'Submit'
     }).css(
-		style.add_button).css( 
-		'margin-top', '0px'
-	));
+        style.add_button).css( 
+        'margin-top', '0px'
+    ));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
@@ -223,4 +250,5 @@ Widget.prototype.handleNewLinkSubmit = function(e) {
 
 Widget.prototype.handleAddLinkSuccess = function(data) {
     this.insertLink(data);
-}
+    this.$addWidget.remove();
+};
