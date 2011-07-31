@@ -39,3 +39,7 @@ Deploy on localhost
 
     python ./manage.py runserver
 
+4. Run generateplugin management script:
+
+    python ./manage.py generateplugin
+
