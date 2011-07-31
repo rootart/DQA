@@ -1,21 +1,23 @@
 ﻿{% extends 'base.html' %}
 {% block main %}
 	<article id="search"  class="col">
-		<div class="col col_8">
+		<div class="col">
 			<h1 class="shadow">Improve docs. Just link it ;)</h1>
+			<img src="{{ STATIC_URL }}imgs/img_home.png" alt="how it works" />
 		</div>
 		
 	</article>
 	<article>
-		<div class="col_5 float_right">
+		<div id="extention_chrome" class="col_5 float_right">
 			<div class="download_chrome_blu rounded_top_right rounded_top_left">
-				<h4 class="shadow download_icon">Install Now, It's Free!</h4>
+				<h4 class="shadow download_icon">
+				<a href="https://chrome.google.com/webstore/detail/iablaicbmihgdkkjjfiimdchelgggjlb">Install Now, It's Free!</a></h4>
 			</div>
 			<div class="download_chrome rounded_bottom_right rounded_bottom_left">
-				<h4 class="chrome_icon">For Google Chrome</h4>
+				<h4 class="chrome_icon"><a href="https://chrome.google.com/webstore/detail/iablaicbmihgdkkjjfiimdchelgggjlb">For Google Chrome</a></h4>
 			</div>
 		</div>
-		<div id="feeds" class="col col_5 rounded box_shadow">
+		<div id="feeds" class="col_5 rounded box_shadow">
 			<div class="dashed_line"></div>
 			<div class="box_shadow_inside red_shadow">
 				<h2>link feed</h2>
