@@ -11,29 +11,26 @@ var Widget = function(section, $button, $section) {
     this.$irrelevantlinks = null;
 
     this.render();
-    this.loadLink();
+    this.loadLinks();
 };
 
 /* {@ Init methods */
 Widget.prototype.render = function() {
     // Widget box
-    this.$widget = $('<div>').css({
-        position: 'absolute',
-        width: '220px',
-        left: '30px',
-        display: 'none',
-        background: '#fff',
-        color: '#000',
-        'z-index': 100,
-        border: '1px solid #000'
-    });
+    this.$widget = $('<div>').css(style.widget);
     // Userlinks section
-    this.$userlinks = $('<div>').css({
-        padding: '3px',
-        border: '1px dotted #00f'
-    }).text('loading...').droppable({
+    var userlinks_container = $('<ul>').css(style.user_links).appendTo(this.$widget);
+    $('<li>').css(style.userlinks_title).text('USER LINKS').appendTo(userlinks_container);
+    $('<li>').css(style.add_button).text('ADD +').click($.proxy(this, 'addLink')).appendTo(userlinks_container);
+    
+    this.$userlinks = $('<ul>').css(style.userlinks_list).droppable({
         accept: '.smartlinky-irrelevant'
     });
+    
+    $('<li>').append(this.$userlinks).appendTo(userlinks_container);
+
+    $('<li>').css(style.user_links_more).text('ADD +').appendTo(userlinks_container);
+
     // Q&A section
     this.$qalinks = $('<div>').css({
         padding: '3px',
@@ -49,30 +46,7 @@ Widget.prototype.render = function() {
         }
     });
 
-    // Close button
-    this.$widget.append($('<span>').css({
-        width: '13px',
-        height: '13px',
-        background: '#000',
-        color: '#f00',
-        float: 'right'
-    }).click($.proxy(this, 'close')).text('x'));
-
-    // Add button
-    this.$widget.append($('<span>').css({
-        width: '33px',
-        height: '13px',
-        margin: '0px 2px',
-        background: '#000',
-        color: '#0f0',
-        float: 'right'
-    }).click($.proxy(this, 'addLink')).text('add'));
-
-    this.$widget.append(this.$userlinks);
-    this.$widget.append(this.$qalinks);
-    this.$widget.append(this.$irrelevantlinks);
-
-    this.$button.before(this.$widget);
+    this.$button.after(this.$widget);
 };
 
 Widget.prototype.loadLinks = function() {

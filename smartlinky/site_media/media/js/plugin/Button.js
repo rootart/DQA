@@ -10,15 +10,14 @@ var Button = function(section, section_id, count) {
 };
 
 Button.prototype.render = function() {
-    var $wrapper = $('<div>').css(style.wrapper);
-    this.$button = $('<div>').css(style.button);
+    var $wrapper = $('<div>').css(style.wrapper).prependTo(this.$section);
+    var $container = $('<div>').css(style.container).appendTo($wrapper);
+    this.$button = $('<div>').css(style.button).appendTo($container);
     if (this.count) {
         this.$button.text(this.count);
     } else {
         this.$button.text(0);
     }
-    $wrapper.append(this.$button);
-    $wrapper.prependTo(this.$section);
 
     this.$button.click($.proxy(this, 'handleClick'));
 };
