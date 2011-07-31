@@ -197,7 +197,8 @@ Widget.prototype.addLink = function(e) {
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
     this.$form.append($('<input>').attr({
             type: 'text',
-            name: 'url'
+            name: 'url',
+            value: 'http://'
         }).css({}));
     this.$form.prepend($('<label>').text('Add URL:'));
     this.$form.append($('<input>').attr({
