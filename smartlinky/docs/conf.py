@@ -33,7 +33,10 @@ setup_environ(settings)
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = [
+    '_templates', 
+    os.path.join(os.path.abspath('..'), 'templates', 'sphinx')
+]
 
 # The suffix of source filenames.
 source_suffix = '.rst'
