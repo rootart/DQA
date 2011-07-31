@@ -2,6 +2,7 @@
 {% block main %}
 	<article id="search">
 		<div class="col col_8">
+		<h1 class="shadow">Start to search links in title's documentation.</h1>
 			<form method="GET" action="{% url site_search %}"> 
 				<input class="box_shadow_inside_light rounded" type=search name=q placeholder=Search... autosave=unique {% if query %}value={{ query }}{% endif %}> 
 				<button class="box_shadow_inside red_shadow rounded"> <img src="{{ STATIC_URL }}imgs/search_icon.png" alt="search icon" /> </button> 
