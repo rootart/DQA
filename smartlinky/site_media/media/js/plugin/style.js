@@ -7,7 +7,7 @@
 var cleaner = {
     border: 0,
     background: 'transparent',
-    color: '#fff',
+    color: '#000',
     margin: 0,
     padding: 0
 };
@@ -18,7 +18,7 @@ var style = {
         position: 'relative'
     },
     'container': {
-	width: '314px',
+	width: '365px',
 	position: 'absolute',
         right: '-60px',
 	fontFamily: 'Arial, "Helvetica", sans-serif',
@@ -26,13 +26,17 @@ var style = {
     },
     'button': {
 	'float': 'right',
-	background: 'url("{{media-url}}imgs/icon_widget.png") no-repeat',
+	background: 'transparent url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px',
 	height: '34px',
-	width: '16px',
-	paddingLeft: '26px',
+	width: '14px',
+	padding: '6px 6px 6px 27px',
 	color: '#fff',
-	margin: '10px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        border: '0px',
+        margin: '8px',
+        '-moz-background-clip': 'padding',    
+        '-webkit-background-clip': 'padding', 
+        'background-clip': 'padding-box'
     },
     'list': {
 	color: '#404646',
@@ -47,13 +51,13 @@ var style = {
 	marginTop: '0px'
     },
     'widget': {
-	background: '#f3f3f3',
-	border: '1px solid #bebebe',
-	'-webkit-box-shadow': '0px 0px 5px 0px #4a4a4a',
-	'-moz-box-shadow': '0px 0px 5px 0px #4a4a4a',
-	boxShadow: '0px 0px 5px 0px #4a4a4a', 
-	padding: '10px',
-	paddingBottom: '20px'
+	background: '#f3f3f3 url("{{media-url}}imgs/logo_small_widget.png") no-repeat 95% 95%',
+        margin: '0 47px 0 0',
+        border: 'rgba(187, 187, 187, 0.4) 8px solid',
+	padding: '10px 10px 60px',
+        '-moz-background-clip': 'padding',    
+        '-webkit-background-clip': 'padding', 
+        'background-clip': 'padding-box'
     },
     'container_title': {
 	color: '#404646',
@@ -71,7 +75,8 @@ var style = {
         paddingLeft: '8px'
     },
     'user_links_element': {
-	borderBottom: '1px solid #46b0d1'
+	borderBottom: '1px solid #46b0d1',
+        display: 'block'
     },
     'user_links_more': {
         background: 'none repeat scroll 0 0 #46B0D1',
@@ -92,10 +97,10 @@ var style = {
         'border-right': '1px solid #46B0D1',
         'border-top': '1px solid #46B0D1',
         'background': 'none repeat scroll 0 0 #85D1E9',
-        'display': 'inline' 
+        'display': 'inline'
     },
     'userlinks_list': {
-        background: 'none repeat scroll 0 0 #85D1E9',
+        background: '#85D1E9',
         border: '1px solid #46B0D1',
         paddingTop: '4px',
         paddingLeft: '1.2em'
@@ -112,15 +117,37 @@ var style = {
 	textDecoration: 'none',
 	color: '#404646'        
     },
-    'external_links': {
+    'qalinks_title': {
+        'border-top-left-radius': '5px',
+        'border-top-right-radius': '5px',
+        'font-weight': 'bold',
+        'padding': '6px 10px 11px',
+        'text-transform': 'uppercase',
+        'border-left': '1px solid #46B0D1',
+        'border-right': '1px solid #46B0D1',
+        'border-top': '1px solid #46B0D1',
+        'background': 'none repeat scroll 0 0 #85D1E9',
+        'display': 'inline' 
+    },
+    'qalinks_list': {
 	background: '#e3e3e3',
-	border: '1px solid #b0b3b3'        
+	border: '1px solid #b0b3b3',
+        paddingTop: '4px',
+        paddingLeft: '1.2em'
     },
     'external_links_more': {
 	color: '#404646'        
+    },
+    'logo_small': {
+        'float': 'right'
+    },
+    'star': {
+        'background': 'url("{{media-url}}imgs/star.png") no-repeat scroll center bottom transparent',
+        'float': 'right',
+        'height': '15px',
+        'overflow': 'hidden',
+        'width': '15px'
     }
-//    'trash':
-//    'logo_small':
 
         
 };
@@ -130,3 +157,10 @@ for (var key in style) {
         style[key] = $.extend({}, cleaner, style[key]);
     }
 }
+style.button_active = $.extend({}, style.button, {
+    borderTop: 'rgba(187, 187, 187, 0.4) 8px solid',
+    borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
+    borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
+    margin: '0px',
+    background: '#f3f3f3 url("{{media-url}}imgs/icon_widget.png") no-repeat 6px 6px'
+});
