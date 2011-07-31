@@ -10,8 +10,23 @@ from apps.core.models import Link
 # TODO: docstrings
 @never_cache
 def index(request):
-    """Main view of the site that also performs search and adds feeds."""
+    """Main view of the site that also performs link feed."""
     
+    ctx = {} 
+    recent_links = Link.objects.all().order_by('created_at')[:10]
+    ctx['feeds'] = recent_links
+    
+    return render_to_response('site/index.html', ctx, context_instance=RequestContext(request))
+
+# TODO: tests
+# TODO: docstrings
+@cache_page(60*60)
+def about(request):
+    """
+    """
+    return render_to_response('site/about.html', {}, context_instance=RequestContext(request))
+
+def search(request):
     query = request.GET.get('q')
     ctx = {
         'search_results_pag': [],
@@ -35,16 +50,4 @@ def index(request):
             search_results_pag = search_results_pag.page(search_results_pag.num_pages)
 
         ctx['search_results_pag'] = search_results_pag
-        
-    recent_links = Link.objects.all().order_by('created_at')[:10]
-    ctx['feeds'] = recent_links
-    
-    return render_to_response('site/index.html', ctx, context_instance=RequestContext(request))
-
-# TODO: tests
-# TODO: docstrings
-@cache_page(60*60)
-def about(request):
-    """
-    """
-    return render_to_response('site/about.html', {}, context_instance=RequestContext(request))
+    return render_to_response('site/search.html', ctx, context_instance=RequestContext(request))

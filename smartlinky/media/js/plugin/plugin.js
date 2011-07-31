@@ -1,5 +1,11 @@
 
 (function($){$(function(){
+    if (document.smartlinky_loaded === true) {
+        // Avoid conflicts
+        return;
+    }
+    document.smartlinky_loaded = true;
+
     var parser = new Parser();
     parser.parse();
     //Initialize
