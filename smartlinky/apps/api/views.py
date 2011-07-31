@@ -215,7 +215,7 @@ def add_link(request):
             'url': form.cleaned_data['link_url'],
             'title': link_title,
             'is_relevant': True,
-            'up_votes': link.up_votes
+            'up_votes': link.up_votes,
         }
         return response
     

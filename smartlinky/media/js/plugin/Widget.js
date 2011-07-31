@@ -119,12 +119,15 @@ Widget.prototype.insertLink = function(linkData) {
         var $up_votes = $('<span>')
             .css(style.star)
             .data('link-id', linkData.id)
+            .data('up-votes', linkData.up_votes)
             .text('(' + linkData.up_votes + ')')
             .click(function(e){
                 e.preventDefault();
                 var star = this;
                 $.post("{{api-url}}vote_up", {'id': $(this).data('link-id')}, function(){
-                    $(star).remove();
+                    var up_votes = parseInt($(star).data('up-votes'), 10) + 1;
+                    $(star).data('up-votes', up_votes);
+                    $(star).text('('+ up_votes + ')');
                 });
             });
         //    .text(linkData.up_votes);
