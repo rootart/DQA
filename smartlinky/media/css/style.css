@@ -213,3 +213,8 @@ footer nav ul li a:active{
 #main .about a:hover{
 	opacity: 0.6;
 }
+#documentation {
+	background: #fff;
+	padding: 32px;
+	font-size: 130%;
+}

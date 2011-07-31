@@ -26,7 +26,7 @@
 					<ul class="fontface">
 						<li><a href="{% url site_index %}"  class="rounded">home</a></li>
 						<li><a href="{% url site_search %}"  class="rounded">search</a></li>
-						<li><a href="#"  class="rounded">example</a></li>
+						<li><a href="{% url site_example %}"  class="rounded">example</a></li>
 						<!--<li><a href="#"  class="rounded">reports</a></li>-->
 						<li><a href="{% url site_about %}"  class="rounded">about</a></li>
 					</ul>
@@ -49,7 +49,7 @@
 					<nav>
 						<ul class="pipe">
 							<li class="no_pipe"><a href="{% url site_index %}">home</a></li>
-							<li><a href="#">example</a></li>
+							<li><a href="{% url site_example %}">example</a></li>
 							<!--<li><a href="#">reports</a></li>-->
 							<li><a href="{% url site_about %}">about</a></li>
 							<li><a href="{% url site_about %}"><img src="{{ STATIC_URL }}imgs/mail.png" alt="email icon" /></a></li>
