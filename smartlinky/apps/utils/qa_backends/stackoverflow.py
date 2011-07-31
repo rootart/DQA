@@ -1,4 +1,5 @@
 # TODO: clean this mess up
+import re
 import urllib2, urllib
 
 from django.conf import settings
@@ -10,13 +11,17 @@ import stackexchange
 
 SO = stackexchange.StackOverflow()
 
+def remove_html_tags(data):
+    p = re.compile(r'<.*?>')
+    return p.sub('', data)
+
 # TODO: add comments and credits according to http://stackapps.com/questions/198/py-stackexchange-an-api-wrapper-for-python
 # TODO: docstrings
 # TODO: tests
 def get_links_via_API(page_title, section_title):
     search_query = '%s %s' % (page_title, section_title)
     search_results = SO.search(intitle=smart_str(search_query), pagesize=5).items
-    links = [{'url': sr.url, 'title': sr.title} for sr in search_results]
+    links = [{'url': sr.url, 'title': remove_html_tags(sr.title)} for sr in search_results]
     return links[:settings.QA_LINKS_COUNT]
 
 # TODO: docstrings
@@ -27,7 +32,7 @@ def get_links_via_google(page_title, section_title):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     search_results = json.load(response)['responseData']['results']
-    links = [{'url': sr['url'], 'title': sr['title']} for sr in search_results]
+    links = [{'url': sr['url'], 'title': remove_html_tags(sr['title'])} for sr in search_results]
     return links[:settings.QA_LINKS_COUNT]
 
 # TODO: docstrings
