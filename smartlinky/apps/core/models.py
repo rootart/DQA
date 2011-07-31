@@ -98,6 +98,12 @@ class Section(models.Model):
         .. warning:: Cleans up ALL links if 'older_than' is not specified."""
         # TODO: check if this works
         raise NotImplementedError
+    
+    # TODO: tests
+    @property
+    def cache_key(self):
+        """Generate a cache key based on unique fields.""" 
+        return '%s%s' % (self.page.url, self.html_id)
 
 # TODO: indexes
 # TODO: help texts
