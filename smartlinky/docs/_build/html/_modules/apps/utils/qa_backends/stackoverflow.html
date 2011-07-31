@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>apps.utils.qa_backends.stackoverflow &mdash; Smartlinky v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="Smartlinky v0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" />
+    <script type="text/javascript" src="http://smartlinky.com/site_media/static/plugin.js"></script>
+     
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for apps.utils.qa_backends.stackoverflow</h1><div class="highlight"><pre>
+<span class="c"># TODO: clean this mess up</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">urllib</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">simplejson</span> <span class="k">as</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="nn">django.utils.encoding</span> <span class="kn">import</span> <span class="n">smart_str</span>
+
+<span class="kn">import</span> <span class="nn">stackexchange</span>
+
+
+<span class="n">SO</span> <span class="o">=</span> <span class="n">stackexchange</span><span class="o">.</span><span class="n">StackOverflow</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">remove_html_tags</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;&lt;.*?&gt;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<span class="c"># TODO: add comments and credits according to http://stackapps.com/questions/198/py-stackexchange-an-api-wrapper-for-python</span>
+<span class="c"># TODO: docstrings</span>
+<span class="c"># TODO: tests</span>
+<span class="c"># TODO: limit the number of results via API</span>
+<span class="k">def</span> <span class="nf">get_links_via_API</span><span class="p">(</span><span class="n">search_query</span><span class="p">):</span>
+    <span class="n">search_results</span> <span class="o">=</span> <span class="n">SO</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">intitle</span><span class="o">=</span><span class="n">smart_str</span><span class="p">(</span><span class="n">search_query</span><span class="p">),</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="n">sr</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="n">remove_html_tags</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">title</span><span class="p">)}</span> <span class="k">for</span> <span class="n">sr</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">links</span>
+
+<span class="c"># TODO: docstrings</span>
+<span class="c"># TODO: tests</span>
+<span class="c"># TODO: limit the number of results via API</span>
+<span class="k">def</span> <span class="nf">get_links_via_google</span><span class="p">(</span><span class="n">search_query</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="s">&#39;stackoverflow.com&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">site</span><span class="p">:</span>
+        <span class="n">search_query</span> <span class="o">+=</span> <span class="s">&#39; site=stackoverflow.com&#39;</span>
+    <span class="n">get_params</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s">&#39;q&#39;</span><span class="p">:</span> <span class="n">smart_str</span><span class="p">(</span><span class="n">search_query</span><span class="p">)})</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://ajax.googleapis.com/ajax/services/search/web?v=1.0&amp;key=</span><span class="si">%s</span><span class="s">&amp;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">GOOGLE_API_KEY</span><span class="p">,</span> <span class="n">get_params</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">search_results</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">response</span><span class="p">)[</span><span class="s">&#39;responseData&#39;</span><span class="p">][</span><span class="s">&#39;results&#39;</span><span class="p">]</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="n">sr</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">],</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="n">remove_html_tags</span><span class="p">(</span><span class="n">sr</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">])}</span> <span class="k">for</span> <span class="n">sr</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">links</span>
+
+<span class="c"># TODO: docstrings</span>
+<span class="c"># TODO: tests</span>
+<div class="viewcode-block" id="get_links"><a class="viewcode-back" href="../../../../in_code/apps.utils.qa_backends.stackoverflow.html#apps.utils.qa_backends.stackoverflow.get_links">[docs]</a><span class="k">def</span> <span class="nf">get_links</span><span class="p">(</span><span class="n">page_title</span><span class="p">,</span> <span class="n">section_title</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Switch between querying StackOverflow via it&#39;s API or via Google.&quot;&quot;&quot;</span>
+    <span class="c"># HACK: until we figure out how to query more precisely then google might give more results</span>
+    <span class="n">_get_links</span> <span class="o">=</span> <span class="n">get_links_via_google</span> <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">STACKOVERFLOW_VIA_GOOGLE</span> <span class="k">else</span> <span class="n">get_links_via_API</span>
+    
+    <span class="c"># most precise search</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="n">_get_links</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">page_title</span><span class="p">,</span> <span class="n">section_title</span><span class="p">))[:</span><span class="n">settings</span><span class="o">.</span><span class="n">QA_LINKS_COUNT</span><span class="p">]</span>
+    
+    <span class="n">need_more</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="n">QA_LINKS_COUNT</span>
+    <span class="k">if</span> <span class="n">need_more</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="c"># only section_title</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_links</span><span class="p">(</span><span class="n">section_title</span><span class="p">)[:</span><span class="n">need_more</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">links</span> 
+
+    <span class="n">need_more</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="n">QA_LINKS_COUNT</span>
+    <span class="k">if</span> <span class="n">need_more</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="c"># only page_title</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_links</span><span class="p">(</span><span class="n">page_title</span><span class="p">)[:</span><span class="n">need_more</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">links</span>
+        
+    <span class="n">need_more</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="n">QA_LINKS_COUNT</span>
+    <span class="k">if</span> <span class="n">need_more</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="c"># via google without http://stackoverflow.com site</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">get_links_via_google</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">page_title</span><span class="p">,</span> <span class="n">section_title</span><span class="p">),</span> <span class="n">site</span><span class="o">=</span><span class="bp">None</span><span class="p">)[:</span><span class="n">need_more</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">links</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../index.html">Smartlinky v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Berlin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
