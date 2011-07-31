@@ -14,7 +14,6 @@ from decorators import xss_json_response
 from forms import AddLinkForm
 
 
-@cache_page(60)
 @xss_json_response
 def init(request):
     """Return number of user links for known sections of a documentation page.
@@ -52,7 +51,6 @@ def init(request):
     
     return response
 
-@cache_page(60)
 @xss_json_response
 def users_links(request):
     """Return all links added by users for a given section.
@@ -217,6 +215,7 @@ def add_link(request):
             'url': form.cleaned_data['link_url'],
             'title': link_title,
             'is_relevant': True,
+            'up_votes': link.up_votes
         }
         return response
     
