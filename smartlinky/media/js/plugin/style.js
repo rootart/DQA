@@ -43,6 +43,7 @@ var style = {
         'background-clip': 'padding-box'
     },
     'list': {
+	listStyle: 'none',
 	color: '#404646',
 	fontSize: '16px',
 	height: '20px',
@@ -58,7 +59,7 @@ var style = {
 	background: '#f3f3f3 url("{{media-url}}imgs/logo_small_widget.png") no-repeat 95% 95%',
         margin: '0 47px 0 0',
         border: 'rgba(187, 187, 187, 0.4) 8px solid',
-	padding: '10px 10px 60px',
+	padding: '10px 10px 80px',
         '-moz-background-clip': 'padding',    
         '-webkit-background-clip': 'padding', 
         'background-clip': 'padding-box'
@@ -76,6 +77,7 @@ var style = {
     },
     'user_links': {
         paddingTop: '4px',
+		marginTop: '10px',
         paddingLeft: '8px'
     },
     'user_links_element': {
@@ -87,20 +89,21 @@ var style = {
         'border-bottom-left-radius': '5px',
         'border-bottom-right-radius': '5px',
         fontWeight: 'bold',
-        marginTop: '-9px',
         padding: '6px 10px',
+		cursor: 'pointer',
         'float': 'right'
     },
     'userlinks_title': {
         'border-top-left-radius': '5px',
         'border-top-right-radius': '5px',
         'font-weight': 'bold',
-        'padding': '6px 10px 11px',
+        'padding': '7px 10px 3px',
         'text-transform': 'uppercase',
         'border-left': '1px solid #46B0D1',
         'border-right': '1px solid #46B0D1',
         'border-top': '1px solid #46B0D1',
         'background': 'none repeat scroll 0 0 #85D1E9',
+		listStyle: 'none',
         'display': 'inline'
     },
     'userlinks_list': {
@@ -113,6 +116,8 @@ var style = {
 	color: '#fff',
 	background: '#d94545',
 	padding: '2px 5px',
+	cursor: 'pointer',
+	marginTop: '-7px',
         display: 'inline',
         'float': 'right'
     },
@@ -125,22 +130,29 @@ var style = {
         'border-top-left-radius': '5px',
         'border-top-right-radius': '5px',
         'font-weight': 'bold',
-        'padding': '6px 10px 11px',
+        'padding': '7px 10px 3px',
         'text-transform': 'uppercase',
-        'border-left': '1px solid #46B0D1',
-        'border-right': '1px solid #46B0D1',
-        'border-top': '1px solid #46B0D1',
-        'background': 'none repeat scroll 0 0 #85D1E9',
+        'border-left': '1px solid #BEBEBE',
+        'border-right': '1px solid #BEBEBE',
+        'border-top': '1px solid #BEBEBE',
+        'background': 'none repeat scroll 0 0 #E3E3E3',
         'display': 'inline' 
     },
     'qalinks_list': {
 	background: '#e3e3e3',
-	border: '1px solid #b0b3b3',
+	border: '1px solid #BEBEBE',
         paddingTop: '4px',
         paddingLeft: '1.2em'
     },
     'external_links_more': {
-	color: '#404646'        
+	    background: '#B0B3B3',
+        'border-bottom-left-radius': '5px',
+        'border-bottom-right-radius': '5px',
+        fontWeight: 'bold',
+        padding: '6px 10px',
+		cursor: 'pointer',
+        'float': 'right',
+		color: '#404646'
     },
     'logo_small': {
         'float': 'right'
