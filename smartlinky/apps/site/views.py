@@ -27,7 +27,7 @@ def index(request):
         except ValueError:
             page = 1
     
-        search_results_pag = Paginator(search_results, 2)
+        search_results_pag = Paginator(search_results, 3)
         try:
             search_results_pag = search_results_pag.page(page)
         except (EmptyPage, InvalidPage):

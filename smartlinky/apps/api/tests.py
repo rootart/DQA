@@ -37,16 +37,19 @@ class InitAPITest(APITest):
     def testUnknownUrl(self):
         kwargs = {'url': 'http://google.com'}
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({'sections':{}}))
                          
     def testPageWithoutLinks(self):
         kwargs = {'url': self.page2.url}
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({'sections':{}}))
         
     def testSectionsWithLinks(self):
         kwargs = {'url': self.page1.url}
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({
             'sections':{
                 self.section1.html_id: self.section1.links.count(), 
@@ -66,6 +69,7 @@ class UsersLinksAPITest(APITest):
             'section_id': 'foo',
         }
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({'links':[]}))
                          
     def testUnknownSection(self):
@@ -74,6 +78,7 @@ class UsersLinksAPITest(APITest):
             'section_id': 'foo',
         }
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({'links':[]}))
         
     def testSectionWithoutLinks(self):
@@ -82,6 +87,7 @@ class UsersLinksAPITest(APITest):
             'section_id': self.section3.html_id,
         }
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({'links':[]}))
     
     def testSectionWithLinks(self):
@@ -99,6 +105,7 @@ class UsersLinksAPITest(APITest):
                 'is_relevant': link.is_relevant,
                 'up_votes': link.up_votes,
             })
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps({
             'links': links
         }))
@@ -190,7 +197,6 @@ class AddLinkAPITest(APITest):
         content_json = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual('Attila' in content_json['title'], True)
-
         self.assertEqual(Link.objects.all().count(), 2)
 
 class QALinksAPITest(APITest):
@@ -207,6 +213,72 @@ class QALinksAPITest(APITest):
             'section_title': self.section1.html_title,
         }
         response = self.get(kwargs)
+        self.assertEqual(response.status_code, 200)
         cache_key = '%s%s' % (self.section1.page.url, self.section1.html_id)
         links = cache.get(cache_key)
         self.assertNotEquals(links, None)
+        
+class VoteUpAPITest(APITest):
+    
+    def setUp(self):
+        self.path = reverse('api_vote_up')
+        super(VoteUpAPITest, self).setUp()
+        
+class SetRelevantAPITest(APITest):
+    
+    def setUp(self):
+        self.path = reverse('api_set_relevant')
+        super(SetRelevantAPITest, self).setUp()
+    
+    def testNotIntegerId(self):
+        kwargs = {
+            'id': 'foo',
+            'is_relevant': 1,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)
+        
+    def testNotValidIsRelevant(self):
+        kwargs = {
+            'id': self.link1.id,
+            'is_relevant': 'foo',
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)
+
+    def testSetRelevantTrue(self):
+        kwargs = {
+            'id': self.link1.id,
+            'is_relevant': 1,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.link1.is_relevant, True)
+
+# TODO: make this test work and check other tests for the same error
+#    def testSetRelevantFalse(self):
+#        kwargs = {
+#            'id': self.link2.id,
+#            'is_relevant': 0,
+#        }
+#        response = self.post(kwargs)
+#        content_json = json.loads(response.content)
+#        self.assertEqual(response.status_code, 200)
+#        self.assertEqual(self.link2.is_relevant, False)
+        
+    def testNoLink(self):
+        link_id = self.link1.id
+        Link.objects.all().delete()
+        kwargs = {
+            'id': link_id,
+            'is_relevant': 1,
+        }
+        response = self.post(kwargs)
+        content_json = json.loads(response.content)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual('message' in content_json, True)        
