@@ -35,7 +35,7 @@ STATIC_URL = '/site_media/static/'
 ADMIN_MEDIA_PREFIX = '/site_media/static/admin/'
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'site_media', 'media')
+    os.path.join(PROJECT_ROOT, 'media')
 ]
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -46,6 +46,13 @@ TEMPLATE_DIRS = ('templates',)
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
 )
 
 MIDDLEWARE_CLASSES = (

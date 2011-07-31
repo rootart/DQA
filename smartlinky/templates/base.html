@@ -3,15 +3,15 @@
     <head>
 		<meta charset=utf-8>
 		<title>Smartlinky</title>
-	    <script src="{{ MEDIA_URL }}js/modernizr-1.7.min.js"></script>
+	    <script src="{{ STATIC_URL }}js/modernizr-1.7.min.js"></script>
 		
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/css3.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/general.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/grid.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" media="screen" title="html5doctor.com Reset Stylesheet" />    
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/css3.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/general.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/grid.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" media="screen" />
     	<!--[if lt IE 9]>
-				<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ie.css" />
+				<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css" />
 			<![endif]-->
 		{% block head_extra %}
 			
@@ -21,7 +21,7 @@
 	<body class="back_top">
 		<div class="big_row">
 			<header class="row">
-				<div class="logo col col_7"><a href="{% url site_index %}"><img src="{{ MEDIA_URL }}imgs/logo.gif" alt="smartlinky" /></a></div>
+				<div class="logo col col_7"><a href="{% url site_index %}"><img src="{{ STATIC_URL }}imgs/logo.gif" alt="smartlinky" /></a></div>
 				<nav class="col col_9">
 					<ul class="fontface">
 						<li><a href="{% url site_index %}"  class="rounded">home</a></li>
@@ -42,7 +42,7 @@
 		<div class="clear"></div>
 		<footer class="back_footer">
 			<div class="row">
-				<div class="col col_6"><a href="{% url site_index %}"><img src="{{ MEDIA_URL }}imgs/logo_small.png" alt="logo smartlinky" /></a></div>
+				<div class="col col_6"><a href="{% url site_index %}"><img src="{{ STATIC_URL }}imgs/logo_small.png" alt="logo smartlinky" /></a></div>
 				<div class="col col_5 down_10"><a href="http://djangodash.com/teams/c2/berlin/">Berlin Django Dash 2011</a></div>
 				<div class="col col_5 down_10">
 					<nav>
@@ -51,7 +51,7 @@
 							<li><a href="#">example</a></li>
 							<!--<li><a href="#">reports</a></li>-->
 							<li><a href="{% url site_about %}">about</a></li>
-							<li><a href="{% url site_about %}"><img src="{{ MEDIA_URL }}imgs/mail.png" alt="email icon" /></a></li>
+							<li><a href="{% url site_about %}"><img src="{{ STATIC_URL }}imgs/mail.png" alt="email icon" /></a></li>
 						</ul>
 					</nav>
 				</div>

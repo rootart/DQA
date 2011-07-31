@@ -8,6 +8,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         
+        if settings.DEBUG:
+            root = settings.MEDIA_ROOT
+        else:
+            root = settings.STATIC_ROOT
+
         configs = []
         for key, value in settings.PLUGIN_CONFIG.items():
             configs.append(['{{%s}}' % key, value])
@@ -18,7 +23,7 @@ class Command(BaseCommand):
         plugincontent = '(function(){'
         self.stdout.write('Generate plugin..\n')
         for filename in settings.PLUGIN_FILES:
-            filepath = os.path.join(settings.MEDIA_ROOT, *filename)
+            filepath = os.path.join(root, *filename)
             self.stdout.write('%s, ' % filepath)
             f = open(filepath, 'r')
             filecontent = f.read()
@@ -31,11 +36,10 @@ class Command(BaseCommand):
             f.close()
         plugincontent += '})();'
 
-        plugin_filepath = os.path.join(settings.MEDIA_ROOT, settings.PLUGIN_FILENAME)
+        plugin_filepath = os.path.join(root, settings.PLUGIN_FILENAME)
         self.stdout.write('\nPlugin filepath: %s\n' % plugin_filepath)
         pluginfile = open(plugin_filepath, 'w')
         pluginfile.write(plugincontent)
         pluginfile.close()
-
                     
         
