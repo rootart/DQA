@@ -29,8 +29,11 @@ def get_links_via_google(page_title, section_title):
     return links[:settings.QA_LINKS_COUNT]
     
 def get_links(page_title, section_title):
-    """Switch between querying StackOverflow via it's API or Google."""
-    if settings.STACKOVERFLOW_VIA_GOOGLE:
-        return get_links_via_google(page_title, section_title)
-    else:
-        return get_links_via_API(page_title, section_title)        
+    """Switch between querying StackOverflow via it's API or via Google."""
+    _get_links = get_links_via_google if settings.STACKOVERFLOW_VIA_GOOGLE else get_links_via_API
+    links = _get_links(page_title, section_title)
+    if not links:
+        links = _get_links('', section_title)
+    if not links:
+        links = _get_links(page_title, '')
+    return links     
