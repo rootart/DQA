@@ -39,3 +39,12 @@ def index(request):
     ctx['feeds'] = recent_links
     
     return render_to_response('site/index.html', ctx, context_instance=RequestContext(request))
+
+# TODO: tests
+# TODO: caching
+# TODO: docstrings
+# TODO: stats
+def about(request):
+    """
+    """
+    return render_to_response('site/about.html', {}, context_instance=RequestContext(request))
