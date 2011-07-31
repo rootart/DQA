@@ -204,7 +204,10 @@ Widget.prototype.addLink = function(e) {
         type: 'submit',
         name: 'submit',
         value: 'Submit'
-    }).css(style.add_button));
+    }).css(
+		style.add_button).css( 
+		'margin-top', '0px'
+	));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
