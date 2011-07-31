@@ -25,7 +25,7 @@ Widget.prototype.render = function() {
     this.$userlinks = $('<ul>').css(style.userlinks_list).droppable({
         accept: '.smartlinky-irrelevant'
     });
-    $('<li>').append(this.$userlinks).appendTo(userlinks_container);
+    $('<li>').css(style.list_item).append(this.$userlinks).appendTo(userlinks_container);
     $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(userlinks_container);
 
     // Q&A links section
@@ -33,7 +33,7 @@ Widget.prototype.render = function() {
 
     $('<li>').css(style.qalinks_title).text("EXTERNAL Q&A's").appendTo(qalinks_container);
     this.$qalinks = $('<ul>').css(style.qalinks_list);
-    $('<li>').append(this.$qalinks).appendTo(qalinks_container);
+    $('<li>').css(style.list_item).append(this.$qalinks).appendTo(qalinks_container);
     $('<li>').css(style.user_links_more).text('SHOW MORE').appendTo(qalinks_container);
 
     // Irrelevant links section
