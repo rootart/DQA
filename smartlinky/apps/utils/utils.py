@@ -21,11 +21,12 @@ def get_page_title(url):
 # TODO: tests
 # TODO: docs
 def check_req_lim(request, req_lim_key):
-    last = request.session.get(req_lim_key, datetime.now())
-    delta = datetime.now() - last
-    if delta.seconds < settings.REQUESTS_RATE_LIMIT:
-        error_message = "Requests rate limit exceeded. Try again in %s seconds." % delta.seconds
-        raise Exception(error_message)
+    last = request.session.get(req_lim_key)
+    if last:
+        delta = datetime.now() - last
+        if delta.seconds < settings.REQUESTS_RATE_LIMIT:
+            error_message = "Requests rate limit exceeded. Try again in %s seconds." % delta.seconds
+            raise Exception(error_message)
 
 # TODO: tests
 # TODO: docs
