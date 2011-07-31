@@ -43,3 +43,22 @@ Deploy on localhost
 
     python ./manage.py generateplugin
 
+
+Generate plugin
+---------------
+
+We use only one javascript file for our browser extension and embeddable script. We created a managemant command to generate this file. This file can be embedded on every documentation.
+
+Therefore it's important to generate this file after the deployment.
+
+The generation process uses 3 settings variables:
+> PLUGIN_FILES
+>> The file paths, that are compiled to one file
+
+> PLUGIN_FILENAME
+>> Filename of generated/compiled file
+
+> PLUGIN_CONFIG
+>> Configuration for javascript code
+
+The settings for the production environment can be found in settings.py.
