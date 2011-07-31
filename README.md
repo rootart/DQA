@@ -3,6 +3,14 @@ Smartlinky
 
 We all love well written docs. But it's not an easy task to produce such. How about letting people collaborate on this? 
 
+Project structure
+-----------------
+ * smartlinky/ - web project
+   * apps/ - django applications
+   * docs/ - documentation
+   * media/ - media files
+ * smartlinky_extension/ - extension for Google Chrome
+
 
 Deploy on Gondor.io
 -------------------
