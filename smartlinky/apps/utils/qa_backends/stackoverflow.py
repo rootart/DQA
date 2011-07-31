@@ -21,7 +21,6 @@ def get_links_via_API(page_title, section_title):
 # TODO: add docstrings
 # TODO: add tests
 def get_links_via_google(page_title, section_title):
-    import pdb;pdb.set_trace()
     search_query = '%s %s' % (page_title, section_title)
     url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s%s' % (urllib.urlencode({'q': smart_str(search_query)}), urllib.urlencode({'site': 'stackoverflow.com'}))
     request = urllib2.Request(url)
