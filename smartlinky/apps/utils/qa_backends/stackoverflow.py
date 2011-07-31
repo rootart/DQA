@@ -27,11 +27,11 @@ def get_links_via_API(search_query):
 # TODO: docstrings
 # TODO: tests
 # TODO: limit the number of results via API
-def get_links_via_google(search_query, site='http://stackoverflow.com'):
-    get_params = urllib.urlencode({'q': smart_str(search_query)})
+def get_links_via_google(search_query, site='stackoverflow.com'):
     if site:
-        get_params += urllib.urlencode({'site': site})
-    url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s' % get_params
+        search_query += ' site=stackoverflow.com'
+    get_params = urllib.urlencode({'q': smart_str(search_query)})
+    url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&key=%s&%s' % (settings.GOOGLE_API_KEY, get_params)
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     search_results = json.load(response)['responseData']['results']
@@ -46,7 +46,7 @@ def get_links(page_title, section_title):
     _get_links = get_links_via_google if settings.STACKOVERFLOW_VIA_GOOGLE else get_links_via_API
     
     # most precise search
-    links = _get_links(''.join((page_title, section_title)))[:settings.QA_LINKS_COUNT]
+    links = _get_links('%s %s' % (page_title, section_title))[:settings.QA_LINKS_COUNT]
     
     need_more = len(links) - settings.QA_LINKS_COUNT
     if need_more > 0 :
@@ -65,6 +65,6 @@ def get_links(page_title, section_title):
     need_more = len(links) - settings.QA_LINKS_COUNT
     if need_more > 0 :
         # via google without http://stackoverflow.com site
-        links.extend(get_links_via_google(''.join((page_title, section_title)), site=None)[:need_more])
+        links.extend(get_links_via_google('%s %s' % (page_title, section_title), site=None)[:need_more])
 
     return links
