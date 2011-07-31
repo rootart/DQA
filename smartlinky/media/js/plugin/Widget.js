@@ -15,6 +15,10 @@ var Widget = function(section, $button, $section) {
 };
 
 /* {@ Init methods */
+
+/**
+ *
+ */
 Widget.prototype.render = function() {
     // Widget box
     this.$widget = $('<div>').css(style.widget).hide();
@@ -90,7 +94,9 @@ Widget.prototype.handleUserLinksData = function(data) {
         for (var i = 0; i < data.links.length; i++) {
             this.insertLink(data.links[i]);
         }
-    }    
+    } else {
+        this.noLinksMessage();
+    }
 };
 
 Widget.prototype.insertLink = function(linkData) {
@@ -150,6 +156,10 @@ Widget.prototype.handleQALinksData = function(data) {
     }    
 };
 
+Widget.prototype.noLinksMessage = function() {
+    $('<li>').css(style.list_item).text('No links added yet.').appendTo(this.$userlinks);
+}
+
 
 /**
  * Open widget
@@ -193,9 +203,9 @@ Widget.prototype.addLink = function(e) {
 
     this.$addWidget = $('<div>').css({
         padding: '8px',
-		background: '#fbf2a4',
-		marginLeft: '4px',
-		marginBottom: '25px'
+        background: '#fbf2a4',
+        marginLeft: '4px',
+        marginBottom: '25px'
     });
 
     this.$form = $('<form>').submit($.proxy(this, 'handleNewLinkSubmit'));
@@ -210,9 +220,9 @@ Widget.prototype.addLink = function(e) {
         name: 'submit',
         value: 'Submit'
     }).css(
-		style.add_button).css( 
-		'margin-top', '0px'
-	));
+        style.add_button).css( 
+        'margin-top', '0px'
+    ));
 
     this.$addWidget.append(this.$form);
     this.$addWidget.prependTo(this.$widget);
@@ -237,4 +247,5 @@ Widget.prototype.handleNewLinkSubmit = function(e) {
 
 Widget.prototype.handleAddLinkSuccess = function(data) {
     this.insertLink(data);
-}
+    this.$addWidget.remove();
+};
