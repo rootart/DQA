@@ -43,8 +43,34 @@ header nav ul li a:active {
 #main h1 {
 	color: #fff; 
 	font-size: 35px;
-	padding-top:56px;
 	text-align:center;
+}
+.download_chrome_blu {
+	background: rgb(15,150,199);
+	background: -moz-linear-gradient(top, rgb(15,150,199) 0%, rgb(18,169,219) 50%, rgb(17,164,213) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(15,150,199)), color-stop(50%,rgb(18,169,219)), color-stop(100%,rgb(17,164,213)));
+	background: -webkit-linear-gradient(top, rgb(15,150,199) 0%,rgb(18,169,219) 50%,rgb(17,164,213) 100%);
+	background: -o-linear-gradient(top, rgb(15,150,199) 0%,rgb(18,169,219) 50%,rgb(17,164,213) 100%);
+	background: -ms-linear-gradient(top, rgb(15,150,199) 0%,rgb(18,169,219) 50%,rgb(17,164,213) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f96c7', endColorstr='#11a4d5',GradientType=0 );
+	background: linear-gradient(top, rgb(15,150,199) 0%,rgb(18,169,219) 50%,rgb(17,164,213) 100%);
+	color:#fff;
+	font-size:20px;
+	padding:7px 0 2px 30px;
+}
+.download_chrome {
+	background: #fff;
+	color:#7a8181;
+	font-size:20px;
+	padding:7px 0 2px 30px;
+}
+.chrome_icon {
+	background:url('../imgs/chrome_icon.png') 0 0 no-repeat;
+	padding:3px 0 3px 35px;
+}
+.download_icon {
+	background:url('../imgs/download_icon.png') 0 0 no-repeat;
+	padding:0 0 0 35px;
 }
 /******* fine main **********/
 /******* feeds **********/
@@ -65,6 +91,7 @@ article .red_shadow {
 	text-transform:uppercase;
 }
 article #feeds {
+	float:right;
 	background:#fff;
 	border:1px solid #227895;
 }

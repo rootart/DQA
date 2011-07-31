@@ -20,12 +20,13 @@ def index(request):
 
 # TODO: tests
 # TODO: docstrings
-@cache_page(60*60)
+#@cache_page(60*60)
 def about(request):
     """
     """
     return render_to_response('site/about.html', {}, context_instance=RequestContext(request))
 
+@never_cache
 def search(request):
     query = request.GET.get('q')
     ctx = {

@@ -7,6 +7,8 @@ urlpatterns = patterns('apps.site.views',
     url(r'^search$', 'search', name='site_search'),
     url(r'^example$', direct_to_template, {'template': 'site/example.html'}, name='site_example'),
     url(r'^$', 'index', name='site_index'),
+    # TODO: create an example site with docs and Smartlinky functionality embedded
+    url(r'^$', 'index', name='site_example'),
 )
 
 
