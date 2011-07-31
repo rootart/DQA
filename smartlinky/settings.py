@@ -2,7 +2,6 @@ import os
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 
-
 TEMPLATE_DEBUG = DEBUG = False
 MANAGERS = ADMINS = (
     ('virtuallight', 'mat.jankowski@gmail.com'),
@@ -77,7 +76,19 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'file_smartlinky': {  
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler', 
+            'formatter': 'verbose',  
+            'filename': os.path.join(PROJECT_ROOT, 'logs', 'smartlinky.log')
+        },
+
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
     },
     'loggers': {
         'django.request': {
@@ -85,6 +96,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'smartlinky': {
+            'handlers': ['file_smartlinky'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }, 
     }
 }
 

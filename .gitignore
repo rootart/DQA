@@ -2,4 +2,5 @@ smartlinky/media/plugin.js
 smartlinky/media/plugin.min.js
 smartlinky/settings_local.py
 smartlinky/sqlite3.db
+smartlinky/logs/*.log
 *pyc
