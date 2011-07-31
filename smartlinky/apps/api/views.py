@@ -162,7 +162,6 @@ def qa_links(request):
         links = stackoverflow.get_links(page_title, section_title)
         cache.set(cache_key, links, settings.QA_CACHE_TIMEOUT)
         
-    # TODO: fill up to 5 with links from google for "page_title Q&A" 
     response = {'links': links}
     return response
 
