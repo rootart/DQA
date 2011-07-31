@@ -9153,7 +9153,7 @@ var style = {
     },
     'button': {
 	'float': 'right',
-	background: 'transparent url("http://localhost:8888/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
+	background: 'transparent url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px',
 	height: '34px',
 	width: '14px',
 	padding: '6px 6px 6px 27px',
@@ -9178,7 +9178,7 @@ var style = {
 	marginTop: '0px'
     },
     'widget': {
-	background: '#f3f3f3 url("http://localhost:8888/site_media/static/imgs/logo_small_widget.png") no-repeat 95% 95%',
+	background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/logo_small_widget.png") no-repeat 95% 95%',
         margin: '0 47px 0 0',
         border: 'rgba(187, 187, 187, 0.4) 8px solid',
 	padding: '10px 10px 60px',
@@ -9269,7 +9269,7 @@ var style = {
         'float': 'right'
     },
     'star': {
-        'background': 'url("http://localhost:8888/site_media/static/imgs/star.png") no-repeat scroll center bottom transparent',
+        'background': 'url("http://smartlinky.com/site_media/static/imgs/star.png") no-repeat scroll center bottom transparent',
         'float': 'right',
         'height': '15px',
         'overflow': 'hidden',
@@ -9290,7 +9290,7 @@ style.button_active = $.extend({}, style.button, {
     borderBottom: 'rgba(187, 187, 187, 0.4) 8px solid',
     borderRight: 'rgba(187, 187, 187, 0.4) 8px solid',
     margin: '0px',
-    background: '#f3f3f3 url("http://localhost:8888/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px'
+    background: '#f3f3f3 url("http://smartlinky.com/site_media/static/imgs/icon_widget.png") no-repeat 6px 6px'
 });
 
 
@@ -9378,7 +9378,7 @@ Widget.prototype.render = function() {
 Widget.prototype.loadLinks = function() {
     // Load Users Links
     $.ajax({
-        url: 'http://localhost:8888/api/' + 'users_links',
+        url: 'http://smartlinky.com/api/' + 'users_links',
         data: {
             url: window.location.href,
             section_id: this.section.id
@@ -9388,7 +9388,7 @@ Widget.prototype.loadLinks = function() {
     });
     // Load Q&A Links
     $.ajax({
-        url: 'http://localhost:8888/api/' + 'qa_links',
+        url: 'http://smartlinky.com/api/' + 'qa_links',
         data: {
             url: window.location.href,
             section_id: this.section.id,
@@ -9432,7 +9432,7 @@ Widget.prototype.insertLink = function(linkData) {
             .click(function(e){
                 e.preventDefault();
                 var star = this;
-                $.post("http://localhost:8888/api/vote_up", {'id': $(this).data('link-id')}, function(){
+                $.post("http://smartlinky.com/api/vote_up", {'id': $(this).data('link-id')}, function(){
                     $(star).remove();
                 });
             });
@@ -9529,7 +9529,7 @@ Widget.prototype.addLink = function(e) {
 Widget.prototype.handleNewLinkSubmit = function(e) {
     e.preventDefault();
     $.ajax({
-        url: 'http://localhost:8888/api/' + 'add_link',
+        url: 'http://smartlinky.com/api/' + 'add_link',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -9575,7 +9575,7 @@ Parser.prototype.match = function(key, section) {
     parser.parse();
     //Initialize
     $.ajax({
-        url: 'http://localhost:8888/api/' + 'init',
+        url: 'http://smartlinky.com/api/' + 'init',
         data: {
             url: window.location.href
         },
