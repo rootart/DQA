@@ -156,7 +156,6 @@ def qa_links(request):
     response = {'links': links}
     return response
 
-# TODO: add tests
 # TODO: add sample response to docstring
 @require_POST
 @csrf_exempt
@@ -203,3 +202,27 @@ def add_link(request):
         return response
     #TODO: better message
     raise Exception('problem!')
+
+# TODO: docs
+# TODO: samples
+# TODO: tests
+# TODO: implement
+@require_POST
+@csrf_exempt
+@xss_json_response
+def vote_up(request):
+    """
+    """
+    return {}
+
+# TODO: docs
+# TODO: samples
+# TODO: tests
+# TODO: implement
+@require_POST
+@csrf_exempt
+@xss_json_response
+def set_relevant(request):
+    """
+    """
+    return {}
