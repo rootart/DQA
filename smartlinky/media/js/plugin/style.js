@@ -22,7 +22,6 @@ var style = {
         position: 'relative'
     },
     'container': {
-        width: '365px',
         position: 'absolute',
         right: '-60px',
         fontFamily: 'Arial, "Helvetica", sans-serif',
@@ -56,6 +55,7 @@ var style = {
         marginTop: '0px'
     },
     'widget': {
+        width: '300px',
         background: '#f3f3f3 ',
         margin: '0 47px 0 0',
         border: 'rgba(187, 187, 187, 0.4) 8px solid',
